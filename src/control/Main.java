@@ -13,9 +13,10 @@ public class Main {
 		//prueba.listaIntervaloEnteros(x, y);
 		//prueba.convertirCadenaAentero("234");
 		//prueba.convertirCadenaAentero("ab38");
-		prueba.serieFibonacci(10);
+		//prueba.serieFibonacci(10);
 		//prueba.numerosFibonacci(10);
-		System.out.println("FIN DE PROGRAMA");
+		prueba.factorialNumero(5);
+		System.out.println(" FIN DE PROGRAMA");
 		
 	}
 }

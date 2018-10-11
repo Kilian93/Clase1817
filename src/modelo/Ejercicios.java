@@ -50,6 +50,22 @@ public class Ejercicios {
 			System.out.println(i++);*/
 			} 
 	
+	public int factorialNumero(int n) {
+		
+		int resultado = 1;
+		for (int i = 1; i <= n ; i++) {
+			resultado *= i;
+			System.out.println(resultado);
+		}
+		
+		return resultado;
+		
+		
+	}
+	
+	
+	
+	
 	public Integer convertirCadenaAentero (String cadena){
 		int parse_numero=0;
 		try {
@@ -66,11 +82,12 @@ public class Ejercicios {
 		int z;
 		int fin=0;
 		for (int i = 2; i < cuanto; i++) {
+			//System.out.print(x +" ,");
 			z = x + y;
 			x = y;
 			y = z;	
 			fin=z;
-			System.out.println(fin);
+			System.out.print(fin +",");
 		}
 		
 	}
