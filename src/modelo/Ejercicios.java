@@ -3,6 +3,7 @@ package modelo;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Ejercicios {
 
@@ -22,6 +23,28 @@ public class Ejercicios {
 		System.out.println("3." + "LAS PALMAS DE GRAN CANARIA".substring(14, 18));
 				
 		
+	}
+	
+	
+	//crear un metodo que genere numeros aleatorios y devuleva un array de enteros 
+	
+	public int[] generaAleatorio(int n) { //cabecera
+		int[] resultado = new int[n]; //inicializar array
+		Random rnd = new Random();
+		for (int i = 0; i < n; i++)
+			resultado[i] = rnd.nextInt(1000);
+		return resultado;
+		
+	}
+	
+	
+	public int[] generaAleatorio2(int cuantos, int inferiro, int superior) {
+		int [] resultado = new int[cuantos];
+		Random rnd = new Random();
+		for (int i = 0; i < cuantos; i++) {
+			resultado[i] = inferiro + rnd.nextInt(superior - inferiro + 1);
+		}
+		return resultado;
 	}
 	
 	//Mostrar por consola los numeros comprendidos entre dos entero  a y b 
@@ -61,11 +84,49 @@ public class Ejercicios {
 		return resultado;
 		
 		
+		
 	}
 	
+	public void devuelveMayor2(float n1, float n2, float n3) {
+		
+		
+		 if (n1 > n2) {
+		        if (n1 > n3) {
+		            System.out.println("El mayor es: " + n1);
+		        } else {
+		            System.out.println("el mayor es: " + n3);
+		        }
+		    } else if (n2 > n3) {
+		        System.out.println("el mayor es: " + n2);
+		    } else {
+		        System.out.println("el mayor es: " + n3);
+		    }
+		
+	}
 	
-	
-	
+	public void devuelveMayor(){
+		
+    Scanner sc = new Scanner(System.in);
+   int n1, n2, n3;
+    System.out.print("Introduzca primer número: ");
+    n1 = sc.nextInt();
+    System.out.print("Introduzca segundo número: ");
+    n2 = sc.nextInt();
+    System.out.print("Introduzca tercer número: ");
+    n3 = sc.nextInt();
+    if (n1 > n2) {
+        if (n1 > n3) {
+            System.out.println("El mayor es: " + n1);
+        } else {
+            System.out.println("el mayor es: " + n3);
+        }
+    } else if (n2 > n3) {
+        System.out.println("el mayor es: " + n2);
+    } else {
+        System.out.println("el mayor es: " + n3);
+    }
+}
+
 	public Integer convertirCadenaAentero (String cadena){
 		int parse_numero=0;
 		try {
