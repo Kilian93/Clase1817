@@ -17,8 +17,11 @@ public class Main {
 		//prueba.numerosFibonacci(10);
 		//prueba.factorialNumero(5);
 		//prueba.devuelveMayor2(3.5f, 2.5f, 1.5f);
-		//int[] misAleatorios = prueba.generaAleatorio(30);
-		int [] misAleatorios = prueba.generaAleatorio2(10, 1, 6);
+		int n1=15, n2= 50, n3=5, n4=20;
+		System.out.println("el meyoror es: " +prueba.devuelveMayor3(n1, n2, n3, n4));
+				
+		int[] misAleatorios = prueba.generaAleatorio(30);
+		//int [] misAleatorios = prueba.generaAleatorio2(10, 1, 6);
 		System.out.println(" FIN DE PROGRAMA");
 		
 	}

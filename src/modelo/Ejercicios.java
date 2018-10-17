@@ -16,143 +16,185 @@ public class Ejercicios {
 		// 2. Usa la clase java.util.Ramdom y el metodo rnd.
 		// 3.
 
-		//double resul = Math.pow(2, 3);
+		// double resul = Math.pow(2, 3);
 		System.out.println("1." + Math.pow(2, 3));
 		Random rnd = new Random();
 		System.out.println("2." + rnd.nextInt(100));
 		System.out.println("3." + "LAS PALMAS DE GRAN CANARIA".substring(14, 18));
-				
-		
+
 	}
 	
 	
-	//crear un metodo que genere numeros aleatorios y devuleva un array de enteros 
-	
-	public int[] generaAleatorio(int n) { //cabecera
-		int[] resultado = new int[n]; //inicializar array
+	public void imprimeAleatorio(int n) {
+		Random rnd = new Random();
+		int numero = 0;
+		for (int i = 0; i < n; i++) {
+			numero = 1 + rnd.nextInt(100);
+			System.out.println(i +1 +".- " + numero);
+		}
+	}
+
+	// crear un metodo que genere numeros aleatorios y devuleva un array de enteros
+
+	public int[] generaAleatorio(int n) { // cabecera
+		int[] resultado = new int[n]; // inicializar array
 		Random rnd = new Random();
 		for (int i = 0; i < n; i++)
 			resultado[i] = rnd.nextInt(1000);
 		return resultado;
-		
+
 	}
-	
-	
+
 	public int[] generaAleatorio2(int cuantos, int inferiro, int superior) {
-		int [] resultado = new int[cuantos];
+		int[] resultado = new int[cuantos];
 		Random rnd = new Random();
 		for (int i = 0; i < cuantos; i++) {
 			resultado[i] = inferiro + rnd.nextInt(superior - inferiro + 1);
 		}
 		return resultado;
 	}
-	
-	//Mostrar por consola los numeros comprendidos entre dos entero  a y b 
-	
-	//1.prototipo del metodo
-	
+
+	// Mostrar por consola los numeros comprendidos entre dos entero a y b
+
+	// 1.prototipo del metodo
+
 	public void listaIntervaloEnteros(int primero, int ultimo) {
-		//2.implementacion del metodo
-		
+		// 2.implementacion del metodo
+
 		for (int j = primero; j < ultimo; j++)
-			System.out.println(j);;
-			
-		// true/false	
-		boolean condicion = true;	
+			System.out.println(j);
+		;
+
+		// true/false
+		boolean condicion = true;
 		if (condicion) {
-			//en caso de verdadero
-			
+			// en caso de verdadero
+
+		} else {
+			// en caso de falso
 		}
-		else {
-			//en caso de falso
-		}
-			
-			
-		//int i=primero;
-		/*while (i < ultimo){
-			System.out.println(i++);*/
-			} 
-	
+
+		// int i=primero;
+		/*
+		 * while (i < ultimo){ System.out.println(i++);
+		 */
+	}
+
 	public int factorialNumero(int n) {
-		
+
 		int resultado = 1;
-		for (int i = 1; i <= n ; i++) {
+		for (int i = 1; i <= n; i++) {
 			resultado *= i;
 			System.out.println(resultado);
 		}
-		
-		return resultado;
-		
-		
-		
-	}
-	
-	public void devuelveMayor2(float n1, float n2, float n3) {
-		
-		
-		 if (n1 > n2) {
-		        if (n1 > n3) {
-		            System.out.println("El mayor es: " + n1);
-		        } else {
-		            System.out.println("el mayor es: " + n3);
-		        }
-		    } else if (n2 > n3) {
-		        System.out.println("el mayor es: " + n2);
-		    } else {
-		        System.out.println("el mayor es: " + n3);
-		    }
-		
-	}
-	
-	public void devuelveMayor(){
-		
-    Scanner sc = new Scanner(System.in);
-   int n1, n2, n3;
-    System.out.print("Introduzca primer número: ");
-    n1 = sc.nextInt();
-    System.out.print("Introduzca segundo número: ");
-    n2 = sc.nextInt();
-    System.out.print("Introduzca tercer número: ");
-    n3 = sc.nextInt();
-    if (n1 > n2) {
-        if (n1 > n3) {
-            System.out.println("El mayor es: " + n1);
-        } else {
-            System.out.println("el mayor es: " + n3);
-        }
-    } else if (n2 > n3) {
-        System.out.println("el mayor es: " + n2);
-    } else {
-        System.out.println("el mayor es: " + n3);
-    }
-}
 
-	public Integer convertirCadenaAentero (String cadena){
-		int parse_numero=0;
+		return resultado;
+
+	}
+
+	public int devuelveMayor3(int n1, int n2, int n3, int n4) {
+		if (n1 > n2)
+			if (n1 > n3)
+				if (n1 > n4)
+					return n1;
+				else
+					return n4;
+
+			else if (n3 > n4)
+				return n3;
+			else
+				return n4;
+
+		else if (n2 > n3)
+			if (n2 > n4)
+				return n2;
+			else
+				return n4;
+		else if (n3 > n4)
+			return n3;
+		else
+			return n4;
+
+	}
+
+	public float devuelveMayor3(float n1, float n2, float n3) {
+		if (n1 > n2)
+			if (n1 > n3)
+				return n1;
+			else
+				return n3;
+		else if (n2 > n3)
+			return n2;
+		else
+			return n3;
+	}
+
+	public void devuelveMayor2(float n1, float n2, float n3) {
+
+		if (n1 > n2) {
+			if (n1 > n3) {
+				System.out.println("El mayor es: " + n1);
+			} else {
+				System.out.println("el mayor es: " + n3);
+			}
+		} else if (n2 > n3) {
+			System.out.println("el mayor es: " + n2);
+		} else {
+			System.out.println("el mayor es: " + n3);
+		}
+
+	}
+
+	public void devuelveMayor() {
+
+		Scanner sc = new Scanner(System.in);
+		int n1, n2, n3;
+		System.out.print("Introduzca primer número: ");
+		n1 = sc.nextInt();
+		System.out.print("Introduzca segundo número: ");
+		n2 = sc.nextInt();
+		System.out.print("Introduzca tercer número: ");
+		n3 = sc.nextInt();
+		if (n1 > n2) {
+			if (n1 > n3) {
+				System.out.println("El mayor es: " + n1);
+			} else {
+				System.out.println("el mayor es: " + n3);
+			}
+		} else if (n2 > n3) {
+			System.out.println("el mayor es: " + n2);
+		} else {
+			System.out.println("el mayor es: " + n3);
+		}
+	}
+
+	public Integer convertirCadenaAentero(String cadena) {
+		int parse_numero = 0;
 		try {
 			parse_numero = Integer.parseInt(cadena);
 			System.out.println("El numero es : " + cadena);
 		} catch (NumberFormatException e) {
 			System.out.println(cadena + " no es un numero valido");
 		}
-		return parse_numero;}
-	
-	public void serieFibonacci(int cuanto){
-		int x=0;
-		int y=1;
+		return parse_numero;
+	}
+
+	public void serieFibonacci(int cuanto) {
+		int x = 0;
+		int y = 1;
 		int z;
-		int fin=0;
+		int fin = 0;
 		for (int i = 2; i < cuanto; i++) {
-			//System.out.print(x +" ,");
+			// System.out.print(x +" ,");
 			z = x + y;
 			x = y;
-			y = z;	
-			fin=z;
-			System.out.print(fin +",");
+			y = z;
+			fin = z;
+			System.out.print(fin + ",");
 		}
-		
+
 	}
-	
+
 	public int[] numerosFibonacci(int cuantos) {
 		int[] numeros = new int[cuantos];
 		int x = 0;
@@ -169,6 +211,3 @@ public class Ejercicios {
 		return numeros;
 	}
 }
-	
-
-	
