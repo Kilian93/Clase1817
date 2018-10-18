@@ -23,17 +23,27 @@ public class Ejercicios {
 		System.out.println("3." + "LAS PALMAS DE GRAN CANARIA".substring(14, 18));
 
 	}
-	
-	
+
 	public void imprimeAleatorio(int n) {
 		Random rnd = new Random();
 		int numero = 0;
 		for (int i = 0; i < n; i++) {
 			numero = 1 + rnd.nextInt(100);
-			System.out.println(i +1 +".- " + numero);
+			System.out.println(i + 1 + ".- " + numero);
 		}
 	}
 
+	//crear un metodo para calcular la frecuencia de aparición de un número
+	
+	public int[] frecuenciaNum(int cuantos, int inferior, int superior) {
+		int[] resultado = new int[superior - inferior + 1];
+		int[] lanzamiento = this.generaAleatorio2(cuantos, inferior, superior);
+		for (int i = 0; i < lanzamiento.length; i++) {
+			resultado[lanzamiento[i] - 1]++;
+		}
+		return resultado;
+		}
+	
 	// crear un metodo que genere numeros aleatorios y devuleva un array de enteros
 
 	public int[] generaAleatorio(int n) { // cabecera
@@ -45,12 +55,14 @@ public class Ejercicios {
 
 	}
 
+	// devuelve un Array de numeros enteros aleatorios
+
 	public int[] generaAleatorio2(int cuantos, int inferiro, int superior) {
-		int[] resultado = new int[cuantos];
+		int[] resultado = new int[cuantos];// Declaro e Inicializo el Array
 		Random rnd = new Random();
-		for (int i = 0; i < cuantos; i++) {
+		for (int i = 0; i < cuantos; i++)
 			resultado[i] = inferiro + rnd.nextInt(superior - inferiro + 1);
-		}
+
 		return resultado;
 	}
 
@@ -92,7 +104,7 @@ public class Ejercicios {
 
 	}
 
-	public int devuelveMayor3(int n1, int n2, int n3, int n4) {
+	public static int devuelveMayor3(int n1, int n2, int n3, int n4) {
 		if (n1 > n2)
 			if (n1 > n3)
 				if (n1 > n4)
@@ -210,4 +222,15 @@ public class Ejercicios {
 		}
 		return numeros;
 	}
+
+	/*public static void main(String[] args) {
+		Ejercicios ejercicios = new Ejercicios();
+		int n1 = 15, n2 = 50, n3 = 5, n4 = 20;
+		int mayor = Ejercicios.devuelveMayor3(n1, n2, n3, n4); // definido con la Clase Ejercicios al estar el metod en
+																// statico
+		// int mayor = ejercicios.devuelveMayor3(n1, n2, n3, n4); //definido con el
+		// objeto ejercicios
+		System.out.println("el mayor es : " + mayor);
+	}*/
+
 }
