@@ -23,6 +23,7 @@ public class Main {
 		//int [] misAleatorios = prueba.generaAleatorio2(10, 130, 150);
 		//prueba.imprimeAleatorio(130);
 		int [] miEstadistica = prueba.frecuenciaNum(20, 1, 6);
+		int [] miEstadistica2 = prueba.estadisticaAparicionNumero(20, 1, 6);
 		System.out.println(" FIN DE PROGRAMA");
 		
 		

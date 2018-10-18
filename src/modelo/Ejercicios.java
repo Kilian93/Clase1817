@@ -32,6 +32,18 @@ public class Ejercicios {
 			System.out.println(i + 1 + ".- " + numero);
 		}
 	}
+	
+	public int[] estadisticaAparicionNumero(int cuantos, int inferior, int superior) {
+		int[] resultado = new int[superior - inferior + 1];
+		Random rnd = new Random();
+		int numero = 0;
+		for (int i = 0; i < cuantos; i++) {
+			numero= inferior + rnd.nextInt(superior - inferior + 1);
+			resultado[numero - 1]++;
+		}
+		
+		return resultado;
+	}
 
 	//crear un metodo para calcular la frecuencia de aparición de un número
 	
@@ -57,11 +69,11 @@ public class Ejercicios {
 
 	// devuelve un Array de numeros enteros aleatorios
 
-	public int[] generaAleatorio2(int cuantos, int inferiro, int superior) {
+	public int[] generaAleatorio2(int cuantos, int inferior, int superior) {
 		int[] resultado = new int[cuantos];// Declaro e Inicializo el Array
 		Random rnd = new Random();
 		for (int i = 0; i < cuantos; i++)
-			resultado[i] = inferiro + rnd.nextInt(superior - inferiro + 1);
+			resultado[i] = inferior + rnd.nextInt(superior - inferior + 1);
 
 		return resultado;
 	}
