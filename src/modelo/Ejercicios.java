@@ -23,6 +23,23 @@ public class Ejercicios {
 		System.out.println("3." + "LAS PALMAS DE GRAN CANARIA".substring(14, 18));
 
 	}
+	
+	public float devolverSaldo(float [] n, float inicial) {
+		float saldoFinal = inicial;
+		for (int i = 0; i < n.length; i++) {
+			saldoFinal+=n[i];
+		}
+		return saldoFinal;
+		
+	}
+	
+	public Persona[] devolverListaPersona(int n) {
+		Persona [] resultado = new Persona[n];
+		for (int i = 0; i < n; i++) {
+			resultado[i] = new Persona();
+		}
+		return resultado;
+	}
 
 	public void imprimeAleatorio(int n) {
 		Random rnd = new Random();
