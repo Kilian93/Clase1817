@@ -22,8 +22,16 @@ public class Main {
 		//int[] misAleatorios = prueba.generaAleatorio(30);
 		//int [] misAleatorios = prueba.generaAleatorio2(10, 130, 150);
 		//prueba.imprimeAleatorio(130);
-		int [] miEstadistica = prueba.frecuenciaNum(20, 1, 6);
-		int [] miEstadistica2 = prueba.estadisticaAparicionNumero(20, 1, 6);
+		//int [] miEstadistica = prueba.frecuenciaNum(20, 1, 6);
+		//int [] miEstadistica2 = prueba.estadisticaAparicionNumero(20, 1, 6);
+		
+		//crear e inicializar un array, varias opciones
+		
+		float [] movs = {10.0f, -5.0f, 20.5f};
+		
+		//prueba.devolverSaldo(10.0f, movs);
+		//prueba.pruebaCadena();
+		prueba.compararCadena();
 		System.out.println(" FIN DE PROGRAMA");
 		
 		

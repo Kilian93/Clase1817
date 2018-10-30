@@ -24,17 +24,50 @@ public class Ejercicios {
 
 	}
 	
-	public float devolverSaldo(float [] n, float inicial) {
-		float saldoFinal = inicial;
-		for (int i = 0; i < n.length; i++) {
-			saldoFinal+=n[i];
+	public void compararCadena() {
+		String nombre="abc";
+		String nombre2="aba";
+		//System.out.println(nombre.compareTo(nombre2));
+		
+		if (nombre.compareTo(nombre2) == 0)
+			   System.out.println("cadena1 y cadena2 son iguales");
+			else
+			if (nombre.compareTo(nombre2) < 0)
+			  System.out.println ("cadena1 va antes que cadena2");
+			else
+			if (nombre.compareTo(nombre2) > 0)
+			  System.out.println("cadena2 va después que cadena1: " + nombre2);
+			
 		}
-		return saldoFinal;
+				
+			
+		
+		
+	
+	
+	public void pruebaCadena() {
+		
+		String nombre="LAS PALMAS DE GRAN CANARIAS";
+	
+		for (int i = 0; i < nombre.length(); i++) {
+			System.out.println(nombre.charAt(i));
+			
+		}
 		
 	}
-	
+
+	public float devolverSaldo(float saldoInicial, float[] movimientos) {
+		float saldoFinal = saldoInicial;
+		for (int i = 0; i < movimientos.length; i++) 
+			saldoFinal +=  movimientos[i];
+			System.out.println("Saldo Final es: " + saldoFinal + "€" );
+		
+		return saldoFinal;
+
+	}
+
 	public Persona[] devolverListaPersona(int n) {
-		Persona [] resultado = new Persona[n];
+		Persona[] resultado = new Persona[n];
 		for (int i = 0; i < n; i++) {
 			resultado[i] = new Persona();
 		}
@@ -49,21 +82,21 @@ public class Ejercicios {
 			System.out.println(i + 1 + ".- " + numero);
 		}
 	}
-	
+
 	public int[] estadisticaAparicionNumero(int cuantos, int inferior, int superior) {
 		int[] resultado = new int[superior - inferior + 1];
 		Random rnd = new Random();
 		int numero = 0;
 		for (int i = 0; i < cuantos; i++) {
-			numero= inferior + rnd.nextInt(superior - inferior + 1);
+			numero = inferior + rnd.nextInt(superior - inferior + 1);
 			resultado[numero - 1]++;
 		}
-		
+
 		return resultado;
 	}
 
-	//crear un metodo para calcular la frecuencia de aparición de un número
-	
+	// crear un metodo para calcular la frecuencia de aparición de un número
+
 	public int[] frecuenciaNum(int cuantos, int inferior, int superior) {
 		int[] resultado = new int[superior - inferior + 1];
 		int[] lanzamiento = this.generaAleatorio2(cuantos, inferior, superior);
@@ -71,8 +104,8 @@ public class Ejercicios {
 			resultado[lanzamiento[i] - 1]++;
 		}
 		return resultado;
-		}
-	
+	}
+
 	// crear un metodo que genere numeros aleatorios y devuleva un array de enteros
 
 	public int[] generaAleatorio(int n) { // cabecera
@@ -252,14 +285,13 @@ public class Ejercicios {
 		return numeros;
 	}
 
-	/*public static void main(String[] args) {
-		Ejercicios ejercicios = new Ejercicios();
-		int n1 = 15, n2 = 50, n3 = 5, n4 = 20;
-		int mayor = Ejercicios.devuelveMayor3(n1, n2, n3, n4); // definido con la Clase Ejercicios al estar el metod en
-																// statico
-		// int mayor = ejercicios.devuelveMayor3(n1, n2, n3, n4); //definido con el
-		// objeto ejercicios
-		System.out.println("el mayor es : " + mayor);
-	}*/
+	/*
+	 * public static void main(String[] args) { Ejercicios ejercicios = new
+	 * Ejercicios(); int n1 = 15, n2 = 50, n3 = 5, n4 = 20; int mayor =
+	 * Ejercicios.devuelveMayor3(n1, n2, n3, n4); // definido con la Clase
+	 * Ejercicios al estar el metod en // statico // int mayor =
+	 * ejercicios.devuelveMayor3(n1, n2, n3, n4); //definido con el // objeto
+	 * ejercicios System.out.println("el mayor es : " + mayor); }
+	 */
 
 }
