@@ -24,44 +24,91 @@ public class Ejercicios {
 
 	}
 	
-	public void compararCadena() {
-		String nombre="abc";
-		String nombre2="aba";
-		//System.out.println(nombre.compareTo(nombre2));
-		
-		if (nombre.compareTo(nombre2) == 0)
-			   System.out.println("cadena1 y cadena2 son iguales");
-			else
-			if (nombre.compareTo(nombre2) < 0)
-			  System.out.println ("cadena1 va antes que cadena2");
-			else
-			if (nombre.compareTo(nombre2) > 0)
-			  System.out.println("cadena2 va después que cadena1: " + nombre2);
-			
+	/*public float [] resumenVendedorIrregular(float[][] ventas) {
+		float acumVendedor = 0;
+		float [] resultado = new float[ventas.length];
+		for (int i = 0; i < ventas.length; i++) {
+			if(ventas[i].length > acumVendedor)
+				acumVendedor=ventas[i].length;
 		}
+		for (int j = 0; j < resultado.length; j++) {
+			for
+		}
+		return resultado;
+	}*/
+	
+	public float [] resumenVendedorPorMes(float [][] ventas){
+		float [] resultado = new float[ventas.length]; 
+		float acum = 0f;
+		for (int j = 0; j < ventas.length; j++) {
+			for (int i = 0; i < ventas[j].length; i++) 
+				acum += ventas[j][i];
+			resultado[j] = acum;
 				
-			
+		}
 		
 		
+		return resultado;
+	
+	}
 	
 	
+	public float [] resumenVendedor(float [][] ventas){
+		float [] resultado = new float[ventas.length]; 
+		float acum = 0f;
+		for (int i = 0; i < ventas.length; i++) {
+			acum=0;
+			for (int j = 0; j < ventas[i].length; j++) 
+				acum += ventas[i][j];
+			resultado[i] = acum;
+				
+		}
+		
+		
+		return resultado;
+	
+	}
+
+	public void recorerMatriz(int[][] mat) {
+		int acum = 0;
+		for (int i = 0; i < mat.length; i++)
+			for (int j = 0; j < mat[i].length; j++) {
+				acum += mat[i][j];
+
+			}
+	}
+
+	public void compararCadena() {
+		String nombre = "abc";
+		String nombre2 = "aba";
+		// System.out.println(nombre.compareTo(nombre2));
+
+		if (nombre.compareTo(nombre2) == 0)
+			System.out.println("cadena1 y cadena2 son iguales");
+		else if (nombre.compareTo(nombre2) < 0)
+			System.out.println("cadena1 va antes que cadena2");
+		else if (nombre.compareTo(nombre2) > 0)
+			System.out.println("cadena2 va después que cadena1: " + nombre2);
+
+	}
+
 	public void pruebaCadena() {
-		
-		String nombre="LAS PALMAS DE GRAN CANARIAS";
-	
+
+		String nombre = "LAS PALMAS DE GRAN CANARIAS";
+
 		for (int i = 0; i < nombre.length(); i++) {
 			System.out.println(nombre.charAt(i));
-			
+
 		}
-		
+
 	}
 
 	public float devolverSaldo(float saldoInicial, float[] movimientos) {
 		float saldoFinal = saldoInicial;
-		for (int i = 0; i < movimientos.length; i++) 
-			saldoFinal +=  movimientos[i];
-			System.out.println("Saldo Final es: " + saldoFinal + "€" );
-		
+		for (int i = 0; i < movimientos.length; i++)
+			saldoFinal += movimientos[i];
+		System.out.println("Saldo Final es: " + saldoFinal + "€");
+
 		return saldoFinal;
 
 	}
