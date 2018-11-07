@@ -24,49 +24,58 @@ public class Ejercicios {
 
 	}
 	
-	/*public float [] resumenVendedorIrregular(float[][] ventas) {
-		float acumVendedor = 0;
-		float [] resultado = new float[ventas.length];
-		for (int i = 0; i < ventas.length; i++) {
-			if(ventas[i].length > acumVendedor)
-				acumVendedor=ventas[i].length;
-		}
-		for (int j = 0; j < resultado.length; j++) {
-			for
-		}
-		return resultado;
-	}*/
-	
-	public float [] resumenVendedorPorMes(float [][] ventas){
-		float [] resultado = new float[ventas.length]; 
-		float acum = 0f;
-		for (int j = 0; j < ventas.length; j++) {
-			for (int i = 0; i < ventas[j].length; i++) 
-				acum += ventas[j][i];
-			resultado[j] = acum;
-				
-		}
+	public void mostrarVentasVndedor() {
 		
-		
-		return resultado;
-	
 	}
-	
-	
-	public float [] resumenVendedor(float [][] ventas){
-		float [] resultado = new float[ventas.length]; 
+
+	public int[] convertirCadenasAnumeros(String[] cn) {
+		int[] resultado = new int[cn.length];
+		for (int i = 0; i < resultado.length; i++)
+			try {
+				resultado[i] = Integer.parseInt(cn[i]);
+			} catch (NumberFormatException e) {
+				resultado[i] = -1;
+			}
+
+		return resultado;
+
+	}
+
+	/*
+	 * public float [] resumenVendedorIrregular(float[][] ventas) { float
+	 * acumVendedor = 0; float [] resultado = new float[ventas.length]; for (int i =
+	 * 0; i < ventas.length; i++) { if(ventas[i].length > acumVendedor)
+	 * acumVendedor=ventas[i].length; } for (int j = 0; j < resultado.length; j++) {
+	 * for } return resultado; }
+	 */
+
+	public float[] resumenVendedorPorMes(float[][] ventas) {
+		float[] resultado = new float[ventas[0].length];
+		float acum = 0;
+		for (int j = 0; j < ventas[0].length; j++) {
+			for (int i = 0; i < ventas.length; i++)
+				acum += ventas[i][j];
+			resultado[j] = acum;
+
+		}
+
+		return resultado;
+
+	}
+
+	public float[] resumenVendedor(float[][] ventas) {
+		float[] resultado = new float[ventas.length];
 		float acum = 0f;
 		for (int i = 0; i < ventas.length; i++) {
-			acum=0;
-			for (int j = 0; j < ventas[i].length; j++) 
+			acum = 0;
+			for (int j = 0; j < ventas[i].length; j++)
 				acum += ventas[i][j];
 			resultado[i] = acum;
-				
+
 		}
-		
-		
+
 		return resultado;
-	
+
 	}
 
 	public void recorerMatriz(int[][] mat) {

@@ -45,13 +45,18 @@ public class Main {
 
 		float[][] ventasYear = {
 				// hay 3 filas (vendedores) y 12 columnas (meses)
-				{ 12.5f, 13.50f, 8.5f, 5.0f, 10.5f, 9.5f, 20.0f, },
-				{ 16.5f, 14.55f, 5.5f, 1.0f, 12.5f, 10.5f, 21.0f, 11.5f, 8.0f, 2.5f, 3.5f, 7.0f },
+				{ 12.5f, 13.50f, 8.5f, 5.0f }, 
+				{ 16.5f, 14.55f, 5.5f, 1.0f }, 
 				{ 12.5f, 11.50f, 7.5f, 12.0f } };
-		float[] resumenVendedor = prueba.resumenVendedor(ventasYear);
-		String [] meses = {""};
-		String [] nombres = {""};
 
+		float[] resumenVentasVendedorMes = prueba.resumenVendedorPorMes(ventasYear);
+
+		float[] resumenVendedor = prueba.resumenVendedor(ventasYear);
+		// String [] meses = {""};
+		// String [] nombres = {""};
+
+		String[] cadenas = { "123", "63A", "ABC", "101" };
+		// int[] numero = prueba.convertirCadenasAnumeros(cadenas);
 		System.out.println(" FIN DE PROGRAMA");
 
 	}
