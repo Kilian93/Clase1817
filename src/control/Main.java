@@ -45,9 +45,7 @@ public class Main {
 
 		float[][] ventasYear = {
 				// hay 3 filas (vendedores) y 12 columnas (meses)
-				{ 12.5f, 13.50f, 8.5f, 5.0f }, 
-				{ 16.5f, 14.55f, 5.5f, 1.0f }, 
-				{ 12.5f, 11.50f, 7.5f, 12.0f } };
+				{ 12.5f, 13.50f, 8.5f, 5.0f }, { 16.5f, 14.55f, 5.5f, 1.0f }, { 12.5f, 11.50f, 7.5f, 12.0f } };
 
 		float[] resumenVentasVendedorMes = prueba.resumenVendedorPorMes(ventasYear);
 
@@ -57,6 +55,20 @@ public class Main {
 
 		String[] cadenas = { "123", "63A", "ABC", "101" };
 		// int[] numero = prueba.convertirCadenasAnumeros(cadenas);
+		// prueba.reloj();
+		// prueba.imprimirFechaHora();
+		// boolean recogerPrimo = prueba.esPrimo2(27);
+		// System.out.println(recogerPrimo);
+		int desde = 50;
+		int cuantos = 5;
+		
+		int inicio = 1;
+		int fin = 10;
+		//int[] recorgerPrimos3=prueba.listarPrimos3(desde, cuantos);
+		
+		prueba.listarPrimos2(desde, cuantos);
+		//prueba.listarPrimos(inicio, fin);
+		// prueba.esPrimo(9);
 		System.out.println(" FIN DE PROGRAMA");
 
 	}

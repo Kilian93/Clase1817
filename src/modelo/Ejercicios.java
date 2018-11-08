@@ -2,8 +2,11 @@ package modelo;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.text.View;
 
 public class Ejercicios {
 
@@ -23,9 +26,9 @@ public class Ejercicios {
 		System.out.println("3." + "LAS PALMAS DE GRAN CANARIA".substring(14, 18));
 
 	}
-	
+
 	public void mostrarVentasVndedor() {
-		
+
 	}
 
 	public int[] convertirCadenasAnumeros(String[] cn) {
@@ -48,6 +51,87 @@ public class Ejercicios {
 	 * acumVendedor=ventas[i].length; } for (int j = 0; j < resultado.length; j++) {
 	 * for } return resultado; }
 	 */
+
+	// Ejercicio para tener claro los bucles anidados
+
+	public int[] listarPrimos3(int desde, int cuantos) {
+		int[] primos = new int[cuantos];
+		int acum = 0;
+		while (acum < cuantos) {
+			if (esPrimo2(desde))
+				primos[acum++] = desde;
+			desde++;
+		}
+		return primos;
+	}
+
+	public void listarPrimos2(int desde, int cuantos) {
+		int acum = 0;
+		while (acum < cuantos) {
+			if (esPrimo2(desde++))
+				System.out.print(desde + ", ");
+			acum++;
+
+		}
+	}
+
+	public void listarPrimos(int desde, int hasta) {
+		for (int i = desde; i < hasta; i++)
+			if (esPrimo2(i))
+				System.out.print(i + ",");
+
+	}
+
+	public boolean esPrimo2(int numero) {
+
+		for (int i = 2; i < numero; i++) {
+			if (numero % i == 0)
+				return false;
+		}
+
+		return true;
+	}
+
+	public void esPrimo(int numero) {
+		boolean primo = true;
+		for (int i = 2; i < numero; i++) {
+			if (numero % i == 0)
+				primo = false;
+			break;
+		}
+		if (primo)
+			System.out.println(numero + " es primo");
+		else
+			System.out.println(numero + " no es primo");
+		;
+	}
+
+	public void imprimirFechaHora() {
+		for (int i = 0; i < 10; i++) {
+			System.out.println(LocalDateTime.now());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void reloj() {
+		for (int h = 0; h < 24; h++)
+			for (int m = 0; m < 60; m++)
+				for (int s = 0; s < 60; s++) {
+					System.out.println(h + ":" + m + ":" + s);
+					try {
+						Thread.sleep(s);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+	}
 
 	public float[] resumenVendedorPorMes(float[][] ventas) {
 		float[] resultado = new float[ventas[0].length];
