@@ -27,6 +27,50 @@ public class Ejercicios {
 
 	}
 
+	public void invertirLista(int[] lista) {
+		int aux = 0;
+		for (int i = 0; i < lista.length /2; i++) {
+
+			aux = lista[i];
+			lista[i] = lista[lista.length - i - 1];
+			lista[lista.length - i - 1] = aux;
+		}
+		
+	}
+
+	public int[] mezclaListaOrdenadas(int[] l1, int[] l2) {
+		
+		int i = 0, j = 0, k = 0;
+		int[] resultado = new int[l1.length + l2.length];
+
+		while (l1[i] != Integer.MAX_VALUE || l2[j] != Integer.MAX_VALUE) {
+			if (l1[i] < l2[j])
+				resultado[k] = l1[i++];
+			else
+				resultado[k] = l2[j++];
+			k++;
+
+			if (i == l1.length)
+				l1[--i] = Integer.MAX_VALUE;
+
+			if (j == l2.length)
+				l2[--j] = Integer.MAX_VALUE;
+		}
+		return resultado;
+		
+		
+	}
+
+	public void invertirCaracterCadena(String cadena) {
+		String  sCadenaInvertida =null;
+		for (int i = cadena.length() - 1; i >= 0; i--) {
+			 sCadenaInvertida = sCadenaInvertida + cadena.charAt(i);
+		}
+
+		// for (int x=sCadena.length()-1;x>=0;x--)
+		// sCadenaInvertida = sCadenaInvertida + sCadena.charAt(x)
+	}
+
 	public void mostrarVentasVndedor() {
 
 	}

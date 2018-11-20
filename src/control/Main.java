@@ -61,13 +61,20 @@ public class Main {
 		// System.out.println(recogerPrimo);
 		int desde = 50;
 		int cuantos = 5;
-		
+
 		int inicio = 1;
 		int fin = 10;
-		//int[] recorgerPrimos3=prueba.listarPrimos3(desde, cuantos);
+
+		int[] lista = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		int[] l1= {1,2,3,4,5};
+		int[] l2= {6,7,8,9,10};
+		int[] recogerMezcla= prueba.mezclaListaOrdenadas(l1, l2);
 		
-		prueba.listarPrimos2(desde, cuantos);
-		//prueba.listarPrimos(inicio, fin);
+		//prueba.invertirLista(lista);
+		// int[] recorgerPrimos3=prueba.listarPrimos3(desde, cuantos);
+
+		// prueba.listarPrimos2(desde, cuantos);
+		// prueba.listarPrimos(inicio, fin);
 		// prueba.esPrimo(9);
 		System.out.println(" FIN DE PROGRAMA");
 
