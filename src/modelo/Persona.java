@@ -10,7 +10,7 @@ public class Persona {
 	private LocalDate fecha_nac;
 	private int longitudPaso;
 	
-	Persona[] hijos={};
+	Persona[] hijos={new Persona("12654307f", "Kilian", 100), new Persona("32459812h", "Marco", 50)};
 
 	public Persona() {
 		super();
