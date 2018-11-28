@@ -9,6 +9,8 @@ public class Persona {
 	private String nombre;
 	private LocalDate fecha_nac;
 	private int longitudPaso;
+	
+	Persona[] hijos={};
 
 	public Persona() {
 		super();

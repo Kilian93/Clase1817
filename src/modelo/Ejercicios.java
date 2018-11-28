@@ -27,19 +27,23 @@ public class Ejercicios {
 
 	}
 
+	// declarar un array de persona
+
+	Persona[] personas= {new Persona("54134207g", "Juan", 100) };
+
 	public void invertirLista(int[] lista) {
 		int aux = 0;
-		for (int i = 0; i < lista.length /2; i++) {
+		for (int i = 0; i < lista.length / 2; i++) {
 
 			aux = lista[i];
 			lista[i] = lista[lista.length - i - 1];
 			lista[lista.length - i - 1] = aux;
 		}
-		
+
 	}
 
 	public int[] mezclaListaOrdenadas(int[] l1, int[] l2) {
-		
+
 		int i = 0, j = 0, k = 0;
 		int[] resultado = new int[l1.length + l2.length];
 
@@ -57,14 +61,13 @@ public class Ejercicios {
 				l2[--j] = Integer.MAX_VALUE;
 		}
 		return resultado;
-		
-		
+
 	}
 
 	public void invertirCaracterCadena(String cadena) {
-		String  sCadenaInvertida =null;
+		String sCadenaInvertida = null;
 		for (int i = cadena.length() - 1; i >= 0; i--) {
-			 sCadenaInvertida = sCadenaInvertida + cadena.charAt(i);
+			sCadenaInvertida = sCadenaInvertida + cadena.charAt(i);
 		}
 
 		// for (int x=sCadena.length()-1;x>=0;x--)
