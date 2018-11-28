@@ -27,9 +27,29 @@ public class Ejercicios {
 
 	}
 
+	
+	public Persona[] crearListaPersona() {
+		return personas;
+		
+	}
+	
 	// declarar un array de persona
 
-	Persona[] personas= {new Persona("54134207g", "Juan", 100) };
+	private Persona[] personas = {};
+
+	public void hijosPersona() {
+		// int numHijos= personas[4].getHijos().length;
+
+		for (int i = 0; i < personas.length; i++) {
+			Persona[] hijos = personas[i].getHijos();
+			System.out.println("Progenitor --> "+ personas[0].getNombre());
+			if (hijos != null)
+				for (int j = 0; j < hijos.length; j++) {
+					System.out.println("Hijo --> " + hijos[j].getNombre());
+
+				}
+		}
+	}
 
 	public void invertirLista(int[] lista) {
 		int aux = 0;

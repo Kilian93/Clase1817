@@ -1,6 +1,7 @@
 package control;
 
 import modelo.Ejercicios;
+import modelo.Persona;
 
 public class Main {
 
@@ -69,6 +70,8 @@ public class Main {
 		int[] l1= {1,2,3,4,5};
 		int[] l2= {6,7,8,9,10};
 		int[] recogerMezcla= prueba.mezclaListaOrdenadas(l1, l2);
+		
+		Persona [] personas1={};
 		
 		//prueba.invertirLista(lista);
 		// int[] recorgerPrimos3=prueba.listarPrimos3(desde, cuantos);

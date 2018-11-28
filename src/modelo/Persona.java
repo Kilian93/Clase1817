@@ -7,10 +7,12 @@ public class Persona {
 
 	private String nif;
 	private String nombre;
+	private char genero;
 	private LocalDate fecha_nac;
 	private int longitudPaso;
-	
-	Persona[] hijos={new Persona("12654307f", "Kilian", 100), new Persona("32459812h", "Marco", 50)};
+	private Persona[] hijos;
+	private Persona madre;
+	private Persona padre;
 
 	public Persona() {
 		super();
@@ -20,13 +22,14 @@ public class Persona {
 		this.longitudPaso = 57;
 	}
 
-	public Persona(String nif, String nombre, int longitudPaso) {
+	public Persona(String nif, String nombre, int longitudPaso, char genero) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
 		this.fecha_nac = null;
 		// this.fecha_nac = fecha_nac;
 		this.longitudPaso = longitudPaso;
+		this.genero = genero;
 	}
 
 	public int caminar(int numPasos) {
@@ -38,6 +41,40 @@ public class Persona {
 		int valor = miRamdom.nextInt();
 
 		return numPasos * longitudPaso / 100;
+	}
+
+	
+
+	public char getGenero() {
+		return genero;
+	}
+
+	public void setGenero(char genero) {
+		this.genero = genero;
+	}
+
+	public Persona getMadre() {
+		return madre;
+	}
+
+	public void setMadre(Persona madre) {
+		this.madre = madre;
+	}
+
+	public Persona getPadre() {
+		return padre;
+	}
+
+	public void setPadre(Persona padre) {
+		this.padre = padre;
+	}
+
+	public Persona[] getHijos() {
+		return hijos;
+	}
+
+	public void setHijos(Persona[] hijos) {
+		this.hijos = hijos;
 	}
 
 	public String getNif() {
