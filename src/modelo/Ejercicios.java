@@ -63,6 +63,15 @@ public class Ejercicios {
 
 	}
 
+	public int[] invertirLista2(int[] lista) {
+		int [] resultado = new int[lista.length];
+		for (int i = 0; i < lista.length; i++) {
+			//lista[i] = lista[lista.length - i - 1];
+			resultado[resultado.length -1 -i] = lista[i];
+		}
+		return resultado;
+
+	}
 	public int[] mezclaListaOrdenadas(int[] l1, int[] l2) {
 
 		int i = 0, j = 0, k = 0;

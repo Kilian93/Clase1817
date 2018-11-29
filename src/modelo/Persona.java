@@ -32,6 +32,7 @@ public class Persona {
 		this.genero = genero;
 		this.madre= madre;
 		this.padre=padre;
+		//this.hijos=hijos;
 	}
 
 	public int caminar(int numPasos) {

@@ -67,13 +67,22 @@ public class Main {
 		int fin = 10;
 
 		int[] lista = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-		int[] l1= {1,2,3,4,5};
-		int[] l2= {6,7,8,9,10};
-		int[] recogerMezcla= prueba.mezclaListaOrdenadas(l1, l2);
+		int[] l1 = { 1, 2, 3, 4, 5 };
+		int[] l2 = { 6, 7, 8, 9, 10 };
+		int[] recogerMezcla = prueba.mezclaListaOrdenadas(l1, l2);
 		
-		Persona [] personas1={};
+		Persona madre = new Persona();
+		madre.setNombre("Maria");
 		
-		//prueba.invertirLista(lista);
+		
+
+		Persona[] persona1 = new Persona[3];
+		persona1[0] = new Persona("54134207g", "kilian", 100, 'm', null, null);
+		persona1[1] = new Persona("54134207g", "kilian", 100, 'm', madre, null);
+		persona1[2] = new Persona("54134207g", "kilian", 100, 'm', null, null);
+		// prueba.invertirLista(lista);
+		int[] invertirLista = prueba.invertirLista2(lista);
+
 		// int[] recorgerPrimos3=prueba.listarPrimos3(desde, cuantos);
 
 		// prueba.listarPrimos2(desde, cuantos);
