@@ -22,7 +22,7 @@ public class Persona {
 		this.longitudPaso = 57;
 	}
 
-	public Persona(String nif, String nombre, int longitudPaso, char genero) {
+	public Persona(String nif, String nombre, int longitudPaso, char genero, Persona madre, Persona padre) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
@@ -30,6 +30,8 @@ public class Persona {
 		// this.fecha_nac = fecha_nac;
 		this.longitudPaso = longitudPaso;
 		this.genero = genero;
+		this.madre= madre;
+		this.padre=padre;
 	}
 
 	public int caminar(int numPasos) {

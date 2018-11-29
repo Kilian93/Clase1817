@@ -29,6 +29,7 @@ public class Ejercicios {
 
 	
 	public Persona[] crearListaPersona() {
+		
 		return personas;
 		
 	}
