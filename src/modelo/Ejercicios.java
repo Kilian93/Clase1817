@@ -38,7 +38,7 @@ public class Ejercicios {
 
 	private Persona[] personas = {};
 
-	public void hijosPersona() {
+	/*public void hijosPersona() {
 		// int numHijos= personas[4].getHijos().length;
 
 		for (int i = 0; i < personas.length; i++) {
@@ -51,7 +51,7 @@ public class Ejercicios {
 				}
 		}
 	}
-
+*/
 	public void invertirLista(int[] lista) {
 		int aux = 0;
 		for (int i = 0; i < lista.length / 2; i++) {

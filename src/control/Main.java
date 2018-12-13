@@ -76,10 +76,11 @@ public class Main {
 		
 		
 
-		Persona[] persona1 = new Persona[3];
+		/*Persona[] persona1 = new Persona[3];
 		persona1[0] = new Persona("54134207g", "kilian", 100, 'm', null, null);
 		persona1[1] = new Persona("54134207g", "kilian", 100, 'm', madre, null);
-		persona1[2] = new Persona("54134207g", "kilian", 100, 'm', null, null);
+		persona1[2] = new Persona("54134207g", "kilian", 100, 'm', null, null);*/
+		
 		// prueba.invertirLista(lista);
 		int[] invertirLista = prueba.invertirLista2(lista);
 

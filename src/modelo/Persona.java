@@ -10,9 +10,7 @@ public class Persona {
 	private char genero;
 	private LocalDate fecha_nac;
 	private int longitudPaso;
-	private Persona[] hijos;
-	private Persona madre;
-	private Persona padre;
+	
 
 	public Persona() {
 		super();
@@ -22,7 +20,7 @@ public class Persona {
 		this.longitudPaso = 57;
 	}
 
-	public Persona(String nif, String nombre, int longitudPaso, char genero, Persona madre, Persona padre) {
+	public Persona(String nif, String nombre, int longitudPaso, char genero) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
@@ -30,8 +28,7 @@ public class Persona {
 		// this.fecha_nac = fecha_nac;
 		this.longitudPaso = longitudPaso;
 		this.genero = genero;
-		this.madre= madre;
-		this.padre=padre;
+		
 		//this.hijos=hijos;
 	}
 
@@ -56,29 +53,6 @@ public class Persona {
 		this.genero = genero;
 	}
 
-	public Persona getMadre() {
-		return madre;
-	}
-
-	public void setMadre(Persona madre) {
-		this.madre = madre;
-	}
-
-	public Persona getPadre() {
-		return padre;
-	}
-
-	public void setPadre(Persona padre) {
-		this.padre = padre;
-	}
-
-	public Persona[] getHijos() {
-		return hijos;
-	}
-
-	public void setHijos(Persona[] hijos) {
-		this.hijos = hijos;
-	}
 
 	public String getNif() {
 		return nif;
