@@ -1,6 +1,8 @@
 package control;
 
-import modelo.Ejercicios;
+import java.util.ArrayList;
+
+import auxiliar.Ejercicios;
 import modelo.Persona;
 
 public class Main {
@@ -8,6 +10,14 @@ public class Main {
 	public static void main(String[] args) {
 
 		Ejercicios prueba = new Ejercicios();
+
+		// Pruebas Segundo Trimestre
+
+		// prueba.introLista();
+		prueba.introLista2();
+		System.out.println(" FIN DE PROGRAMA");
+		System.exit(0);
+
 		// int x= 10;
 		// int y=30;
 		// prueba.pruebasAPI();
@@ -70,17 +80,17 @@ public class Main {
 		int[] l1 = { 1, 2, 3, 4, 5 };
 		int[] l2 = { 6, 7, 8, 9, 10 };
 		int[] recogerMezcla = prueba.mezclaListaOrdenadas(l1, l2);
-		
+
 		Persona madre = new Persona();
 		madre.setNombre("Maria");
-		
-		
 
-		/*Persona[] persona1 = new Persona[3];
-		persona1[0] = new Persona("54134207g", "kilian", 100, 'm', null, null);
-		persona1[1] = new Persona("54134207g", "kilian", 100, 'm', madre, null);
-		persona1[2] = new Persona("54134207g", "kilian", 100, 'm', null, null);*/
-		
+		/*
+		 * Persona[] persona1 = new Persona[3]; persona1[0] = new Persona("54134207g",
+		 * "kilian", 100, 'm', null, null); persona1[1] = new Persona("54134207g",
+		 * "kilian", 100, 'm', madre, null); persona1[2] = new Persona("54134207g",
+		 * "kilian", 100, 'm', null, null);
+		 */
+
 		// prueba.invertirLista(lista);
 		int[] invertirLista = prueba.invertirLista2(lista);
 
@@ -89,6 +99,7 @@ public class Main {
 		// prueba.listarPrimos2(desde, cuantos);
 		// prueba.listarPrimos(inicio, fin);
 		// prueba.esPrimo(9);
+
 		System.out.println(" FIN DE PROGRAMA");
 
 	}

@@ -10,7 +10,6 @@ public class Persona {
 	private char genero;
 	private LocalDate fecha_nac;
 	private int longitudPaso;
-	
 
 	public Persona() {
 		super();
@@ -20,16 +19,16 @@ public class Persona {
 		this.longitudPaso = 57;
 	}
 
-	public Persona(String nif, String nombre, int longitudPaso, char genero) {
+	public Persona(String nif, String nombre, LocalDate fecha_nac, int longitudPaso, char genero) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
 		this.fecha_nac = null;
-		// this.fecha_nac = fecha_nac;
+		this.fecha_nac = fecha_nac;
 		this.longitudPaso = longitudPaso;
 		this.genero = genero;
-		
-		//this.hijos=hijos;
+
+		// this.hijos=hijos;
 	}
 
 	public int caminar(int numPasos) {
@@ -43,8 +42,6 @@ public class Persona {
 		return numPasos * longitudPaso / 100;
 	}
 
-	
-
 	public char getGenero() {
 		return genero;
 	}
@@ -52,7 +49,6 @@ public class Persona {
 	public void setGenero(char genero) {
 		this.genero = genero;
 	}
-
 
 	public String getNif() {
 		return nif;

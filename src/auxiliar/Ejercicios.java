@@ -1,14 +1,59 @@
-package modelo;
+package auxiliar;
 
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import modelo.Estudiante;
+import modelo.Persona;
 
 import javax.swing.text.View;
 
 public class Ejercicios {
+	
+	
+	// Sgundo trimestre 
+	
+		// 18 diciembre 2018
+	
+	
+	public void introLista2() {
+		ArrayList<Persona> lista = new ArrayList<Persona>();
+		lista.add(new Persona("34268798F", "Miriam", LocalDate.now(), 150, 'F'));
+		lista.add(new Persona());
+		lista.add(1, new Persona("89786543L", "Paco", LocalDate.now(), 100, 'M'));
+		System.out.println(lista.get(1).getNombre());
+		System.out.println("Fin lista");
+		
+	}
+		
+		public void introLista() {
+			ArrayList<String> lista = new ArrayList<String>();
+			lista.add("Sara");
+			lista.add("Miriam");
+			lista.add("Juan");
+			System.out.println(lista);
+			
+		}
+		
+		
+		//13 dic 2018 Intro a la Herencia
+		
+		// crear un Estudiante
+		
+		
+		
+		public void crearEstudiante() {
+			
+			Estudiante estudiante = new Estudiante("43781230V", "Pedro Garcia", null, 153, 'M');
+	        
+		}
+		
+	
+	
+	
 
 	public void pruebasAPI() {
 		// 1. imprimiir por consola el valor de 2 elevado a 2
