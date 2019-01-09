@@ -14,7 +14,8 @@ public class Main {
 		// Pruebas Segundo Trimestre
 
 		// prueba.introLista();
-		prueba.introLista2();
+		prueba.introMapas();
+		//prueba.introLista2();
 		System.out.println(" FIN DE PROGRAMA");
 		System.exit(0);
 

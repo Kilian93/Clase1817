@@ -12,20 +12,10 @@ public class Estudiante extends Persona {
 		super();
 	}
 
-	
-
-	
-
-
 	public Estudiante(String nif, String nombre, LocalDate fecha_nac, int longitudPaso, char genero) {
 		super(nif, nombre, fecha_nac, longitudPaso, genero);
-		
+
 	}
-
-
-
-
-
 
 	public String getCurso() {
 		return curso;

@@ -4,8 +4,11 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
+
 import modelo.Estudiante;
 import modelo.Persona;
 
@@ -15,6 +18,70 @@ public class Ejercicios {
 	
 	
 	// Sgundo trimestre 
+	
+	// 9 enero 2019
+	
+	public void introMapas() {
+		//declarar un mapa (HasMap) que almacena
+		//objetos de la clase Persona, la clave es el nif..
+		HashMap<String, Estudiante> mapa = new HashMap<String, Estudiante>();
+		Estudiante est= new Estudiante();
+		Estudiante est2 = new Estudiante("54134207g", "Kilian", LocalDate.now(), 100, 'M');
+		mapa.put(est.getNif(), est);
+		mapa.put(est2.getNif(), est2);
+		Set<String> clavesMapas=mapa.keySet();
+		for (String clave : clavesMapas) 	
+		System.out.println(mapa.get(clave).getNombre());
+		//System.out.println(mapa.get(est2.getNif()).getNif());
+		
+		
+	}
+	
+	
+	// 8 enero 2019
+	
+	public void introListas() {
+
+		ArrayList<Object> listaGenerica = new ArrayList<Object>(10);
+		//System.out.println("Lista generica tiene " + listaGenerica.size());
+		
+		listaGenerica.add("Gran Canaria");
+		String nombre = "Pepe";
+		listaGenerica.add(nombre);
+		listaGenerica.add(123);
+		listaGenerica.add(Math.PI);
+		listaGenerica.add(123.5f);
+		listaGenerica.add(true);
+		listaGenerica.add(new Persona());
+		
+		//for (Object elemento: listaGenerica)
+			//System.out.println(elemento);
+		
+		for (int i = 0; i < listaGenerica.size(); i++) 
+			System.out.println(listaGenerica.get(i));
+		
+	
+	//	System.out.println("Lista generica tiene " + listaGenerica.size());
+		
+		ArrayList<Persona> listaPersonas;
+
+		listaPersonas = new ArrayList<Persona>();
+
+		Persona persona1 = new Persona();
+
+		listaPersonas.add(persona1);
+
+		listaPersonas.add(new Persona());
+
+		listaPersonas.add(new Persona("54134207G", "Kilian", null, 145, 'M'));
+
+		//listaPersonas.add(1, new Persona("nuevoNif", "Pepe", 145, LocalDate.now(), 'M'));
+
+	//	System.out.println(listaPersonas.get(1).getNombre());
+
+		System.out.println("fin listas");
+	}
+	
 	
 		// 18 diciembre 2018
 	
