@@ -1,5 +1,9 @@
 package auxiliar;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +22,49 @@ public class Ejercicios {
 	
 	
 	// Sgundo trimestre 
+	
+	// 10 enero 2019
+	
+	public void leerFichero(String rutaFichero) {
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader( new FileReader(rutaFichero));
+			String registro;		
+			while ((registro=fichero.readLine()) != null ) {
+				System.out.println(registro);
+			}
+			fichero.close();
+			System.out.println("Fin de la lectura de fichero");
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichero no encontrado");
+		} catch (IOException e) {
+			System.out.println("IO Exception");
+		}
+	} 
+	
+	public void leerFicheroTexto() {
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader("ficheros/datos.txt");
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			// System.out.println(LocalDate.now());
+			// Leer el fichero linea a linea
+			while ((linea = br.readLine()) != null) {
+
+				String[] campos = linea.split("&");
+				System.out.println(linea);
+				//System.out.println(calculaEdad(campos[2]));
+
+			}
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	
 	// 9 enero 2019
 	
