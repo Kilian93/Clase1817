@@ -8,27 +8,31 @@ public class Persona {
 	private String nif;
 	private String nombre;
 	private char genero;
-	private LocalDate fecha_nac;
+	private String fecha_nac;
 	private int longitudPaso;
 
 	public Persona() {
 		super();
 		this.nif = "54134207G";
 		this.nombre = "Kilian Castellano";
-		this.fecha_nac = LocalDate.now();
+		this.fecha_nac = null;
 		this.longitudPaso = 57;
 	}
 
-	public Persona(String nif, String nombre, LocalDate fecha_nac, int longitudPaso, char genero) {
+	public Persona(String nif, String nombre, String fecha_nac, int longitudPaso, char genero) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
-		this.fecha_nac = null;
 		this.fecha_nac = fecha_nac;
 		this.longitudPaso = longitudPaso;
 		this.genero = genero;
 
 		// this.hijos=hijos;
+	}
+
+	public Persona(String nombre) {
+		super();
+		this.nombre = nombre;
 	}
 
 	public int caminar(int numPasos) {
@@ -66,11 +70,11 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
-	public LocalDate getFecha_nac() {
+	public String getFecha_nac() {
 		return fecha_nac;
 	}
 
-	public void setFecha_nac(LocalDate fecha_nac) {
+	public void setFecha_nac(String fecha_nac) {
 		this.fecha_nac = fecha_nac;
 	}
 

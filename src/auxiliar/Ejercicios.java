@@ -19,18 +19,58 @@ import modelo.Persona;
 import javax.swing.text.View;
 
 public class Ejercicios {
-	
-	
-	// Sgundo trimestre 
-	
+
+	// Sgundo trimestre
+
+	// 15 de enero 2019
+
+	public ArrayList<Persona> creaListaPersona(String rutaFichero, String separador) {
+		// Abrir el fichero
+		ArrayList<Persona> listaPersona = new ArrayList<Persona>();
+		try {
+			FileReader fr = new FileReader(rutaFichero);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split(separador);
+				for (int i = 0; i < campos.length; i++) {
+					// System.out.println(campos[i]);
+					System.out.print(campos[i] + " , ");
+					System.out.println("");
+				}
+
+				Persona per1 = new Persona(campos[0], campos[1], campos[2], Integer.parseInt(campos[3]),
+						campos[4].charAt(0));
+				listaPersona.add(per1);
+				// crear objeto de la clase persona
+				// añadir a la lista
+				// System.out.println(linea);
+
+			}
+
+			fr.close();
+			System.out.println("fin de la lectura del fichero");
+			return listaPersona;
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
 	// 10 enero 2019
-	
+
 	public void leerFichero(String rutaFichero) {
 		try {
 			BufferedReader fichero;
-			fichero = new BufferedReader( new FileReader(rutaFichero));
-			String registro;		
-			while ((registro=fichero.readLine()) != null ) {
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+			String registro;
+			while ((registro = fichero.readLine()) != null) {
 				System.out.println(registro);
 			}
 			fichero.close();
@@ -40,8 +80,8 @@ public class Ejercicios {
 		} catch (IOException e) {
 			System.out.println("IO Exception");
 		}
-	} 
-	
+	}
+
 	public void leerFicheroTexto() {
 		try {
 			// Abrir el fichero
@@ -54,7 +94,7 @@ public class Ejercicios {
 
 				String[] campos = linea.split("&");
 				System.out.println(linea);
-				//System.out.println(calculaEdad(campos[2]));
+				// System.out.println(calculaEdad(campos[2]));
 
 			}
 			fr.close();
@@ -65,33 +105,31 @@ public class Ejercicios {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	// 9 enero 2019
-	
+
 	public void introMapas() {
-		//declarar un mapa (HasMap) que almacena
-		//objetos de la clase Persona, la clave es el nif..
+		// declarar un mapa (HasMap) que almacena
+		// objetos de la clase Persona, la clave es el nif..
 		HashMap<String, Estudiante> mapa = new HashMap<String, Estudiante>();
-		Estudiante est= new Estudiante();
-		Estudiante est2 = new Estudiante("54134207g", "Kilian", LocalDate.now(), 100, 'M');
+		Estudiante est = new Estudiante();
+		Estudiante est2 = new Estudiante("54134207g", "Kilian", null, 100, 'M');
 		mapa.put(est.getNif(), est);
 		mapa.put(est2.getNif(), est2);
-		Set<String> clavesMapas=mapa.keySet();
-		for (String clave : clavesMapas) 	
-		System.out.println(mapa.get(clave).getNombre());
-		//System.out.println(mapa.get(est2.getNif()).getNif());
-		
-		
+		Set<String> clavesMapas = mapa.keySet();
+		for (String clave : clavesMapas)
+			System.out.println(mapa.get(clave).getNombre());
+		// System.out.println(mapa.get(est2.getNif()).getNif());
+
 	}
-	
-	
+
 	// 8 enero 2019
-	
+
 	public void introListas() {
 
 		ArrayList<Object> listaGenerica = new ArrayList<Object>(10);
-		//System.out.println("Lista generica tiene " + listaGenerica.size());
-		
+		// System.out.println("Lista generica tiene " + listaGenerica.size());
+
 		listaGenerica.add("Gran Canaria");
 		String nombre = "Pepe";
 		listaGenerica.add(nombre);
@@ -100,16 +138,15 @@ public class Ejercicios {
 		listaGenerica.add(123.5f);
 		listaGenerica.add(true);
 		listaGenerica.add(new Persona());
-		
-		//for (Object elemento: listaGenerica)
-			//System.out.println(elemento);
-		
-		for (int i = 0; i < listaGenerica.size(); i++) 
+
+		// for (Object elemento: listaGenerica)
+		// System.out.println(elemento);
+
+		for (int i = 0; i < listaGenerica.size(); i++)
 			System.out.println(listaGenerica.get(i));
-		
-	
-	//	System.out.println("Lista generica tiene " + listaGenerica.size());
-		
+
+		// System.out.println("Lista generica tiene " + listaGenerica.size());
+
 		ArrayList<Persona> listaPersonas;
 
 		listaPersonas = new ArrayList<Persona>();
@@ -122,52 +159,44 @@ public class Ejercicios {
 
 		listaPersonas.add(new Persona("54134207G", "Kilian", null, 145, 'M'));
 
-		//listaPersonas.add(1, new Persona("nuevoNif", "Pepe", 145, LocalDate.now(), 'M'));
+		// listaPersonas.add(1, new Persona("nuevoNif", "Pepe", 145, LocalDate.now(),
+		// 'M'));
 
-	//	System.out.println(listaPersonas.get(1).getNombre());
+		// System.out.println(listaPersonas.get(1).getNombre());
 
 		System.out.println("fin listas");
 	}
-	
-	
-		// 18 diciembre 2018
-	
-	
+
+	// 18 diciembre 2018
+
 	public void introLista2() {
 		ArrayList<Persona> lista = new ArrayList<Persona>();
-		lista.add(new Persona("34268798F", "Miriam", LocalDate.now(), 150, 'F'));
+		lista.add(new Persona("34268798F", "Miriam", null, 150, 'F'));
 		lista.add(new Persona());
-		lista.add(1, new Persona("89786543L", "Paco", LocalDate.now(), 100, 'M'));
+		lista.add(1, new Persona("89786543L", "Paco", null, 100, 'M'));
 		System.out.println(lista.get(1).getNombre());
 		System.out.println("Fin lista");
-		
+
 	}
-		
-		public void introLista() {
-			ArrayList<String> lista = new ArrayList<String>();
-			lista.add("Sara");
-			lista.add("Miriam");
-			lista.add("Juan");
-			System.out.println(lista);
-			
-		}
-		
-		
-		//13 dic 2018 Intro a la Herencia
-		
-		// crear un Estudiante
-		
-		
-		
-		public void crearEstudiante() {
-			
-			Estudiante estudiante = new Estudiante("43781230V", "Pedro Garcia", null, 153, 'M');
-	        
-		}
-		
-	
-	
-	
+
+	public void introLista() {
+		ArrayList<String> lista = new ArrayList<String>();
+		lista.add("Sara");
+		lista.add("Miriam");
+		lista.add("Juan");
+		System.out.println(lista);
+
+	}
+
+	// 13 dic 2018 Intro a la Herencia
+
+	// crear un Estudiante
+
+	public void crearEstudiante() {
+
+		Estudiante estudiante = new Estudiante("43781230V", "Pedro Garcia", null, 153, 'M');
+
+	}
 
 	public void pruebasAPI() {
 		// 1. imprimiir por consola el valor de 2 elevado a 2
@@ -186,31 +215,26 @@ public class Ejercicios {
 
 	}
 
-	
 	public Persona[] crearListaPersona() {
-		
+
 		return personas;
-		
+
 	}
-	
+
 	// declarar un array de persona
 
 	private Persona[] personas = {};
 
-	/*public void hijosPersona() {
-		// int numHijos= personas[4].getHijos().length;
-
-		for (int i = 0; i < personas.length; i++) {
-			Persona[] hijos = personas[i].getHijos();
-			System.out.println("Progenitor --> "+ personas[0].getNombre());
-			if (hijos != null)
-				for (int j = 0; j < hijos.length; j++) {
-					System.out.println("Hijo --> " + hijos[j].getNombre());
-
-				}
-		}
-	}
-*/
+	/*
+	 * public void hijosPersona() { // int numHijos= personas[4].getHijos().length;
+	 * 
+	 * for (int i = 0; i < personas.length; i++) { Persona[] hijos =
+	 * personas[i].getHijos(); System.out.println("Progenitor --> "+
+	 * personas[0].getNombre()); if (hijos != null) for (int j = 0; j <
+	 * hijos.length; j++) { System.out.println("Hijo --> " + hijos[j].getNombre());
+	 * 
+	 * } } }
+	 */
 	public void invertirLista(int[] lista) {
 		int aux = 0;
 		for (int i = 0; i < lista.length / 2; i++) {
@@ -223,14 +247,15 @@ public class Ejercicios {
 	}
 
 	public int[] invertirLista2(int[] lista) {
-		int [] resultado = new int[lista.length];
+		int[] resultado = new int[lista.length];
 		for (int i = 0; i < lista.length; i++) {
-			//lista[i] = lista[lista.length - i - 1];
-			resultado[resultado.length -1 -i] = lista[i];
+			// lista[i] = lista[lista.length - i - 1];
+			resultado[resultado.length - 1 - i] = lista[i];
 		}
 		return resultado;
 
 	}
+
 	public int[] mezclaListaOrdenadas(int[] l1, int[] l2) {
 
 		int i = 0, j = 0, k = 0;
