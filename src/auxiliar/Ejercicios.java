@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import modelo.Equipo;
 import modelo.Estudiante;
 import modelo.Persona;
 
@@ -21,6 +22,54 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
+
+	// 22 de enero 2019
+
+	public HashMap<String, Integer> comprobarPartidos(String rutaFichero, String separador) {
+		HashMap<String, Integer> mapaEquipo = new HashMap<String, Integer>();
+
+		try {
+			FileReader fr = new FileReader(rutaFichero);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			String equipoLocal = "";
+			String equiposVisitante = "";
+			int count = 0;
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split(separador);
+				equipoLocal = campos[2];
+				equiposVisitante = campos[4];
+				if (!mapaEquipo.containsKey(equipoLocal) == true) {
+					mapaEquipo.put(equipoLocal, 0);
+
+				} else if (!mapaEquipo.containsKey(equipoLocal) == false) {
+					
+
+				}
+
+				if (!mapaEquipo.containsKey(equiposVisitante) == true) {
+					mapaEquipo.put(equiposVisitante, 0);
+				}
+
+				else if (!mapaEquipo.containsKey(equipoLocal) == false) {
+					// mapaEquipo.put(equiposVisitante, mapaEquipo.get(equiposVisitante)+1);
+					
+				}
+
+			}
+			fr.close();
+			System.out.println("fin de la lectura del fichero");
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return mapaEquipo;
+	}
 
 	// 15 de enero 2019
 

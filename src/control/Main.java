@@ -1,6 +1,7 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import auxiliar.Ejercicios;
 import modelo.Persona;
@@ -12,9 +13,11 @@ public class Main {
 		Ejercicios prueba = new Ejercicios();
 
 		// Pruebas Segundo Trimestre
+		
+		HashMap<String,Integer> recoger= prueba.comprobarPartidos("ficheros/partidos.txt", "#");
 
 		// prueba.introLista();
-		prueba.introMapas();
+		//prueba.introMapas();
 		//prueba.introLista2();
 		System.out.println(" FIN DE PROGRAMA");
 		System.exit(0);
