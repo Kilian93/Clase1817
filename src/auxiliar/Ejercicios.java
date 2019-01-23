@@ -34,27 +34,18 @@ public class Ejercicios {
 			String linea;
 			String equipoLocal = "";
 			String equiposVisitante = "";
-			int count = 0;
+			Integer numVeces = new Integer(1);
 			while ((linea = br.readLine()) != null) {
 				String[] campos = linea.split(separador);
-				equipoLocal = campos[2];
-				equiposVisitante = campos[4];
-				if (!mapaEquipo.containsKey(equipoLocal) == true) {
-					mapaEquipo.put(equipoLocal, 0);
-
-				} else if (!mapaEquipo.containsKey(equipoLocal) == false) {
-					
-
+				for (int i = 2; i < campos.length; i+=2) {
+					if(mapaEquipo.containsKey(campos[i])) {
+						mapaEquipo.replace(campos[i], (mapaEquipo.get(campos[i])+ numVeces));
+					}
+					else {
+						mapaEquipo.put(campos[i], numVeces);
+					}
 				}
-
-				if (!mapaEquipo.containsKey(equiposVisitante) == true) {
-					mapaEquipo.put(equiposVisitante, 0);
-				}
-
-				else if (!mapaEquipo.containsKey(equipoLocal) == false) {
-					// mapaEquipo.put(equiposVisitante, mapaEquipo.get(equiposVisitante)+1);
-					
-				}
+				
 
 			}
 			fr.close();
