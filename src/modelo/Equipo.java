@@ -20,6 +20,10 @@ public class Equipo {
 		this.nombreLargo = nombreLargo;
 	}
 
+	
+	public String toString() {
+		return this.getNombreLargo();
+	}
 
 	public int getId() {
 		return id;

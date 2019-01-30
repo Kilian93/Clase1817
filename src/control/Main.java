@@ -13,25 +13,27 @@ public class Main {
 		Ejercicios prueba = new Ejercicios();
 
 		// Pruebas Segundo Trimestre
-		
-		
-		//29 de enero 2019
-		
-		HashMap<String, ArrayList<Integer>> x = prueba.resultadosEquipos("ficheros/partidos.txt");
-		prueba.muestraPuntosEquipos(x);
-		
-		
-		HashMap<String,Integer> recoger= prueba.comprobarPartidos("ficheros/partidos.txt", "#");
-		
-		
+
+		// 30 de enero 2019
+
+		prueba.pruebaSWING();
+
+		// 29 de enero 2019
+
+		// HashMap<String, ArrayList<Integer>> x =
+		// prueba.resultadosEquipos("ficheros/partidos.txt");
+		// prueba.muestraPuntosEquipos(x);
+		// HashMap<String,Integer> recoger=
+		// prueba.comprobarPartidos("ficheros/partidos.txt", "#");
+
 		// prueba.crearMapaEquipos("ficheros/equipos.txt");
 		// prueba.mostrarNumeroPartidosJugadosTry("ficheros/partidos.txt");
-		
-		
-		
-		//prueba.introLista();
-		//prueba.introMapas();
-		//prueba.introLista2();
+		// ArrayList<Persona> listaPersonas =
+		// prueba.creaListaPersonas("ficheros/personas.txt", "##");
+
+		// prueba.introLista();
+		// prueba.introMapas();
+		// prueba.introLista2();
 		System.out.println(" FIN DE PROGRAMA");
 		System.exit(0);
 

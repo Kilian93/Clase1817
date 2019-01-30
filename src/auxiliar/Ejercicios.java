@@ -18,11 +18,34 @@ import modelo.Equipo;
 import modelo.Estudiante;
 import modelo.Persona;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.text.View;
 
 public class Ejercicios {
 
 	// Sgundo trimestre
+	
+	//30 de enero
+	
+	public void pruebaSWING() {
+		JFrame ventana = new JFrame("Mi primer SWING");
+		JButton boton = new JButton("Pulse Me");
+		JPanel panel = new JPanel();
+		ventana.add(panel);
+		ArrayList<Equipo> equipos = this.crearListaEquipos("ficheros/equipos.txt");
+		Equipo[] arrayEquipos= equipos.toArray(new Equipo[equipos.size()]);
+		JComboBox listaEquipo = new JComboBox(arrayEquipos);
+		ventana.add(listaEquipo);
+		panel.add(boton);
+		ventana.pack();
+		ventana.setVisible(true);
+		
+		
+	}
+	
 	
 	// 29 enero 2019
 	
@@ -225,6 +248,48 @@ public class Ejercicios {
 	}
 
 	// 15 de enero 2019
+	
+	public ArrayList<Persona> creaListaPersonas(String rutaFichero, String separador) {
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+
+			ArrayList<Persona> listaPersonas;
+			listaPersonas = new ArrayList<Persona>();
+
+			String registro;
+			Persona persona;
+			while ((registro = fichero.readLine()) != null) {
+				// System.out.println(registro);
+
+				// romper la cadena registro
+				String[] campos = registro.split(separador);
+				for (int i = 0; i < campos.length; i++)
+					System.out.print(campos[i] + " , ");
+				System.out.println("");
+
+				// crear objeto de la clase Persona
+				// añadirlo a la listaPersonas
+				persona = new Persona(campos[0], campos[1], campos[2], Integer.parseInt(campos[3]), campos[4].charAt(0));
+
+				listaPersonas.add(persona);
+
+			}
+			fichero.close();
+			System.out.println("Creada la lista de personas...");
+
+			return listaPersonas;
+
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+		return null;
+	}
+	
+	
 
 	public ArrayList<Persona> creaListaPersona(String rutaFichero, String separador) {
 		// Abrir el fichero
