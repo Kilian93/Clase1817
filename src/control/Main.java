@@ -14,9 +14,22 @@ public class Main {
 
 		// Pruebas Segundo Trimestre
 		
+		
+		//29 de enero 2019
+		
+		HashMap<String, ArrayList<Integer>> x = prueba.resultadosEquipos("ficheros/partidos.txt");
+		prueba.muestraPuntosEquipos(x);
+		
+		
 		HashMap<String,Integer> recoger= prueba.comprobarPartidos("ficheros/partidos.txt", "#");
-
-		// prueba.introLista();
+		
+		
+		// prueba.crearMapaEquipos("ficheros/equipos.txt");
+		// prueba.mostrarNumeroPartidosJugadosTry("ficheros/partidos.txt");
+		
+		
+		
+		//prueba.introLista();
 		//prueba.introMapas();
 		//prueba.introLista2();
 		System.out.println(" FIN DE PROGRAMA");
