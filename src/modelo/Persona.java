@@ -3,7 +3,7 @@ package modelo;
 import java.time.LocalDate;
 import java.util.Random;
 
-public class Persona {
+public class Persona implements Comparable<Persona>, Humano{
 
 	private String nif;
 	private String nombre;
@@ -84,5 +84,27 @@ public class Persona {
 
 	public void setLongitudPaso(int longitudPaso) {
 		this.longitudPaso = longitudPaso;
+	}
+
+	@Override
+	public int compareTo(Persona otro) {
+		if (this.longitudPaso > otro.longitudPaso)
+			return 1;
+		else if (this.longitudPaso > otro.longitudPaso)
+			return -1;
+		else
+			return 0;
+	}
+
+	@Override
+	public boolean dormir(int horas) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public float alimentarse(int calorias) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

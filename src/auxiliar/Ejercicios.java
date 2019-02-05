@@ -1,5 +1,7 @@
 package auxiliar;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,7 +11,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
@@ -27,186 +35,233 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
-	
-	//30 de enero
-	
+
+	// 05 de febrero 2019
+	public void ordenarMapaPuntosEquipos(HashMap<String, Integer> puntosEquipos) {
+
+		Set<Entry<String, Integer>> set = puntosEquipos.entrySet();
+		List<Entry<String, Integer>> list = new ArrayList<Entry<String, Integer>>(set);
+		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+				return (o2.getValue()).compareTo(o1.getValue());
+			}
+		});
+		for (Map.Entry<String, Integer> entry : list) {
+			System.out.println(entry.getKey() + " ==== " + entry.getValue());
+		}
+	}
+
+	public HashMap<String, Integer> generaPuntosEquipos(HashMap<String, ArrayList<Integer>> partidos_GEP) {
+
+		HashMap<String, Integer> resultado = new HashMap<String, Integer>();
+		for (String clave : partidos_GEP.keySet()) {
+			ArrayList<Integer> datos = partidos_GEP.get(clave);
+			int puntos = datos.get(0) * 3 + datos.get(1);
+			// System.out.println(clave + " => " + puntos);
+
+			resultado.put(clave, puntos);
+		}
+		return resultado;
+
+	}
+
+	// 31 de enero 2019
+	public void muestraPuntosOrdenadosEquipos(HashMap<String, ArrayList<Integer>> resultados) {
+		// recorrer el HashMap previamente ordenado
+		HashMap<String, Integer> mapaOrdenadoPuntos = new HashMap<String, Integer>();
+
+		// obtenemos la lista de claves (K)
+		for (String clave : resultados.keySet()) {
+			ArrayList<Integer> datos = resultados.get(clave);
+			int puntos = datos.get(0) * 3 + datos.get(1);
+			mapaOrdenadoPuntos.put(clave, puntos);
+			// System.out.println(clave + " => " + puntos);
+		}
+		ArrayList<Integer> valoresPuntos = new ArrayList<Integer>(mapaOrdenadoPuntos.values());
+		Collections.sort(valoresPuntos);
+		mapaOrdenadoPuntos.entrySet();
+	}
+
+	// 30 de enero 2019
+
 	public void pruebaSWING() {
 		JFrame ventana = new JFrame("Mi primer SWING");
-		JButton boton = new JButton("Pulse Me");
+		JButton boton = new JButton("Pulse Me!");
 		JPanel panel = new JPanel();
 		ventana.add(panel);
 		ArrayList<Equipo> equipos = this.crearListaEquipos("ficheros/equipos.txt");
-		Equipo[] arrayEquipos= equipos.toArray(new Equipo[equipos.size()]);
+		Equipo[] arrayEquipos = equipos.toArray(new Equipo[equipos.size()]);
 		JComboBox listaEquipo = new JComboBox(arrayEquipos);
-		ventana.add(listaEquipo);
+
+		panel.add(listaEquipo);
 		panel.add(boton);
+		boton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Me has pulsado");
+
+			}
+		});
 		ventana.pack();
 		ventana.setVisible(true);
-		
-		
+
 	}
-	
-	
+
 	// 29 enero 2019
-	
-		public void muestraPuntosEquipos (HashMap<String, ArrayList<Integer>> resultados)
-		{
-			// recorrer el HashMap... 
-			// obtenemos la lista de claves (K)			
-			for (String clave : resultados.keySet()) {
-				ArrayList<Integer> datos = resultados.get(clave);
-				int puntos = datos.get(0)*3 + datos.get(1);
-				System.out.println(clave + " => " + puntos);
-			}
-			
-			
+
+	public void muestraPuntosEquipos(HashMap<String, ArrayList<Integer>> resultados) {
+		// recorrer el HashMap previamente ordenado
+		// obtenemos la lista de claves (K)
+		for (String clave : resultados.keySet()) {
+			ArrayList<Integer> datos = resultados.get(clave);
+			int puntos = datos.get(0) * 3 + datos.get(1);
+			System.out.println(clave + " => " + puntos);
 		}
-		
-		public HashMap<String, ArrayList<Integer>> resultadosEquipos(String rutaPartidos)
-		// devuelve un mapa de equipos
-		// por cada equipo hay una lista de contadores
-		// que representan VICTORIAS, EMPATES Y DERROTAS
-		{
-			try {
-				BufferedReader fichero;
-				fichero = new BufferedReader(new FileReader(rutaPartidos));
-				String registro;
-				HashMap<String, ArrayList<Integer>> equipos = new HashMap<String, ArrayList<Integer>>();
-				while ((registro = fichero.readLine()) != null) {
-					String[] campos = registro.split("#");
-					if (campos[3].equals("")) // ultimo partido jugado..
-						break;
-					String eL = campos[2];
-					String gL = campos[3];
-					String eV = campos[4];
-					String gV = campos[5];
 
-					// gracias Byron..!!
-					// si no existe eL, eV lo añadimos al mapa..
+	}
 
-					if (!equipos.containsKey(eL))
-						equipos.put(eL, new ArrayList<Integer>(Arrays.asList(0, 0, 0)));
+	public HashMap<String, ArrayList<Integer>> resultadosEquipos(String rutaPartidos)
+	// devuelve un mapa de equipos
+	// por cada equipo hay una lista de contadores
+	// que representan VICTORIAS, EMPATES Y DERROTAS
+	{
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaPartidos));
+			String registro;
+			HashMap<String, ArrayList<Integer>> equipos = new HashMap<String, ArrayList<Integer>>();
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				if (campos[3].equals("")) // ultimo partido jugado..
+					break;
+				String eL = campos[2];
+				String gL = campos[3];
+				String eV = campos[4];
+				String gV = campos[5];
 
-					if (!equipos.containsKey(eV))
-						equipos.put(eV, new ArrayList<Integer>(Arrays.asList(0, 0, 0)));
+				// gracias Byron..!!
+				// si no existe eL, eV lo añadimos al mapa..
 
-					// cual fue el resultado ..?
+				if (!equipos.containsKey(eL))
+					equipos.put(eL, new ArrayList<Integer>(Arrays.asList(0, 0, 0)));
 
-					if (gL.compareTo(gV) > 0) {// gana Local
-						equipos.get(eL).set(0, equipos.get(eL).get(0) + 1);
-						equipos.get(eV).set(2, equipos.get(eV).get(2) + 1);
+				if (!equipos.containsKey(eV))
+					equipos.put(eV, new ArrayList<Integer>(Arrays.asList(0, 0, 0)));
 
-					} else if (gL.compareTo(gV) < 0) // gana Visitante
-					{// gana Local
-						equipos.get(eL).set(2, equipos.get(eL).get(2) + 1);
-						equipos.get(eV).set(0, equipos.get(eV).get(0) + 1);
-					} else { // empate
+				// cual fue el resultado ..?
 
-						equipos.get(eL).set(1, equipos.get(eL).get(1) + 1);
-						equipos.get(eV).set(1, equipos.get(eV).get(1) + 1);
-					}
+				if (gL.compareTo(gV) > 0) {// gana Local
+					equipos.get(eL).set(0, equipos.get(eL).get(0) + 1);
+					equipos.get(eV).set(2, equipos.get(eV).get(2) + 1);
 
+				} else if (gL.compareTo(gV) < 0) // gana Visitante
+				{// gana Local
+					equipos.get(eL).set(2, equipos.get(eL).get(2) + 1);
+					equipos.get(eV).set(0, equipos.get(eV).get(0) + 1);
+				} else { // empate
+
+					equipos.get(eL).set(1, equipos.get(eL).get(1) + 1);
+					equipos.get(eV).set(1, equipos.get(eV).get(1) + 1);
 				}
-				fichero.close();
-				System.out.println("Fin de la lectura del fichero");
-				return equipos;
 
-			} catch (FileNotFoundException excepcion) {
-				System.out.println("fichero no encontrado");
-
-			} catch (IOException e) {
-				System.out.println("IO Excepcion");
 			}
-			return null;
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+			return equipos;
 
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
 		}
-		
-		
-		
-		// 23 enero 2019
+		return null;
 
-		public void mostrarNumeroPartidosJugados(String rutaPartidos) {
+	}
 
-			try {
-				BufferedReader fichero;
-				fichero = new BufferedReader(new FileReader(rutaPartidos));
-				String registro;
-				int contador = 0;
-				while ((registro = fichero.readLine()) != null) {
-					String[] campos = registro.split("#");
-					if (!campos[3].equals("")) {
-						Integer.parseInt(campos[3]);
-						contador++;
+	// 23 enero 2019
 
-					} else
-						break;
-				}
-				fichero.close();
-				System.out.println(contador);
-				System.out.println("Fin de la lectura del fichero");
+	public void mostrarNumeroPartidosJugados(String rutaPartidos) {
 
-			} catch (FileNotFoundException excepcion) {
-				System.out.println("fichero no encontrado");
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaPartidos));
+			String registro;
+			int contador = 0;
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				if (!campos[3].equals("")) {
+					Integer.parseInt(campos[3]);
+					contador++;
 
-			} catch (IOException e) {
-				System.out.println("IO Excepcion");
+				} else
+					break;
 			}
+			fichero.close();
+			System.out.println(contador);
+			System.out.println("Fin de la lectura del fichero");
+
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
 		}
+	}
 
-		// Mapa de equipos
+	// Mapa de equipos
 
-		public HashMap<String, Equipo> crearMapaEquipos(String rutaFichero) {
-			try {
-				BufferedReader fichero;
-				fichero = new BufferedReader(new FileReader(rutaFichero));
-				String registro;
-				Equipo equipo = null;
-				HashMap<String, Equipo> equipos = new HashMap<String, Equipo>();
-				while ((registro = fichero.readLine()) != null) {
-					String[] campos = registro.split("#");
-					equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
-					equipos.put(campos[1], equipo);
-				}
-				fichero.close();
-				System.out.println("Fin de la lectura del fichero");
-				return equipos;
-
-			} catch (FileNotFoundException excepcion) {
-				System.out.println("fichero no encontrado");
-
-			} catch (IOException e) {
-				System.out.println("IO Excepcion");
+	public HashMap<String, Equipo> crearMapaEquipos(String rutaFichero) {
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+			String registro;
+			Equipo equipo = null;
+			HashMap<String, Equipo> equipos = new HashMap<String, Equipo>();
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
+				equipos.put(campos[1], equipo);
 			}
-			return null;
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+			return equipos;
+
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
 		}
-		// lista de equipos
+		return null;
+	}
+	// lista de equipos
 
-		public ArrayList<Equipo> crearListaEquipos(String rutaFichero) {
-			try {
-				BufferedReader fichero;
-				fichero = new BufferedReader(new FileReader(rutaFichero));
-				String registro;
-				Equipo equipo = null;
-				ArrayList<Equipo> equipos = new ArrayList<Equipo>();
-				while ((registro = fichero.readLine()) != null) {
-					String[] campos = registro.split("#");
-					equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
-					equipos.add(equipo);
-				}
-				fichero.close();
-				System.out.println("Fin de la lectura del fichero");
-				return equipos;
-
-			} catch (FileNotFoundException excepcion) {
-				System.out.println("fichero no encontrado");
-
-			} catch (IOException e) {
-				System.out.println("IO Excepcion");
+	public ArrayList<Equipo> crearListaEquipos(String rutaFichero) {
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+			String registro;
+			Equipo equipo = null;
+			ArrayList<Equipo> equipos = new ArrayList<Equipo>();
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
+				equipos.add(equipo);
 			}
-			return null;
-		}
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+			return equipos;
 
-	
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+		return null;
+	}
 
 	// 22 de enero 2019
 
@@ -222,15 +277,13 @@ public class Ejercicios {
 			Integer numVeces = new Integer(1);
 			while ((linea = br.readLine()) != null) {
 				String[] campos = linea.split(separador);
-				for (int i = 2; i < campos.length; i+=2) {
-					if(mapaEquipo.containsKey(campos[i])) {
-						mapaEquipo.replace(campos[i], (mapaEquipo.get(campos[i])+ numVeces));
-					}
-					else {
+				for (int i = 2; i < campos.length; i += 2) {
+					if (mapaEquipo.containsKey(campos[i])) {
+						mapaEquipo.replace(campos[i], (mapaEquipo.get(campos[i]) + numVeces));
+					} else {
 						mapaEquipo.put(campos[i], numVeces);
 					}
 				}
-				
 
 			}
 			fr.close();
@@ -248,7 +301,7 @@ public class Ejercicios {
 	}
 
 	// 15 de enero 2019
-	
+
 	public ArrayList<Persona> creaListaPersonas(String rutaFichero, String separador) {
 		try {
 			BufferedReader fichero;
@@ -270,7 +323,8 @@ public class Ejercicios {
 
 				// crear objeto de la clase Persona
 				// añadirlo a la listaPersonas
-				persona = new Persona(campos[0], campos[1], campos[2], Integer.parseInt(campos[3]), campos[4].charAt(0));
+				persona = new Persona(campos[0], campos[1], campos[2], Integer.parseInt(campos[3]),
+						campos[4].charAt(0));
 
 				listaPersonas.add(persona);
 
@@ -288,8 +342,6 @@ public class Ejercicios {
 		}
 		return null;
 	}
-	
-	
 
 	public ArrayList<Persona> creaListaPersona(String rutaFichero, String separador) {
 		// Abrir el fichero

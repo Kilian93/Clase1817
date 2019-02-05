@@ -13,10 +13,15 @@ public class Main {
 		Ejercicios prueba = new Ejercicios();
 
 		// Pruebas Segundo Trimestre
-
+		
+		//  05 de febrero 2019
+		
+		HashMap<String, ArrayList<Integer>> resultado = prueba.resultadosEquipos("ficheros/partidos.txt");
+		HashMap<String, Integer> puntosEquipos = prueba.generaPuntosEquipos(resultado);
+		
 		// 30 de enero 2019
 
-		prueba.pruebaSWING();
+		//prueba.pruebaSWING();
 
 		// 29 de enero 2019
 
