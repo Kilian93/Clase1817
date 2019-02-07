@@ -36,6 +36,55 @@ public class Ejercicios {
 
 	// Sgundo trimestre
 
+	// 07 de febrero 2019
+
+	public HashMap<String, ArrayList<Integer>> tablaPartidos(String rutaFichero) {
+		HashMap<String, ArrayList<Integer>> datos = new HashMap<String, ArrayList<Integer>>();
+		// ArrayList<Equipo> lista = crearListaEquipos("ficheros/equipos.txt");
+		HashMap<String, String> nombresLargos = crearMapaEquipos("ficheros/equipos.txt");
+		HashMap<String, ArrayList<Integer>> x = resultadosEquipos("ficheros/partidos.txt");
+		HashMap<String, Integer> recogerPuntos = muestraPuntosEquipos(x);
+
+		
+
+		/*
+		 * ArrayList<String>nombres = new ArrayList<String>(); for (Equipo equipo :
+		 * lista) {
+		 * 
+		 * nombres.add(equipo.getNombreLargo()); }
+		 */
+		return datos;
+
+	}
+
+	// obtener un ArrayList ORDENADO por nombre LARGO del equipo
+	// a partir de la lista obtenida del metodo crearListaEquipo
+
+	public ArrayList<Equipo> ordenarListaEquipo(String rutaFichero) {
+		ArrayList<Equipo> lista = crearListaEquipos("ficheros/equipos.txt");
+		lista.sort(new Comparator<Equipo>() {
+
+			/*
+			 * @Override public int compare(Equipo eq1, Equipo eq2) {
+			 * 
+			 * return eq1.getNombreLargo().compareTo(eq2.getNombreLargo()); }
+			 */
+
+			public int compare(Equipo eq1, Equipo eq2) {
+
+				if (eq1.getId() < eq2.getId()) {
+					return 1;
+				} else if (eq1.getId() > eq2.getId())
+					return -1;
+				else
+					return 0;
+			}
+
+		});
+
+		return lista;
+	}
+
 	// 05 de febrero 2019
 	public void ordenarMapaPuntosEquipos(HashMap<String, Integer> puntosEquipos) {
 
@@ -66,6 +115,7 @@ public class Ejercicios {
 	}
 
 	// 31 de enero 2019
+
 	public void muestraPuntosOrdenadosEquipos(HashMap<String, ArrayList<Integer>> resultados) {
 		// recorrer el HashMap previamente ordenado
 		HashMap<String, Integer> mapaOrdenadoPuntos = new HashMap<String, Integer>();
@@ -110,17 +160,29 @@ public class Ejercicios {
 
 	// 29 enero 2019
 
-	public void muestraPuntosEquipos(HashMap<String, ArrayList<Integer>> resultados) {
+	public HashMap<String, Integer> muestraPuntosEquipos(HashMap<String, ArrayList<Integer>> resultados) {
 		// recorrer el HashMap previamente ordenado
 		// obtenemos la lista de claves (K)
+		HashMap<String, Integer> puntosTotales = new HashMap<String, Integer>();
 		for (String clave : resultados.keySet()) {
 			ArrayList<Integer> datos = resultados.get(clave);
 			int puntos = datos.get(0) * 3 + datos.get(1);
-			System.out.println(clave + " => " + puntos);
+			puntosTotales.put(clave, puntos);
+			// System.out.println(clave + " => " + puntosTotales);
 		}
+		return puntosTotales;
 
 	}
 
+	/*
+	 * public void muestraPuntosEquipos(HashMap<String, ArrayList<Integer>>
+	 * resultados) { // recorrer el HashMap previamente ordenado // obtenemos la
+	 * lista de claves (K) for (String clave : resultados.keySet()) {
+	 * ArrayList<Integer> datos = resultados.get(clave); int puntos = datos.get(0) *
+	 * 3 + datos.get(1); System.out.println(clave + " => " + puntos); }
+	 * 
+	 * }
+	 */
 	public HashMap<String, ArrayList<Integer>> resultadosEquipos(String rutaPartidos)
 	// devuelve un mapa de equipos
 	// por cada equipo hay una lista de contadores
@@ -212,17 +274,17 @@ public class Ejercicios {
 
 	// Mapa de equipos
 
-	public HashMap<String, Equipo> crearMapaEquipos(String rutaFichero) {
+	public HashMap<String, String> crearMapaEquipos(String rutaFichero) {
 		try {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaFichero));
 			String registro;
 			Equipo equipo = null;
-			HashMap<String, Equipo> equipos = new HashMap<String, Equipo>();
+			HashMap<String, String> equipos = new HashMap<String, String>();
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
 				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
-				equipos.put(campos[1], equipo);
+				equipos.put(campos[1], equipo.getNombreLargo());
 			}
 			fichero.close();
 			System.out.println("Fin de la lectura del fichero");
@@ -236,6 +298,23 @@ public class Ejercicios {
 		}
 		return null;
 	}
+
+	/*
+	 * public HashMap<String, Equipo> crearMapaEquipos(String rutaFichero) { try {
+	 * BufferedReader fichero; fichero = new BufferedReader(new
+	 * FileReader(rutaFichero)); String registro; Equipo equipo = null;
+	 * HashMap<String, Equipo> equipos = new HashMap<String, Equipo>(); while
+	 * ((registro = fichero.readLine()) != null) { String[] campos =
+	 * registro.split("#"); equipo = new Equipo(Integer.parseInt(campos[0]),
+	 * campos[1], campos[2]); equipos.put(campos[1], equipo); } fichero.close();
+	 * System.out.println("Fin de la lectura del fichero"); return equipos;
+	 * 
+	 * } catch (FileNotFoundException excepcion) {
+	 * System.out.println("fichero no encontrado");
+	 * 
+	 * } catch (IOException e) { System.out.println("IO Excepcion"); } return null;
+	 * }
+	 */
 	// lista de equipos
 
 	public ArrayList<Equipo> crearListaEquipos(String rutaFichero) {

@@ -1,6 +1,6 @@
 package modelo;
 
-public class Equipo {
+public class Equipo implements Comparable<Equipo>{
 	
 	private int id;
 	private String nombreCorto;
@@ -42,6 +42,13 @@ public class Equipo {
 	}
 	public void setNombreLargo(String nombreLargo) {
 		this.nombreLargo = nombreLargo;
+	}
+
+
+	@Override
+	public int compareTo(Equipo o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

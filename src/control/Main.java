@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import auxiliar.Ejercicios;
+import modelo.Equipo;
 import modelo.Persona;
 
 public class Main {
@@ -13,21 +14,30 @@ public class Main {
 		Ejercicios prueba = new Ejercicios();
 
 		// Pruebas Segundo Trimestre
-		
-		//  05 de febrero 2019
-		
-		HashMap<String, ArrayList<Integer>> resultado = prueba.resultadosEquipos("ficheros/partidos.txt");
-		HashMap<String, Integer> puntosEquipos = prueba.generaPuntosEquipos(resultado);
-		
+
+		// 07 de frbrero 2019
+
+		HashMap<String, ArrayList<Integer>> recorgerDatos = prueba.tablaPartidos("ficheros/partidos.txt");
+
+		// 06 de febrero 2019
+
+		//ArrayList<Equipo> ordenarEquipo = prueba.ordenarListaEquipo("ficheros/equipos.txt");
+
+		// 05 de febrero 2019
+
+		// HashMap<String, ArrayList<Integer>> resultado =
+		// prueba.resultadosEquipos("ficheros/partidos.txt");
+		// HashMap<String, Integer> puntosEquipos =
+		// prueba.generaPuntosEquipos(resultado);
+
 		// 30 de enero 2019
 
-		//prueba.pruebaSWING();
+		// prueba.pruebaSWING();
 
 		// 29 de enero 2019
 
-		// HashMap<String, ArrayList<Integer>> x =
-		// prueba.resultadosEquipos("ficheros/partidos.txt");
-		// prueba.muestraPuntosEquipos(x);
+		//HashMap<String, ArrayList<Integer>> x = prueba.resultadosEquipos("ficheros/partidos.txt");
+		//HashMap<String, Integer> recogerPuntos = prueba.muestraPuntosEquipos(x);
 		// HashMap<String,Integer> recoger=
 		// prueba.comprobarPartidos("ficheros/partidos.txt", "#");
 
