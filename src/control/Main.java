@@ -17,7 +17,7 @@ public class Main {
 
 		// 07 de frbrero 2019
 
-		HashMap<String, ArrayList<Integer>> recorgerDatos = prueba.tablaPartidos("ficheros/partidos.txt");
+		HashMap<String, ArrayList<String>> recorgerDatos = prueba.tablaPartidos("ficheros/partidos.txt");
 
 		// 06 de febrero 2019
 

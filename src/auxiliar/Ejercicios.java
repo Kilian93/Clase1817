@@ -38,14 +38,28 @@ public class Ejercicios {
 
 	// 07 de febrero 2019
 
-	public HashMap<String, ArrayList<Integer>> tablaPartidos(String rutaFichero) {
-		HashMap<String, ArrayList<Integer>> datos = new HashMap<String, ArrayList<Integer>>();
+	public HashMap<String, ArrayList<String>> tablaPartidos(String rutaFichero) {
+		HashMap<String, ArrayList<String>> datos = new HashMap<String, ArrayList<String>>();
 		// ArrayList<Equipo> lista = crearListaEquipos("ficheros/equipos.txt");
 		HashMap<String, String> nombresLargos = crearMapaEquipos("ficheros/equipos.txt");
 		HashMap<String, ArrayList<Integer>> x = resultadosEquipos("ficheros/partidos.txt");
 		HashMap<String, Integer> recogerPuntos = muestraPuntosEquipos(x);
 
+		Set<String> clavesMapa = nombresLargos.keySet();
 		
+		for(String clave: clavesMapa) {
+		
+			ArrayList<String> nuevoDato = new ArrayList<String>();
+			nuevoDato.add(nombresLargos.get(clave));
+			nuevoDato.add(Integer.toString(recogerPuntos.get(clave)));
+			datos.put(clave, nuevoDato);
+		}
+		
+		Set<String> claveDatos = datos.keySet();
+		for (String clave2 : claveDatos) {
+			System.out.println(clave2 + " [Puntos: " + recogerPuntos.get(clave2) + "]: " + nombresLargos.get(clave2));
+			
+		}
 
 		/*
 		 * ArrayList<String>nombres = new ArrayList<String>(); for (Equipo equipo :
