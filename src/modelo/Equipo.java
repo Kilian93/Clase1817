@@ -5,7 +5,11 @@ public class Equipo implements Comparable<Equipo>{
 	private int id;
 	private String nombreCorto;
 	private String nombreLargo;
-	
+	private int partidosGanados;
+	private int partidosEmpatados;
+	private int partidosPerdidos;
+	private int golesFavor;
+	private int golesEncontra;
 	
 	public Equipo() {
 		super();
@@ -24,6 +28,56 @@ public class Equipo implements Comparable<Equipo>{
 	public String toString() {
 		return this.getNombreLargo();
 	}
+
+	public int getPartidosGanados() {
+		return partidosGanados;
+	}
+
+
+	public void setPartidosGanados(int partidosGanados) {
+		this.partidosGanados = partidosGanados;
+	}
+
+
+	public int getPartidosEmpatados() {
+		return partidosEmpatados;
+	}
+
+
+	public void setPartidosEmpatados(int partidosEmpatados) {
+		this.partidosEmpatados = partidosEmpatados;
+	}
+
+
+	public int getPartidosPerdidos() {
+		return partidosPerdidos;
+	}
+
+
+	public void setPartidosPerdidos(int partidosPerdidos) {
+		this.partidosPerdidos = partidosPerdidos;
+	}
+
+
+	public int getGolesFavor() {
+		return golesFavor;
+	}
+
+
+	public void setGolesFavor(int golesFavor) {
+		this.golesFavor = golesFavor;
+	}
+
+
+	public int getGolesEncontra() {
+		return golesEncontra;
+	}
+
+
+	public void setGolesEncontra(int golesEncontra) {
+		this.golesEncontra = golesEncontra;
+	}
+
 
 	public int getId() {
 		return id;

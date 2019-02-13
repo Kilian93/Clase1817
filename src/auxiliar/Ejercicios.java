@@ -24,6 +24,7 @@ import java.util.Set;
 
 import modelo.Equipo;
 import modelo.Estudiante;
+import modelo.Partido;
 import modelo.Persona;
 
 import javax.swing.JButton;
@@ -35,6 +36,28 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
+	
+	public Partido creaPartido(String linea) {
+		Partido partido;
+		try {
+			partido = new Partido();
+			String[] campos = linea.split("#");
+			String eL = campos[2];
+			String gL = campos[3];
+			String eV = campos[4];
+			String gV = campos[5];
+			
+		} catch (Exception e) {
+			return null;
+		}
+		
+		return partido;
+	}
+	
+	public ArrayList<Equipo>generaClasificacion(String rutaPartidos, String rutaEquipo){
+		return null;
+		
+	}
 
 	// 07 de febrero 2019
 
@@ -46,19 +69,29 @@ public class Ejercicios {
 		HashMap<String, Integer> recogerPuntos = muestraPuntosEquipos(x);
 
 		Set<String> clavesMapa = nombresLargos.keySet();
-		
-		for(String clave: clavesMapa) {
-		
+
+		for (String clave : clavesMapa) {
+
 			ArrayList<String> nuevoDato = new ArrayList<String>();
 			nuevoDato.add(nombresLargos.get(clave));
 			nuevoDato.add(Integer.toString(recogerPuntos.get(clave)));
 			datos.put(clave, nuevoDato);
 		}
-		
+
+		/*
+		 * Set<String> claveDatos = datos.keySet(); for (String clave2 : claveDatos) {
+		 * System.out.println(clave2 + " [Puntos: " + recogerPuntos.get(clave2) + "]: "
+		 * + nombresLargos.get(clave2));
+		 * 
+		 * }
+		 */
+
 		Set<String> claveDatos = datos.keySet();
 		for (String clave2 : claveDatos) {
-			System.out.println(clave2 + " [Puntos: " + recogerPuntos.get(clave2) + "]: " + nombresLargos.get(clave2));
-			
+
+			System.out.println(
+					nombresLargos.get(clave2) + " [Puntos: " + recogerPuntos.get(clave2) + "] " + x.get(clave2));
+
 		}
 
 		/*
@@ -197,6 +230,8 @@ public class Ejercicios {
 	 * 
 	 * }
 	 */
+	
+	
 	public HashMap<String, ArrayList<Integer>> resultadosEquipos(String rutaPartidos)
 	// devuelve un mapa de equipos
 	// por cada equipo hay una lista de contadores
@@ -206,6 +241,8 @@ public class Ejercicios {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaPartidos));
 			String registro;
+			
+			
 			HashMap<String, ArrayList<Integer>> equipos = new HashMap<String, ArrayList<Integer>>();
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
@@ -215,31 +252,38 @@ public class Ejercicios {
 				String gL = campos[3];
 				String eV = campos[4];
 				String gV = campos[5];
-
+				int GF = Integer.parseInt(gL);
+				int GC = Integer.parseInt(gV);
 				// gracias Byron..!!
 				// si no existe eL, eV lo añadimos al mapa..
-
+				
 				if (!equipos.containsKey(eL))
-					equipos.put(eL, new ArrayList<Integer>(Arrays.asList(0, 0, 0)));
+					equipos.put(eL, new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0)));
 
 				if (!equipos.containsKey(eV))
-					equipos.put(eV, new ArrayList<Integer>(Arrays.asList(0, 0, 0)));
+					equipos.put(eV, new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0)));
 
 				// cual fue el resultado ..?
 
 				if (gL.compareTo(gV) > 0) {// gana Local
 					equipos.get(eL).set(0, equipos.get(eL).get(0) + 1);
 					equipos.get(eV).set(2, equipos.get(eV).get(2) + 1);
-
+					
 				} else if (gL.compareTo(gV) < 0) // gana Visitante
 				{// gana Local
 					equipos.get(eL).set(2, equipos.get(eL).get(2) + 1);
 					equipos.get(eV).set(0, equipos.get(eV).get(0) + 1);
+					
 				} else { // empate
 
 					equipos.get(eL).set(1, equipos.get(eL).get(1) + 1);
 					equipos.get(eV).set(1, equipos.get(eV).get(1) + 1);
 				}
+				equipos.get(eL).set(3, equipos.get(eL).get(3) + GF);
+				equipos.get(eL).set(4, equipos.get(eL).get(4) + GC);
+				equipos.get(eV).set(3, equipos.get(eV).get(3) + GC);
+				equipos.get(eV).set(4, equipos.get(eV).get(4) + GF);
+				
 
 			}
 			fichero.close();
