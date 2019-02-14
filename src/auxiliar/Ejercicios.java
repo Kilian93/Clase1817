@@ -36,27 +36,96 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
-	
+
+	// 13 de febrero 2019
+
+	public Equipo bucasEquipoEnLista(String nombreCorto, ArrayList<Equipo> equipos) {
+		Equipo resultado = null;
+		for (Equipo equipo : equipos) {
+			if (equipo.getNombreCorto().equals(nombreCorto))
+				;
+			return equipo;
+		}
+
+		return resultado;
+	}
+
+	public void actualizaEquipos(Partido partido, ArrayList<Equipo> equipos) {
+
+		String nCortoL = partido.getEquipoLocal();
+		String nCortoV = partido.getEquipoVisitante();
+		Equipo eL = bucasEquipoEnLista(nCortoL, equipos);
+		Equipo eV = bucasEquipoEnLista(nCortoV, equipos);
+
+		/*if (condition) {
+
+		} else {
+
+		}*/
+
+		/*
+		 * if (gL.compareTo(gV) > 0) {// gana Local equipos.get(eL).set(0,
+		 * equipos.get(eL).get(0) + 1); equipos.get(eV).set(2, equipos.get(eV).get(2) +
+		 * 1);
+		 * 
+		 * } else if (gL.compareTo(gV) < 0) // gana Visitante {// gana Local
+		 * equipos.get(eL).set(2, equipos.get(eL).get(2) + 1); equipos.get(eV).set(0,
+		 * equipos.get(eV).get(0) + 1); } else { // empate
+		 * 
+		 * equipos.get(eL).set(1, equipos.get(eL).get(1) + 1); equipos.get(eV).set(1,
+		 * equipos.get(eV).get(1) + 1); }
+		 */
+	}
+
 	public Partido creaPartido(String linea) {
-		Partido partido;
+		Partido partido = new Partido();
+
+		String[] campos = linea.split("#");
+		partido.setEquipoLocal(campos[2]);
+		partido.setEquipoVisitante(campos[4]);
+
 		try {
-			partido = new Partido();
-			String[] campos = linea.split("#");
-			String eL = campos[2];
-			String gL = campos[3];
-			String eV = campos[4];
-			String gV = campos[5];
-			
-		} catch (Exception e) {
+			partido.setGolesLocal(Integer.parseInt(campos[3]));
+			partido.setGolesVisitante(Integer.parseInt(campos[5]));
+
+		} catch (NumberFormatException e) {
 			return null;
 		}
-		
+
 		return partido;
 	}
-	
-	public ArrayList<Equipo>generaClasificacion(String rutaPartidos, String rutaEquipo){
-		return null;
-		
+
+	public ArrayList<Equipo> generaClasificacion(String rutaPartidos, String rutaEquipos) {
+		ArrayList<Equipo> resultado = crearListaEquipos(rutaEquipos);
+		try {
+			// crear lista equipos desde fichero equipos.txt
+			// ArrayList<Equipo> resultado = crearListaEquipos(rutaEquipos);
+			//
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaPartidos));
+			String registro;
+			Partido partido;
+			while ((registro = fichero.readLine()) != null) {
+
+				partido = creaPartido(registro);
+				if (partido == null) // ultimo partido jugado..
+					break;
+				// actualiza lista Equipos
+				actualizaEquipos(partido, resultado);
+
+			}
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+		// return null;
+
+		return resultado;
 	}
 
 	// 07 de febrero 2019
@@ -230,8 +299,7 @@ public class Ejercicios {
 	 * 
 	 * }
 	 */
-	
-	
+
 	public HashMap<String, ArrayList<Integer>> resultadosEquipos(String rutaPartidos)
 	// devuelve un mapa de equipos
 	// por cada equipo hay una lista de contadores
@@ -241,8 +309,7 @@ public class Ejercicios {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaPartidos));
 			String registro;
-			
-			
+
 			HashMap<String, ArrayList<Integer>> equipos = new HashMap<String, ArrayList<Integer>>();
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
@@ -252,11 +319,10 @@ public class Ejercicios {
 				String gL = campos[3];
 				String eV = campos[4];
 				String gV = campos[5];
-				int GF = Integer.parseInt(gL);
-				int GC = Integer.parseInt(gV);
+			
 				// gracias Byron..!!
 				// si no existe eL, eV lo añadimos al mapa..
-				
+
 				if (!equipos.containsKey(eL))
 					equipos.put(eL, new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0)));
 
@@ -268,22 +334,21 @@ public class Ejercicios {
 				if (gL.compareTo(gV) > 0) {// gana Local
 					equipos.get(eL).set(0, equipos.get(eL).get(0) + 1);
 					equipos.get(eV).set(2, equipos.get(eV).get(2) + 1);
-					
+
 				} else if (gL.compareTo(gV) < 0) // gana Visitante
 				{// gana Local
 					equipos.get(eL).set(2, equipos.get(eL).get(2) + 1);
 					equipos.get(eV).set(0, equipos.get(eV).get(0) + 1);
-					
+
 				} else { // empate
 
 					equipos.get(eL).set(1, equipos.get(eL).get(1) + 1);
 					equipos.get(eV).set(1, equipos.get(eV).get(1) + 1);
 				}
-				equipos.get(eL).set(3, equipos.get(eL).get(3) + GF);
-				equipos.get(eL).set(4, equipos.get(eL).get(4) + GC);
-				equipos.get(eV).set(3, equipos.get(eV).get(3) + GC);
-				equipos.get(eV).set(4, equipos.get(eV).get(4) + GF);
-				
+				equipos.get(eL).set(3, equipos.get(eL).get(3) + Integer.parseInt(gL));
+				equipos.get(eL).set(4, equipos.get(eL).get(4) + Integer.parseInt(gV));
+				equipos.get(eV).set(3, equipos.get(eV).get(3) + Integer.parseInt(gV));
+				equipos.get(eV).set(4, equipos.get(eV).get(4) + Integer.parseInt(gL));
 
 			}
 			fichero.close();

@@ -5,6 +5,7 @@ public class Equipo implements Comparable<Equipo>{
 	private int id;
 	private String nombreCorto;
 	private String nombreLargo;
+	private int puntos;
 	private int partidosGanados;
 	private int partidosEmpatados;
 	private int partidosPerdidos;
@@ -28,6 +29,16 @@ public class Equipo implements Comparable<Equipo>{
 	public String toString() {
 		return this.getNombreLargo();
 	}
+
+	public int getPuntos() {
+		return puntos;
+	}
+
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+
 
 	public int getPartidosGanados() {
 		return partidosGanados;
