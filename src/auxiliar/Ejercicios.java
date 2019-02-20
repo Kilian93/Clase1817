@@ -3,8 +3,10 @@ package auxiliar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -31,11 +33,86 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.View;
 
 public class Ejercicios {
 
 	// Sgundo trimestre
+
+	// 20 de febrero 2019
+
+	public void grabarTiradasDado(int cuantas) {
+		// crear tiradaDado.txt
+		// abrir fichero de salida
+		try {
+			BufferedWriter fichero = new BufferedWriter(new FileWriter("ficheros/tiradasDado.txt"));
+			Random rnd = new Random();
+			int acum = 0;
+			for (int i = 0; i < cuantas; i++) {
+
+				int numero = 1 + rnd.nextInt(6);
+				acum += numero;
+				fichero.write(numero + "\n");
+
+			}
+			System.out.println();
+			System.out.println("Proceso terminado..");
+			fichero.close();
+
+		} catch (IOException ex) {
+			System.out.println("Error I/O " + ex.getMessage());
+		}
+
+	}
+
+	public void entradaTecladoAFichero(String rutaFichero) {
+
+		try {
+			BufferedWriter fichero = new BufferedWriter(new FileWriter(rutaFichero));
+
+			Scanner teclado = new Scanner(System.in);
+			System.out.println("Teclee sus datos.. x|X para terminar");
+			String tecleado = teclado.nextLine();
+			while ((tecleado = teclado.nextLine()).compareToIgnoreCase("x") != 0) {
+				fichero.write(tecleado + "\n");
+
+			}
+			fichero.close();
+		} catch (IOException ex) {
+			System.out.println("Error I/O " + ex.getMessage());
+		}
+		System.out.println("Fin entrada de datos..");
+
+	}
+
+	// 19 de febrero 2019
+
+	public void muestraClasificacion() {
+		JFrame ventana;
+		ventana = new JFrame("Clasificacion");
+
+		JPanel panel = new JPanel();
+		ventana.add(panel);
+
+		ArrayList<Equipo> equipos = this.generaClasificacion("ficheros/partidos.txt", "ficheros/equipos.txt");
+		String[] columnas = { "EQUIPO", "PUNTOS", "PJ", "PG", "PE", "PP", "GF", "GC" };
+		DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+		modelo.addRow(columnas);
+		for (Equipo equipo : equipos) {
+			Object[] vector = { equipo.getNombreLargo(), equipo.getPuntos(), equipo.getPartidosGanados(),
+					equipo.getPartidosEmpatados(), equipo.getPartidosPerdidos(), equipo.getGolesFavor(),
+					equipo.getGolesEncontra() };
+			modelo.addRow(vector);
+		}
+		JTable tabla = new JTable(modelo);
+		panel.add(tabla);
+		ventana.pack();
+		ventana.setVisible(true);
+
+	}
 
 	// 13 de febrero 2019
 
@@ -57,24 +134,32 @@ public class Ejercicios {
 		Equipo eL = bucasEquipoEnLista(nCortoL, equipos);
 		Equipo eV = bucasEquipoEnLista(nCortoV, equipos);
 
-		/*if (condition) {
+		// logica del resultado del partido
+		if (partido.getGolesLocal() > partido.getGolesVisitante()) {
+			eL.setPuntos(eL.getPuntos() + 3);
+			eL.setPartidosGanados(eL.getPartidosGanados() + 1);
+			eV.setPartidosPerdidos(eV.getPartidosPerdidos() + 1);
 
+		} else if (partido.getGolesLocal() < partido.getGolesVisitante()) {
+			eV.setPuntos(eV.getPuntos() + 3);
+			eV.setPartidosGanados(eV.getPartidosGanados() + 1);
+			eL.setPartidosPerdidos(eL.getPartidosPerdidos() + 1);
 		} else {
+			eL.setPuntos(eL.getPuntos() + 1);
+			eV.setPuntos(eV.getPuntos() + 1);
+			eV.setPartidosEmpatados(eV.getPartidosEmpatados() + 1);
+			eL.setPartidosEmpatados(eL.getPartidosEmpatados() + 1);
+		}
 
-		}*/
+		eL.setGolesFavor(eL.getGolesFavor() + partido.getGolesLocal());
+		eL.setGolesEncontra(eL.getGolesEncontra() + partido.getGolesVisitante());
 
-		/*
-		 * if (gL.compareTo(gV) > 0) {// gana Local equipos.get(eL).set(0,
-		 * equipos.get(eL).get(0) + 1); equipos.get(eV).set(2, equipos.get(eV).get(2) +
-		 * 1);
-		 * 
-		 * } else if (gL.compareTo(gV) < 0) // gana Visitante {// gana Local
-		 * equipos.get(eL).set(2, equipos.get(eL).get(2) + 1); equipos.get(eV).set(0,
-		 * equipos.get(eV).get(0) + 1); } else { // empate
-		 * 
-		 * equipos.get(eL).set(1, equipos.get(eL).get(1) + 1); equipos.get(eV).set(1,
-		 * equipos.get(eV).get(1) + 1); }
-		 */
+		eV.setGolesFavor(eV.getGolesFavor() + partido.getGolesVisitante());
+		eV.setGolesEncontra(eV.getGolesEncontra() + partido.getGolesLocal());
+
+		eL.setPartidosJugados(eL.getPartidosJugados() + 1);
+		eV.setPartidosJugados(eV.getPartidosJugados() + 1);
+
 	}
 
 	public Partido creaPartido(String linea) {
@@ -96,9 +181,10 @@ public class Ejercicios {
 	}
 
 	public ArrayList<Equipo> generaClasificacion(String rutaPartidos, String rutaEquipos) {
-		ArrayList<Equipo> resultado = crearListaEquipos(rutaEquipos);
+		ArrayList<Equipo> resultado;
 		try {
 			// crear lista equipos desde fichero equipos.txt
+			resultado = crearListaEquipos(rutaEquipos);
 			// ArrayList<Equipo> resultado = crearListaEquipos(rutaEquipos);
 			//
 			BufferedReader fichero;
@@ -114,8 +200,11 @@ public class Ejercicios {
 				actualizaEquipos(partido, resultado);
 
 			}
+			Collections.sort(resultado, null);
 			fichero.close();
-			System.out.println("Fin de la lectura del fichero");
+			return resultado;
+
+			// System.out.println("Fin de la lectura del fichero");
 
 		} catch (FileNotFoundException excepcion) {
 			System.out.println("fichero no encontrado");
@@ -123,9 +212,8 @@ public class Ejercicios {
 		} catch (IOException e) {
 			System.out.println("IO Excepcion");
 		}
-		// return null;
+		return null;
 
-		return resultado;
 	}
 
 	// 07 de febrero 2019
@@ -319,7 +407,7 @@ public class Ejercicios {
 				String gL = campos[3];
 				String eV = campos[4];
 				String gV = campos[5];
-			
+
 				// gracias Byron..!!
 				// si no existe eL, eV lo añadimos al mapa..
 
@@ -450,7 +538,14 @@ public class Ejercicios {
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
 				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
+				equipo.setGolesEncontra(0);
+				equipo.setGolesFavor(0);
+				equipo.setPartidosEmpatados(0);
+				equipo.setPartidosGanados(0);
+				equipo.setPartidosPerdidos(0);
+				equipo.setPuntos(0);
 				equipos.add(equipo);
+
 			}
 			fichero.close();
 			System.out.println("Fin de la lectura del fichero");
