@@ -4,10 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,6 +44,57 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
+	
+	//21 de febrero 2019
+	
+	public void leerObjetosEquipos(){
+		
+		try {
+			FileInputStream salida = new FileInputStream("ficheros/equipos.obj");
+			ObjectInputStream objetos = new ObjectInputStream(salida);
+			
+			Equipo equipo = (Equipo) objetos.readObject();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void creaFicheroObjetoEquipos (String rutaEquipos)
+	{
+		try {
+			FileOutputStream salida = new FileOutputStream("ficheros/equipos.obj");
+			ObjectOutputStream objetos = new ObjectOutputStream(salida);
+			// recorre equipos.txt, creando objetos equipo
+			HashMap<String, Equipo> resultado = crearMapaEquipos("ficheros/equipos.txt");
+			Set<String> claveResultado= resultado.keySet();
+			// y grabandolos en objetos
+			for (String claveEquipo : claveResultado) {
+				Equipo objetoEquipo = resultado.get(claveResultado);
+				objetos.writeObject(objetoEquipo);
+			}
+			objetos.close();
+			salida.close();
+		
+			
+		} catch (FileNotFoundException e) {
+		
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
 
 	// 20 de febrero 2019
 
@@ -221,7 +276,7 @@ public class Ejercicios {
 	public HashMap<String, ArrayList<String>> tablaPartidos(String rutaFichero) {
 		HashMap<String, ArrayList<String>> datos = new HashMap<String, ArrayList<String>>();
 		// ArrayList<Equipo> lista = crearListaEquipos("ficheros/equipos.txt");
-		HashMap<String, String> nombresLargos = crearMapaEquipos("ficheros/equipos.txt");
+		HashMap<String, Equipo> nombresLargos = crearMapaEquipos("ficheros/equipos.txt");
 		HashMap<String, ArrayList<Integer>> x = resultadosEquipos("ficheros/partidos.txt");
 		HashMap<String, Integer> recogerPuntos = muestraPuntosEquipos(x);
 
@@ -230,7 +285,8 @@ public class Ejercicios {
 		for (String clave : clavesMapa) {
 
 			ArrayList<String> nuevoDato = new ArrayList<String>();
-			nuevoDato.add(nombresLargos.get(clave));
+			//nuevoDato.add(nombresLargos.get(clave));
+			//nuevoDato.addAll((Collection<? extends String>) nombresLargos.get(clave));
 			nuevoDato.add(Integer.toString(recogerPuntos.get(clave)));
 			datos.put(clave, nuevoDato);
 		}
@@ -485,17 +541,18 @@ public class Ejercicios {
 
 	// Mapa de equipos
 
-	public HashMap<String, String> crearMapaEquipos(String rutaFichero) {
+	public HashMap<String, Equipo> crearMapaEquipos(String rutaFichero) {
 		try {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaFichero));
 			String registro;
 			Equipo equipo = null;
-			HashMap<String, String> equipos = new HashMap<String, String>();
+			HashMap<String, Equipo> equipos = new HashMap<String, Equipo>();
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
 				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
-				equipos.put(campos[1], equipo.getNombreLargo());
+				//equipos.put(campos[1], equipo.getNombreLargo());
+				equipos.put(campos[1], equipo);
 			}
 			fichero.close();
 			System.out.println("Fin de la lectura del fichero");
