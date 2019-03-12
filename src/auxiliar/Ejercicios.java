@@ -44,39 +44,82 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
-	
-	//21 de febrero 2019
-	
-	public void leerObjetosEquipos(){
-		
+
+	// 21 de febrero 2019
+
+	public void leerObjetosEquipos() {
+		ObjectInputStream objetos = null;
 		try {
-			FileInputStream salida = new FileInputStream("ficheros/equipos.obj");
-			ObjectInputStream objetos = new ObjectInputStream(salida);
-			
-			Equipo equipo = (Equipo) objetos.readObject();
-			
+			objetos = new ObjectInputStream(new FileInputStream("ficheros/equipos.obj"));
+
+			while (true) {
+
+				Equipo equipo = (Equipo) objetos.readObject();
+				System.out.println(equipo.getNombreLargo());
+
+			}
+
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("error1");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Fin de la lectura");
+			try {
+				objetos.close();
+			} catch (IOException e1) {
+
+			}
+
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("clase no encontrada");
+
+		} catch (java.lang.ClassCastException e) {
+			System.out.println("Casting imposible");
 		}
-		
+
 	}
-	
-	
-	public void creaFicheroObjetoEquipos (String rutaEquipos)
-	{
+
+	public void creaFicheroObjetoEquipos2() {
+
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader("ficheros/equipos.txt"));
+			FileOutputStream salida = new FileOutputStream("ficheros/equipos.obj");
+			ObjectOutputStream objetos = new ObjectOutputStream(salida);
+
+			String registro;
+
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				Equipo equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
+
+				equipo.setGolesEncontra(0);
+				equipo.setGolesFavor(0);
+				equipo.setPartidosEmpatados(0);
+				equipo.setPartidosGanados(0);
+				equipo.setPartidosPerdidos(0);
+				objetos.writeObject(equipo);
+
+			}
+
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+
+		} catch (FileNotFoundException e) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+
+		}
+	}
+
+	public void creaFicheroObjetoEquipos(String rutaEquipos) {
 		try {
 			FileOutputStream salida = new FileOutputStream("ficheros/equipos.obj");
 			ObjectOutputStream objetos = new ObjectOutputStream(salida);
 			// recorre equipos.txt, creando objetos equipo
 			HashMap<String, Equipo> resultado = crearMapaEquipos("ficheros/equipos.txt");
-			Set<String> claveResultado= resultado.keySet();
+			Set<String> claveResultado = resultado.keySet();
 			// y grabandolos en objetos
 			for (String claveEquipo : claveResultado) {
 				Equipo objetoEquipo = resultado.get(claveResultado);
@@ -84,16 +127,15 @@ public class Ejercicios {
 			}
 			objetos.close();
 			salida.close();
-		
-			
+
 		} catch (FileNotFoundException e) {
-		
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	// 20 de febrero 2019
@@ -285,8 +327,8 @@ public class Ejercicios {
 		for (String clave : clavesMapa) {
 
 			ArrayList<String> nuevoDato = new ArrayList<String>();
-			//nuevoDato.add(nombresLargos.get(clave));
-			//nuevoDato.addAll((Collection<? extends String>) nombresLargos.get(clave));
+			// nuevoDato.add(nombresLargos.get(clave));
+			// nuevoDato.addAll((Collection<? extends String>) nombresLargos.get(clave));
 			nuevoDato.add(Integer.toString(recogerPuntos.get(clave)));
 			datos.put(clave, nuevoDato);
 		}
@@ -551,7 +593,7 @@ public class Ejercicios {
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
 				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
-				//equipos.put(campos[1], equipo.getNombreLargo());
+				// equipos.put(campos[1], equipo.getNombreLargo());
 				equipos.put(campos[1], equipo);
 			}
 			fichero.close();

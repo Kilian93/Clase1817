@@ -15,6 +15,13 @@ public class Main {
 
 		// Pruebas Segundo Trimestre
 		
+		// 21 de febrero 2019
+		
+		prueba.creaFicheroObjetoEquipos2();
+		prueba.leerObjetosEquipos();
+		
+		
+		
 		//19 de febrero 2019
 		
 		// HashMap<String, ArrayList<Integer>> resultados =
