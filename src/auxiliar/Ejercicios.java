@@ -30,6 +30,7 @@ import java.util.Set;
 
 import modelo.Equipo;
 import modelo.Estudiante;
+import modelo.Jugador;
 import modelo.Partido;
 import modelo.Persona;
 
@@ -44,6 +45,169 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
+
+	//13 marzo 2019
+	
+	public ArrayList<Jugador> ordenarListaJugadores(String rutaFichero) {
+		ArrayList<Jugador> lista = crearListaJugadores("ficheros/jugadores2.txt");
+		lista.sort(new Comparator<Jugador>() {
+
+			/*
+			 * @Override public int compare(Equipo eq1, Equipo eq2) {
+			 * 
+			 * return eq1.getNombreLargo().compareTo(eq2.getNombreLargo()); }
+			 */
+
+			public int compare(Jugador ju1, Jugador ju2) {
+
+				if (ju1.getId() < ju2.getId()) {
+					return 1;
+				} else if (ju1.getId() > ju2.getId())
+					return -1;
+				else
+					return 0;
+			}
+
+		});
+
+		return lista;
+	}
+
+	
+	
+	public ArrayList<Jugador> crearListaJugadores (String rutaFichero){
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+			String registro;
+			Jugador jugador = null;
+			ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				//romper la cadena registro
+				for (int i = 0; i < campos.length; i++)
+					System.out.print(campos[i] + " , ");
+				System.out.println("");
+				
+				jugador = new Jugador(campos[1], Integer.parseInt(campos[0]),  Integer.parseInt(campos[2]),  Integer.parseInt(campos[3]));
+				
+				jugadores.add(jugador);
+			}
+			
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+			return jugadores;
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+
+		}
+		
+		
+		return null;
+		//crear la lista vacia
+		//recorrer secuencialmente el fichero
+		//crear el objeto Jugador por cada registro del fichero
+		//añadir jugador a la lista
+		
+		//al terminar el fichero, devolver la lista
+		//
+		
+	}
+	
+	public HashMap<String, Jugador> crearMapaJugadores(String rutaFichero){
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+			String registro;
+			Jugador jugador = null;
+			HashMap<String, Jugador> jugadores = new HashMap<String, Jugador>();
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+			
+				jugador = new Jugador(campos[1], Integer.parseInt(campos[0]),  Integer.parseInt(campos[2]),  Integer.parseInt(campos[3]));
+				jugadores.put(campos[1], jugador);
+			}
+			
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+			return jugadores;
+		} catch (FileNotFoundException e) {
+			System.out.println("fichero no encontrado");
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+		
+		return null;
+		
+		
+	} 
+	
+	// 12 marzo 2019
+
+	public Equipo buscarEquipo(String equipo, ArrayList<Equipo>equipos) {
+			Equipo resultado;
+			for (Equipo equipo1 : equipos) {
+				if(equipo1.getNombreCorto().equals(equipo));
+				return equipo1;
+			}
+			System.out.println("algo falla");
+			return null;
+	}
+
+	
+	public int busquedaBinaria(int[] pajar, int aguja) {
+		int izq = 0;
+		int der = pajar.length - 1;
+		while (izq < der) {
+			int med = ((der - izq) / 2) + izq;
+
+			if (pajar[med] == aguja) {
+				System.out.println("Encontrado " + aguja + " en Posicion " + med);
+				return med;
+			} else if (aguja < pajar[med])
+				der = med - 1;
+			else if (aguja < pajar[med])
+				der = med + 1;
+
+		}
+		System.out.println("No Encontrado" + aguja);
+		return -1;
+
+	}
+
+	// modificar craerMapaEquipos para que devuelva una lista
+	// ArrayList<Equipo>
+	// El fichero a leer se llama equipo.txt
+
+	public ArrayList<Equipo> crearMapaEquipos2(String rutaFichero) {
+		try {
+			ArrayList<Equipo> listaEquipo = new ArrayList<Equipo>();
+			BufferedReader fichero;
+			String registro;
+			Equipo equipo = null;
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
+				listaEquipo.add(equipo);
+			}
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+			return listaEquipo;
+
+		} catch (FileNotFoundException e) {
+			System.out.println("fichero no encontrado");
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+
+		return null;
+
+	}
 
 	// 21 de febrero 2019
 

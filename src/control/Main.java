@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import auxiliar.Ejercicios;
 import modelo.Equipo;
+import modelo.Jugador;
 import modelo.Persona;
 
 public class Main {
@@ -15,28 +16,43 @@ public class Main {
 
 		// Pruebas Segundo Trimestre
 		
+		//13 marzo 2019
+		
+		HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
+		
+		// 12 marzo 2019
+		
+		
+		//int[] pajar = { 1, 2, 3, 12, 30, 34, 36, 38, 40, 41 };
+		
+		//int resultadoBusqueda= prueba.busquedaBinaria(pajar, 2);
+		
+		//ArrayList<Equipo> recogerEquipos = prueba.crearMapaEquipos2("ficheros/equipos.txt");
+		//Equipo resultado = prueba.bucasEquipoEnLista("VAL", recogerEquipos);
+
+
 		// 21 de febrero 2019
-		
-		prueba.creaFicheroObjetoEquipos2();
-		prueba.leerObjetosEquipos();
-		
-		
-		
-		//19 de febrero 2019
-		
+
+		// prueba.creaFicheroObjetoEquipos2();
+		// prueba.leerObjetosEquipos();
+
+		// 19 de febrero 2019
+
 		// HashMap<String, ArrayList<Integer>> resultados =
-				// prueba.resultadosEquipos("ficheros/partidos.txt");
-				// HashMap<String, Integer> puntosEquipos =
-				// prueba.generaPuntosEquipos(resultados);
-				prueba.muestraClasificacion();
+		// prueba.resultadosEquipos("ficheros/partidos.txt");
+		// HashMap<String, Integer> puntosEquipos =
+		// prueba.generaPuntosEquipos(resultados);
+		// prueba.muestraClasificacion();
 
 		// 07 de frbrero 2019
 
-		HashMap<String, ArrayList<String>> recorgerDatos = prueba.tablaPartidos("ficheros/partidos.txt");
+		// HashMap<String, ArrayList<String>> recorgerDatos =
+		// prueba.tablaPartidos("ficheros/partidos.txt");
 
 		// 06 de febrero 2019
 
-		//ArrayList<Equipo> ordenarEquipo = prueba.ordenarListaEquipo("ficheros/equipos.txt");
+		// ArrayList<Equipo> ordenarEquipo =
+		// prueba.ordenarListaEquipo("ficheros/equipos.txt");
 
 		// 05 de febrero 2019
 
@@ -51,8 +67,9 @@ public class Main {
 
 		// 29 de enero 2019
 
-		//HashMap<String, ArrayList<Integer>> x = prueba.resultadosEquipos("ficheros/partidos.txt");
-		//HashMap<String, Integer> recogerPuntos = prueba.muestraPuntosEquipos(x);
+		// HashMap<String, ArrayList<Integer>> x =
+		// prueba.resultadosEquipos("ficheros/partidos.txt");
+		// HashMap<String, Integer> recogerPuntos = prueba.muestraPuntosEquipos(x);
 		// HashMap<String,Integer> recoger=
 		// prueba.comprobarPartidos("ficheros/partidos.txt", "#");
 
