@@ -29,6 +29,10 @@ public class Persona implements Comparable<Persona>, Humano{
 
 		// this.hijos=hijos;
 	}
+	
+	public String toString() {
+		return this.getNombre();
+	}
 
 	public Persona(String nombre) {
 		super();

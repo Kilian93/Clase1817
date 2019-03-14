@@ -48,6 +48,26 @@ public class Ejercicios {
 
 	//13 marzo 2019
 	
+	public void ordenarMapaJufadoresPorNombre(HashMap<String, Jugador> nombreJugadores) {
+		Set<Entry<String, Jugador>> set = nombreJugadores.entrySet();
+		List<Entry<String, Jugador>> listado = new ArrayList<Entry<String, Jugador>>(set);
+		Collections.sort(listado, new Comparator<Map.Entry<String, Jugador>>() {
+			public int compare(Map.Entry<String, Jugador> jugador1, Map.Entry<String, Jugador> jugador2) {
+				return (jugador1.getValue().getNombre()).compareTo(jugador2.getValue().getNombre());
+			}
+		});
+		
+		for (Map.Entry<String, Jugador> entry : listado) {
+			System.out.println(entry.getKey() + " ==== " + entry.getValue());
+		}
+	}
+		
+	
+	
+		
+	
+	
+	
 	public ArrayList<Jugador> ordenarListaJugadores(String rutaFichero) {
 		ArrayList<Jugador> lista = crearListaJugadores("ficheros/jugadores2.txt");
 		lista.sort(new Comparator<Jugador>() {
@@ -60,9 +80,9 @@ public class Ejercicios {
 
 			public int compare(Jugador ju1, Jugador ju2) {
 
-				if (ju1.getId() < ju2.getId()) {
+				if (ju1.getDorsal() < ju2.getDorsal()) {
 					return 1;
-				} else if (ju1.getId() > ju2.getId())
+				} else if (ju1.getDorsal() > ju2.getDorsal())
 					return -1;
 				else
 					return 0;
@@ -129,7 +149,7 @@ public class Ejercicios {
 				String[] campos = registro.split("#");
 			
 				jugador = new Jugador(campos[1], Integer.parseInt(campos[0]),  Integer.parseInt(campos[2]),  Integer.parseInt(campos[3]));
-				jugadores.put(campos[1], jugador);
+				jugadores.put(campos[2], jugador);
 			}
 			
 			fichero.close();

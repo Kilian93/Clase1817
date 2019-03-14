@@ -16,9 +16,17 @@ public class Main {
 
 		// Pruebas Segundo Trimestre
 		
+		//14 marzo 2019 
+		HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
+		prueba.ordenarMapaJufadoresPorNombre(recogerMapaJugadores);
+		
 		//13 marzo 2019
 		
-		HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
+		//ArrayList<Jugador> listaJugaderesOrdenada= prueba.ordenarListaJugadores("ficheros/Jugadores2.txt");
+		
+		//ArrayList<Jugador>listaJugadores = prueba.crearListaJugadores("ficheros/Jugadores2.txt");
+		
+		//HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
 		
 		// 12 marzo 2019
 		
