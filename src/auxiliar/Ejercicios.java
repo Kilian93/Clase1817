@@ -45,6 +45,57 @@ import javax.swing.text.View;
 public class Ejercicios {
 
 	// Sgundo trimestre
+	
+	
+	// 28 marzo 2019
+	
+	public String leerRegistro(BufferedReader fichero) throws IOException {
+
+		String registro = fichero.readLine();
+		if (registro == null) // se ha alcanzado fin del fichero
+			return "ZZZ";
+
+		return registro;
+
+	}
+
+	public void meclarFicherosOrdenados(String rutaF1, String rutaF2, String rutaF3) {
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaF1));
+			BufferedReader fichero2;
+			fichero2 = new BufferedReader(new FileReader(rutaF2));
+			BufferedWriter fichero3;
+			fichero3 = new BufferedWriter(new FileWriter(rutaF3));
+			String registro1 = leerRegistro(fichero);
+			String registro2 = leerRegistro(fichero2);
+			while (!registro1.contentEquals("z")  || !registro2.contentEquals("z"))  {
+
+				String k1 = registro1.split("#")[0];
+				String k2 = registro2.split("#")[0];
+
+				// if (Integer.parseInt(campos) > Integer.parseInt(campos1))
+				if ((k1.compareTo(k2)) < 0) {
+					fichero3.write(registro1 + "\n");
+					registro1 = leerRegistro(fichero);
+
+				} else {
+					fichero3.write(registro2 + "\n");
+					registro2 = leerRegistro(fichero2);
+				}
+
+			}
+			fichero.close();
+			fichero2.close();
+			fichero3.close();
+		} catch (FileNotFoundException e) {
+
+		} catch (IOException e) {
+
+		}
+
+	}
+
 
 	//13 marzo 2019
 	
