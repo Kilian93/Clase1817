@@ -18,13 +18,13 @@ public class Main {
 		
 		//28 marzo 2019
 		
-		prueba.meclarFicherosOrdenados("ficheros/equipos1.txt", "ficheros/equipos2.txt", "ficheros/equiposOrdenados.txt");
+		prueba.meclarFicherosOrdenados("ficheros/equipos1.txt", "ficheros/equipos2.txt", "ficheros/equiposOrdenados2.txt");
 		
 		//ArrayList<String[]> fichero= prueba.creaListaFichero("ficheros/equipos.txt", "#");
 		
 		//14 marzo 2019 
-		HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
-		prueba.ordenarMapaJufadoresPorNombre(recogerMapaJugadores);
+		//HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
+		//prueba.ordenarMapaJufadoresPorNombre(recogerMapaJugadores);
 		
 		//13 marzo 2019
 		

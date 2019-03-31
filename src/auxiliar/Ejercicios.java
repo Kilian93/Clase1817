@@ -53,7 +53,7 @@ public class Ejercicios {
 
 		String registro = fichero.readLine();
 		if (registro == null) // se ha alcanzado fin del fichero
-			return "ZZZ";
+			return "z";
 
 		return registro;
 
@@ -75,7 +75,7 @@ public class Ejercicios {
 				String k2 = registro2.split("#")[0];
 
 				// if (Integer.parseInt(campos) > Integer.parseInt(campos1))
-				if ((k1.compareTo(k2)) < 0) {
+				if ((k1.compareTo(k2)) < 2) {
 					fichero3.write(registro1 + "\n");
 					registro1 = leerRegistro(fichero);
 
