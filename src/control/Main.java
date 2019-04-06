@@ -15,10 +15,19 @@ public class Main {
 		Ejercicios prueba = new Ejercicios();
 
 		// Pruebas Segundo Trimestre
+		 HashMap<String, ArrayList<Jugador>>recogerJugadoresPorEquipo=prueba.crearJugadoresPorEquipo();
+		
+		//HashMap<String, ArrayList<Equipo>> recogerMapa = prueba.crearMapaEquipos2_1("ficheros/equipos.txt");
+		
+		//prueba.creaFicheroObjetoEquipos("ficheros/equipos.obj2");
+		//prueba.mostrarFicheroObjetosEquipos("ficheros/equipos.obj2");
+		//prueba.leerFicheroObjeto("ficheros/equipos.obj");
+		//prueba.creaFicheroObjetoEquipos2();
+		//prueba.leerObjetosEquipos();
 		
 		//28 marzo 2019
 		
-		prueba.meclarFicherosOrdenados("ficheros/equipos1.txt", "ficheros/equipos2.txt", "ficheros/equiposOrdenados2.txt");
+		//prueba.meclarFicherosOrdenados("ficheros/equipos1.txt", "ficheros/equipos2.txt", "ficheros/equiposOrdenados2.txt");
 		
 		//ArrayList<String[]> fichero= prueba.creaListaFichero("ficheros/equipos.txt", "#");
 		

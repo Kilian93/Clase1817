@@ -1,7 +1,13 @@
 package modelo;
 
-public class Equipo implements Comparable<Equipo> {
+import java.io.Serializable;
 
+public class Equipo implements Serializable, Comparable<Equipo> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nombreCorto;
 	private String nombreLargo;
