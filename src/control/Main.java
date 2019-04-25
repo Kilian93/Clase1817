@@ -3,19 +3,30 @@ package control;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import auxiliar.BaseDeDatos;
 import auxiliar.Ejercicios;
 import modelo.Equipo;
 import modelo.Jugador;
 import modelo.Persona;
+import modelo.dao.AccesoDatos;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		Ejercicios prueba = new Ejercicios();
+		
+		//Tercer Trimestre
+		
+		//BaseDeDatos bd = new BaseDeDatos("localhost:3306", "sakila", "root", "");
+		AccesoDatos acc = new AccesoDatos();
+		
+		acc.recorreTabla();
+		System.out.println(" FIN DE PROGRAMA");
+		System.exit(0);
 
 		// Pruebas Segundo Trimestre
-		 HashMap<String, ArrayList<Jugador>>recogerJugadoresPorEquipo=prueba.crearJugadoresPorEquipo();
+		// HashMap<String, ArrayList<Jugador>>recogerJugadoresPorEquipo=prueba.crearJugadoresPorEquipo();
 		
 		//HashMap<String, ArrayList<Equipo>> recogerMapa = prueba.crearMapaEquipos2_1("ficheros/equipos.txt");
 		
@@ -104,8 +115,8 @@ public class Main {
 		// prueba.introLista();
 		// prueba.introMapas();
 		// prueba.introLista2();
-		System.out.println(" FIN DE PROGRAMA");
-		System.exit(0);
+		//System.out.println(" FIN DE PROGRAMA");
+		//System.exit(0);
 
 		// int x= 10;
 		// int y=30;
