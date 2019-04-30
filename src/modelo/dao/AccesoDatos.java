@@ -22,8 +22,8 @@ public class AccesoDatos {
 			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-			String sql = "delete from equipos";
-			int rS = stmt.executeUpdate(sql);
+			// String sql = "delete from equipos";
+			// int rS = stmt.executeUpdate(sql);
 			fichero = new BufferedReader(new FileReader(rutaFichero));
 			String registro;
 			while ((registro = fichero.readLine()) != null) {
@@ -32,22 +32,23 @@ public class AccesoDatos {
 				String nombreCorto = campos[1];
 				String nombreLargo = campos[2];
 
-				sql = "	INSERT INTO equipos (id, nombreCorto, nombreLargo) VALUES";
-				sql += "(" + id + ",\"" + nombreCorto + "\"," + nombreLargo + "\"" + ")";
-				stmt = conexion.createStatement();
-				rS = stmt.executeUpdate(sql);
+				String sql = "	INSERT INTO equipos (id, nombreCorto, nombreLargo) VALUES";
+				sql += "(" + id + ",\"" + nombreCorto + "\"," + "\"" + nombreLargo + "\")";
+				System.out.println(sql);
+				stmt.executeUpdate(sql);
 			}
 			fichero.close();
-			stmt.close();
+			System.out.println("Fin de la lectura del fichero");
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-
+			System.out.println("fichero no encontrado");
 		} catch (SQLException e) {
-
+			System.out.println(e.getMessage());
 		} catch (IOException e) {
+			System.out.println("IO Excepcion");
 
 		}
 
