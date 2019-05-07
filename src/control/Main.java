@@ -21,8 +21,8 @@ public class Main {
 		//BaseDeDatos bd = new BaseDeDatos("localhost:3306", "sakila", "root", "");
 		AccesoDatos acc = new AccesoDatos();
 		
-		//acc.recorreTabla();
-		acc.insertarEquiposBD("ficheros/equipos.txt");
+		acc.recorreTabla("equipos", "liga");
+		//acc.insertarEquiposBD("ficheros/equipos.txt");
 		System.out.println(" FIN DE PROGRAMA");
 		System.exit(0);
 

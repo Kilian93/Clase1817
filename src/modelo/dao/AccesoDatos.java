@@ -6,12 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import auxiliar.BaseDeDatos;
 
 public class AccesoDatos {
+
+	// 02 mayo 2019
+	public void insertar(String rutaFichero) {
+
+	}
 
 	// 30 abril 2019
 
@@ -55,15 +61,27 @@ public class AccesoDatos {
 	}
 
 	// mostrar por consola lodos los actores
-	public void recorreTabla() {
+	public void recorreTabla(String tabla, String dbDatos) {
 
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", "sakila", "root", "");
+			BaseDeDatos bd = new BaseDeDatos("localhost", dbDatos, "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-			ResultSet rS = stmt.executeQuery("SELECT first_name, last_name FROM actor");
-			while (rS.next())
-				System.out.println(rS.getString(1) + "\t\t" + rS.getString("last_name"));
+			ResultSet rS = stmt.executeQuery("SELECT * from " + tabla + " where 1");
+			ResultSetMetaData mD = rS.getMetaData();
+			for (int i = 1; i < mD.getColumnCount(); i++) {
+				// System.out.println(i + " -> " + mD.getColumnName(i));
+				System.out.print(mD.getColumnName(i) + "\t\t");
+			}
+			System.out.println();
+			while (rS.next()) {
+				for (int i = 1; i < mD.getColumnCount(); i++) {
+
+					System.out.print(rS.getString(i) + "\t\t");
+				}
+				System.out.println();
+				// System.out.print(rS.getString(1) + "\t\t" + rS.getString("last_name"));
+			}
 			rS.close();
 			stmt.close();
 			conexion.close();
