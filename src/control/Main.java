@@ -15,56 +15,63 @@ public class Main {
 	public static void main(String[] args) {
 
 		Ejercicios prueba = new Ejercicios();
-		
-		//Tercer Trimestre
-		
-		//BaseDeDatos bd = new BaseDeDatos("localhost:3306", "sakila", "root", "");
+
+		// Tercer Trimestre
+
+		// BaseDeDatos bd = new BaseDeDatos("localhost:3306", "sakila", "root", "");
 		AccesoDatos acc = new AccesoDatos();
-		
-		acc.recorreTabla("equipos", "liga");
-		//acc.insertarEquiposBD("ficheros/equipos.txt");
+		ArrayList<Equipo> recogerLista = acc.crearListaEquipoBD("liga", "equipos");
+		 //acc.recorreTabla("equipos", "liga");
+		// acc.insertarEquiposBD("ficheros/equipos.txt");
 		System.out.println(" FIN DE PROGRAMA");
 		System.exit(0);
 
 		// Pruebas Segundo Trimestre
-		// HashMap<String, ArrayList<Jugador>>recogerJugadoresPorEquipo=prueba.crearJugadoresPorEquipo();
-		
-		//HashMap<String, ArrayList<Equipo>> recogerMapa = prueba.crearMapaEquipos2_1("ficheros/equipos.txt");
-		
-		//prueba.creaFicheroObjetoEquipos("ficheros/equipos.obj2");
-		//prueba.mostrarFicheroObjetosEquipos("ficheros/equipos.obj2");
-		//prueba.leerFicheroObjeto("ficheros/equipos.obj");
-		//prueba.creaFicheroObjetoEquipos2();
-		//prueba.leerObjetosEquipos();
-		
-		//28 marzo 2019
-		
-		//prueba.meclarFicherosOrdenados("ficheros/equipos1.txt", "ficheros/equipos2.txt", "ficheros/equiposOrdenados2.txt");
-		
-		//ArrayList<String[]> fichero= prueba.creaListaFichero("ficheros/equipos.txt", "#");
-		
-		//14 marzo 2019 
-		//HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
-		//prueba.ordenarMapaJufadoresPorNombre(recogerMapaJugadores);
-		
-		//13 marzo 2019
-		
-		//ArrayList<Jugador> listaJugaderesOrdenada= prueba.ordenarListaJugadores("ficheros/Jugadores2.txt");
-		
-		//ArrayList<Jugador>listaJugadores = prueba.crearListaJugadores("ficheros/Jugadores2.txt");
-		
-		//HashMap<String, Jugador> recogerMapaJugadores= prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
-		
-		// 12 marzo 2019
-		
-		
-		//int[] pajar = { 1, 2, 3, 12, 30, 34, 36, 38, 40, 41 };
-		
-		//int resultadoBusqueda= prueba.busquedaBinaria(pajar, 2);
-		
-		//ArrayList<Equipo> recogerEquipos = prueba.crearMapaEquipos2("ficheros/equipos.txt");
-		//Equipo resultado = prueba.bucasEquipoEnLista("VAL", recogerEquipos);
+		// HashMap<String,
+		// ArrayList<Jugador>>recogerJugadoresPorEquipo=prueba.crearJugadoresPorEquipo();
 
+		// HashMap<String, ArrayList<Equipo>> recogerMapa =
+		// prueba.crearMapaEquipos2_1("ficheros/equipos.txt");
+
+		// prueba.creaFicheroObjetoEquipos("ficheros/equipos.obj2");
+		// prueba.mostrarFicheroObjetosEquipos("ficheros/equipos.obj2");
+		// prueba.leerFicheroObjeto("ficheros/equipos.obj");
+		// prueba.creaFicheroObjetoEquipos2();
+		// prueba.leerObjetosEquipos();
+
+		// 28 marzo 2019
+
+		// prueba.meclarFicherosOrdenados("ficheros/equipos1.txt",
+		// "ficheros/equipos2.txt", "ficheros/equiposOrdenados2.txt");
+
+		// ArrayList<String[]> fichero= prueba.creaListaFichero("ficheros/equipos.txt",
+		// "#");
+
+		// 14 marzo 2019
+		// HashMap<String, Jugador> recogerMapaJugadores=
+		// prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
+		// prueba.ordenarMapaJufadoresPorNombre(recogerMapaJugadores);
+
+		// 13 marzo 2019
+
+		// ArrayList<Jugador> listaJugaderesOrdenada=
+		// prueba.ordenarListaJugadores("ficheros/Jugadores2.txt");
+
+		// ArrayList<Jugador>listaJugadores =
+		// prueba.crearListaJugadores("ficheros/Jugadores2.txt");
+
+		// HashMap<String, Jugador> recogerMapaJugadores=
+		// prueba.crearMapaJugadores("ficheros/Jugadores2.txt");
+
+		// 12 marzo 2019
+
+		// int[] pajar = { 1, 2, 3, 12, 30, 34, 36, 38, 40, 41 };
+
+		// int resultadoBusqueda= prueba.busquedaBinaria(pajar, 2);
+
+		// ArrayList<Equipo> recogerEquipos =
+		// prueba.crearMapaEquipos2("ficheros/equipos.txt");
+		// Equipo resultado = prueba.bucasEquipoEnLista("VAL", recogerEquipos);
 
 		// 21 de febrero 2019
 
@@ -116,8 +123,8 @@ public class Main {
 		// prueba.introLista();
 		// prueba.introMapas();
 		// prueba.introLista2();
-		//System.out.println(" FIN DE PROGRAMA");
-		//System.exit(0);
+		// System.out.println(" FIN DE PROGRAMA");
+		// System.exit(0);
 
 		// int x= 10;
 		// int y=30;

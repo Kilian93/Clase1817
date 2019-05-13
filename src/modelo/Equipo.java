@@ -31,6 +31,21 @@ public class Equipo implements Serializable, Comparable<Equipo> {
 		this.nombreLargo = nombreLargo;
 	}
 
+	public Equipo(int id, String nombreCorto, String nombreLargo, int partidosJugados, int puntos, int partidosGanados,
+			int partidosEmpatados, int partidosPerdidos, int golesFavor, int golesEncontra) {
+		super();
+		this.id = id;
+		this.nombreCorto = nombreCorto;
+		this.nombreLargo = nombreLargo;
+		this.partidosJugados = partidosJugados;
+		this.puntos = puntos;
+		this.partidosGanados = partidosGanados;
+		this.partidosEmpatados = partidosEmpatados;
+		this.partidosPerdidos = partidosPerdidos;
+		this.golesFavor = golesFavor;
+		this.golesEncontra = golesEncontra;
+	}
+
 	public String toString() {
 		return getNombreLargo();
 	}
