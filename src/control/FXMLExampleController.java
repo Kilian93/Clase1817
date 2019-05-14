@@ -41,7 +41,7 @@ import modelo.dao.AccesoDatos;
 
 public class FXMLExampleController {
 	@FXML
-	private Text actiontarget;
+	private Text mensaje;
 	@FXML
 	private TextField usr;
 	@FXML
@@ -53,12 +53,11 @@ public class FXMLExampleController {
 	 */
 
 	@FXML
-	protected void manejarBoton(ActionEvent event) {
-		boolean login = AccesoDatos
-		/*String texto = usr.getText() + "/" + pwd.getText();
+	protected void validarLogin(ActionEvent event) {
+		String texto = usr.getText() + "/" + pwd.getText();
+		//mensaje.setText(texto);
+		boolean login = AccesoDatos.validaLogin(usr.getText(), pwd.getText());
 
-		actiontarget.setText(texto);
-*/
 	}
 
 }

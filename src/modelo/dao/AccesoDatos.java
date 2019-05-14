@@ -18,7 +18,7 @@ public class AccesoDatos {
 
 	// 08 mayo 2019
 
-	public boolean validaLogin(String user, String pwd) {
+	public static boolean validaLogin(String user, String pwd) {
 		// conectar a la base de datos
 		// preparar consulta contra liga.usuarios(SELECT)
 		// como saber si existe o no ?
@@ -27,23 +27,41 @@ public class AccesoDatos {
 			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-			ResultSet rst = stmt.executeQuery("select nombre, clave from usuarios where nombre like" + "\"" + user
-					+ "\"" + "and clave like" + "\"" + pwd + "\";");
-			if (rst != null && rst.next()) {
-				System.out.println(rst.getString(1) + " " + rst.getString(2));
-			} else {
-				System.out.println("Usuario o contraseña incorrecta");
-			}
+			/*
+			 * ResultSet rst = stmt.executeQuery("select nombre, clave from usuarios where
+			 * nombre like" + "\"" + user + "\"" + "and clave like" + "\"" + pwd + "\";");
+			 * 
+			 * if (rst != null && rst.next()) { System.out.println(rst.getString(1) + " " +
+			 * rst.getString(2)); } else {
+			 * System.out.println("Usuario o contraseña incorrecta"); }
+			 */
 
+			/*
+			 * String sql = "select nombre, clave from usuarios where nombre like" + "\"" +
+			 * user + "\"" + "and clave like" + "\"" + pwd + "\";";
+			 */
+			String sql = "SELECT * FROM usuarios  WHERE usuario LIKE '" + user + "' AND clave LIKE '" + pwd + "'";
+			//System.out.println(sql);
+			ResultSet rst = stmt.executeQuery(sql);
+
+			int contador = 0;
+			while (rst.next()) {
+				contador++;
+			}
 			rst.close();
 			stmt.close();
 			conexion.close();
+			if (contador == 0)
+				return false;
+			return true;
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}catch (NullPointerException e) {
+			System.out.println("Error de conexión");
 		}
 
-		return true;
+		return false;
 
 	}
 
@@ -63,13 +81,13 @@ public class AccesoDatos {
 				int id = Integer.parseInt(rst.getString(1));
 				String nombreCorto = rst.getString(2);
 				String nombreLargo = rst.getString(3);
-				//int pj = Integer.parseInt(rst.getString(4));
-				//int puntos = Integer.parseInt(rst.getString(5));
-				//int pg = Integer.parseInt(rst.getString(6));
-				//int pe = Integer.parseInt(rst.getString(7));
-				//int pp = Integer.parseInt(rst.getString(8));
-				//int gf = Integer.parseInt(rst.getString(9));
-				//int gc = Integer.parseInt(rst.getString(10));
+				// int pj = Integer.parseInt(rst.getString(4));
+				// int puntos = Integer.parseInt(rst.getString(5));
+				// int pg = Integer.parseInt(rst.getString(6));
+				// int pe = Integer.parseInt(rst.getString(7));
+				// int pp = Integer.parseInt(rst.getString(8));
+				// int gf = Integer.parseInt(rst.getString(9));
+				// int gc = Integer.parseInt(rst.getString(10));
 				// Equipo equipo = new Equipo(id, nombreCorto, nombreLargo, pj, puntos, pg, pe,
 				// pp, gf, gc);
 				// listaEquipo.add(equipo);
