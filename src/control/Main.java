@@ -20,8 +20,9 @@ public class Main {
 
 		// BaseDeDatos bd = new BaseDeDatos("localhost:3306", "sakila", "root", "");
 		AccesoDatos acc = new AccesoDatos();
-		ArrayList<Equipo> recogerLista = acc.crearListaEquipoBD("liga", "equipos");
-		 //acc.recorreTabla("equipos", "liga");
+		acc.insertarJugadoresBD("ficheros/jugadores2.txt");
+		// ArrayList<Equipo> recogerLista = acc.crearListaEquipoBD("liga", "equipos");
+		// acc.recorreTabla("equipos", "liga");
 		// acc.insertarEquiposBD("ficheros/equipos.txt");
 		System.out.println(" FIN DE PROGRAMA");
 		System.exit(0);

@@ -30,38 +30,32 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package control;
+package combo;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import modelo.dao.AccesoDatos;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class FXMLExampleController {
-	@FXML
-	private Text mensaje;
-	@FXML
-	private TextField usr;
-	@FXML
-	private PasswordField pwd;
+public class ComboEjemplo extends Application {
+    
+	@Override
+	public void start(Stage stage) throws Exception {
 
-	/*
-	 * @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-	 * actiontarget.setText("Sign in button pressed"); }
-	 */
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("combo.fxml"));
+	    Parent root = loader.load();
 
-	@FXML
-	protected void validarLogin(ActionEvent event) {
-		String texto = usr.getText() + "/" + pwd.getText();
-		//mensaje.setText(texto);
-		boolean login = AccesoDatos.validaLogin(usr.getText(), pwd.getText());
-		if (login)
-			mensaje.setText("CONECTADO");
-		else
-			mensaje.setText("ACCESO DENEGADO");
+	    ComboControler myController = loader.getController();
 
+	    Scene scene = new Scene(root);
+	    stage.setScene(scene);
+	    stage.show();
+
+	    //Set Data to FXML through controller
+	    myController.cargaEquipos();
 	}
-
+	  public static void main(String[] args) {
+	    launch(args);
+	}
 }

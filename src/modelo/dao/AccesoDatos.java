@@ -13,8 +13,67 @@ import java.util.ArrayList;
 
 import auxiliar.BaseDeDatos;
 import modelo.Equipo;
+import modelo.Jugador;
 
 public class AccesoDatos {
+
+	// 15 mayo 2019
+
+	public static ArrayList<Jugador> getPlayersByTeams(String e) {
+		ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
+		try {
+			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			
+			String sql = "Select liga.jugadores where=" + e + ";";
+			ResultSet rst = stmt.executeQuery(sql);
+			
+			while(rst.next()) {
+				
+			}
+			
+		} catch (SQLException e1) {
+			System.out.println(e1.getMessage());
+		}
+		return listaJugadores;
+
+	}
+
+	public static ArrayList<Equipo> getAllTeams(String dbDatos, String tabla) {
+		ArrayList<Equipo> listaEquipo = new ArrayList<Equipo>();
+
+		try {
+			BaseDeDatos bd = new BaseDeDatos("localhost", dbDatos, "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			ResultSet rst = stmt.executeQuery("select * from " + tabla + " where 1");
+			ResultSetMetaData rsMet = rst.getMetaData();
+			rsMet.getColumnCount();
+			while (rst.next()) {
+				Equipo e = new Equipo();
+
+				e.setId(rst.getInt("id"));
+				e.setNombreLargo(rst.getString("nombre"));
+				e.setPartidosJugados(rst.getInt("pj"));
+				e.setPuntos(rst.getInt("puntos"));
+				e.setPartidosGanados(rst.getInt("pg"));
+				e.setPartidosEmpatados(rst.getInt("pe"));
+				e.setPartidosPerdidos(rst.getInt("pp"));
+				e.setGolesFavor(rst.getInt("gf"));
+				e.setGolesEncontra(rst.getInt("gc"));
+				listaEquipo.add(e);
+
+			}
+			rst.close();
+			stmt.close();
+			conexion.close();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return listaEquipo;
+	}
 
 	// 08 mayo 2019
 
@@ -41,7 +100,7 @@ public class AccesoDatos {
 			 * user + "\"" + "and clave like" + "\"" + pwd + "\";";
 			 */
 			String sql = "SELECT * FROM usuarios  WHERE usuario LIKE '" + user + "' AND clave LIKE '" + pwd + "'";
-			//System.out.println(sql);
+			// System.out.println(sql);
 			ResultSet rst = stmt.executeQuery(sql);
 
 			int contador = 0;
@@ -57,7 +116,7 @@ public class AccesoDatos {
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.out.println("Error de conexión");
 		}
 
@@ -255,7 +314,7 @@ public class AccesoDatos {
 			Statement stmt = conexion.createStatement();
 			ResultSet rS = stmt.executeQuery("SELECT * from " + tabla + " where 1");
 			ResultSetMetaData mD = rS.getMetaData();
-			for (int i = 1; i < mD.getColumnCount(); i++) {
+			for (int i = 1; i <= mD.getColumnCount(); i++) {
 				// System.out.println(i + " -> " + mD.getColumnName(i));
 				System.out.print(mD.getColumnName(i) + "\t\t");
 			}
