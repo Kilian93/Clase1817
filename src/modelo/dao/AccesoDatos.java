@@ -19,18 +19,23 @@ public class AccesoDatos {
 
 	// 15 mayo 2019
 
-	public static ArrayList<Jugador> getPlayersByTeams(String e) {
+	public static ArrayList<Jugador> getPlayersByTeams(int idEquipo) {
 		ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
 		try {
 			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			
-			String sql = "Select liga.jugadores where=" + e + ";";
+			String sql = "Select liga.jugadores where idEquipo" + "like'"+ idEquipo + ";";
 			ResultSet rst = stmt.executeQuery(sql);
 			
 			while(rst.next()) {
-				
+				Jugador jugador = new Jugador();
+				jugador.setId(rst.getInt("id"));
+				jugador.setNombre(rst.getString("nombre"));
+				jugador.setDorsal(rst.getInt("dorsal"));
+				jugador.setCodigoEquipo(rst.getInt("idEquipo"));
+				listaJugadores.add(jugador);
 			}
 			
 		} catch (SQLException e1) {
@@ -54,8 +59,9 @@ public class AccesoDatos {
 				Equipo e = new Equipo();
 
 				e.setId(rst.getInt("id"));
-				e.setNombreLargo(rst.getString("nombre"));
-				e.setPartidosJugados(rst.getInt("pj"));
+				e.setNombreCorto(rst.getString("nombreCorto"));
+				e.setNombreLargo(rst.getString("nombreLargo"));
+				//e.setPartidosJugados(rst.getInt("pj"));
 				e.setPuntos(rst.getInt("puntos"));
 				e.setPartidosGanados(rst.getInt("pg"));
 				e.setPartidosEmpatados(rst.getInt("pe"));
@@ -126,7 +132,7 @@ public class AccesoDatos {
 
 	// 02 mayo 2019
 
-	public ArrayList<Equipo> crearListaEquipoBD(String dbDatos, String tabla) {
+	public static ArrayList<Equipo> crearListaEquipoBD(String dbDatos, String tabla) {
 		ArrayList<Equipo> listaEquipo = new ArrayList<Equipo>();
 		try {
 
