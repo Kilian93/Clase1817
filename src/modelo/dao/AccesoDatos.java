@@ -10,12 +10,87 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import auxiliar.BaseDeDatos;
 import modelo.Equipo;
 import modelo.Jugador;
 
 public class AccesoDatos {
+
+	// 21 mayo 2019
+
+	public void insertarPartidosBD(String rutaPartidos) {
+
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaPartidos));
+			BaseDeDatos bd = new BaseDeDatos("localhost:3306", "liga", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+
+			String registro;
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				if (campos[3].equals("")) // ultimo partido jugado..
+					break;
+				int id = Integer.parseInt(campos[0]);
+				int jornada = Integer.parseInt(campos[1]);
+				String eL= campos[2];
+				int gL = Integer.parseInt(campos[3]);
+				String eV= campos[4];
+				int gV = Integer.parseInt(campos[5]);
+				String sql = "insert into partidos(idPartidos,jornada,equipoLocal,golesLocal,equipoVisitante,golesVisitante) values";
+				sql+= "(" + id + "," + jornada + ",\"" + eL + "\"," + gL + ",\"" + eV + "\"," + gV + ")";
+				System.out.println(sql);	
+				stmt.executeUpdate(sql);	
+
+			}
+			stmt.close();
+			conexion.close();
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+		} catch (NumberFormatException e) {
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("fichero no encontrado");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+	}
+
+	public static HashMap<String, Equipo> getAllTeamsMapa(String dbDatos, String tabla) {
+		HashMap<String, Equipo> listaEquipo = new HashMap<String, Equipo>();
+		try {
+			BaseDeDatos bd = new BaseDeDatos("localhost", dbDatos, "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			ResultSet rst = stmt.executeQuery("select * from " + tabla + " where 1");
+			ResultSetMetaData rsMet = rst.getMetaData();
+			rsMet.getColumnCount();
+			while (rst.next()) {
+				Equipo e = new Equipo();
+
+				e.setId(rst.getInt("id"));
+				e.setNombreCorto(rst.getString("nombreCorto"));
+				e.setNombreLargo(rst.getString("nombreLargo"));
+				// e.setPartidosJugados(rst.getInt("pj"));
+				e.setPuntos(rst.getInt("puntos"));
+				e.setPartidosGanados(rst.getInt("pg"));
+				e.setPartidosEmpatados(rst.getInt("pe"));
+				e.setPartidosPerdidos(rst.getInt("pp"));
+				e.setGolesFavor(rst.getInt("gf"));
+				e.setGolesEncontra(rst.getInt("gc"));
+				listaEquipo.put("nombreCorto", e);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return listaEquipo;
+	}
 
 	// 15 mayo 2019
 
@@ -25,11 +100,16 @@ public class AccesoDatos {
 			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-			
-			String sql = "Select liga.jugadores where idEquipo" + "like'"+ idEquipo + ";";
+
+			// String sql = "Select liga.jugadores where idEquipo" + "like'"+ idEquipo +
+			// ";";
+			String sql = "select * from jugadores where idEquipo " + " like '" + idEquipo + "'";
+
+			System.out.println(sql);
+
 			ResultSet rst = stmt.executeQuery(sql);
-			
-			while(rst.next()) {
+
+			while (rst.next()) {
 				Jugador jugador = new Jugador();
 				jugador.setId(rst.getInt("id"));
 				jugador.setNombre(rst.getString("nombre"));
@@ -37,11 +117,15 @@ public class AccesoDatos {
 				jugador.setCodigoEquipo(rst.getInt("idEquipo"));
 				listaJugadores.add(jugador);
 			}
-			
+			rst.close();
+			stmt.close();
+			conexion.close();
+			return listaJugadores;
+
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage());
 		}
-		return listaJugadores;
+		return null;
 
 	}
 
@@ -61,7 +145,7 @@ public class AccesoDatos {
 				e.setId(rst.getInt("id"));
 				e.setNombreCorto(rst.getString("nombreCorto"));
 				e.setNombreLargo(rst.getString("nombreLargo"));
-				//e.setPartidosJugados(rst.getInt("pj"));
+				// e.setPartidosJugados(rst.getInt("pj"));
 				e.setPuntos(rst.getInt("puntos"));
 				e.setPartidosGanados(rst.getInt("pg"));
 				e.setPartidosEmpatados(rst.getInt("pe"));

@@ -19,8 +19,10 @@ public class Main {
 		// Tercer Trimestre
 
 		// BaseDeDatos bd = new BaseDeDatos("localhost:3306", "sakila", "root", "");
+		
 		AccesoDatos acc = new AccesoDatos();
-		ArrayList<Equipo> recogerLista = acc.getAllTeams("liga", "equipos");
+		acc.insertarPartidosBD("ficheros/partidos.txt");
+		//ArrayList<Equipo> recogerLista = acc.getAllTeams("liga", "equipos");
 		// acc.insertarJugadoresBD("ficheros/jugadores2.txt");
 		// ArrayList<Equipo> recogerLista = acc.crearListaEquipoBD("liga", "equipos");
 		// acc.recorreTabla("equipos", "liga");
