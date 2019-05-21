@@ -19,6 +19,62 @@ import modelo.Jugador;
 public class AccesoDatos {
 
 	// 21 mayo 2019
+	
+	public static void insertaPartidosDesdeFichero(String rutaPartidos) {
+
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaPartidos));
+			String registro;
+
+			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			
+			int IdCamposNull = 0;
+			int gL;
+			int gV;
+			
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				
+				if (campos[3].equals("")) {
+					gL = 0;
+					gV = 0;
+					IdCamposNull = Integer.parseInt(campos[0]);
+				} else {
+					gL = Integer.parseInt(campos[3]);
+					gV = Integer.parseInt(campos[5]);
+				}
+				
+				int id = Integer.parseInt(campos[0]);
+				int jornada = Integer.parseInt(campos[1]);
+				String eL = campos[2];				
+				String eV = campos[4];				
+				
+
+				String sql = "INSERT INTO partidos (id, jornada, eL, gL, eV, gV) VALUES ";
+				sql += "(" + id + ",'" + jornada + "'," + "'" + eL + "'," + "'" + gL + "'," + "'" + eV + "'," + "'" + gV + "')";
+				System.out.println(sql);
+				stmt.executeUpdate(sql);
+				
+				if (campos[3].equals(""))
+					 stmt.executeUpdate("UPDATE partidos SET gL = null, gV= null WHERE id = '" + IdCamposNull + "'");
+				
+			}
+
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
 
 	public void insertarPartidosBD(String rutaPartidos) {
 
@@ -28,22 +84,33 @@ public class AccesoDatos {
 			BaseDeDatos bd = new BaseDeDatos("localhost:3306", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-
+			int IdCamposNull = 0;
+			int gL;
+			int gV;
 			String registro;
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
-				if (campos[3].equals("")) // ultimo partido jugado..
-					break;
+				if (campos[3].equals("")) {
+					gL = 0;
+					gV = 0;
+					IdCamposNull = Integer.parseInt(campos[0]);
+				} else {
+					gL = Integer.parseInt(campos[3]);
+					gV = Integer.parseInt(campos[5]);
+				}
+				
 				int id = Integer.parseInt(campos[0]);
 				int jornada = Integer.parseInt(campos[1]);
 				String eL= campos[2];
-				int gL = Integer.parseInt(campos[3]);
 				String eV= campos[4];
-				int gV = Integer.parseInt(campos[5]);
+			
 				String sql = "insert into partidos(idPartidos,jornada,equipoLocal,golesLocal,equipoVisitante,golesVisitante) values";
 				sql+= "(" + id + "," + jornada + ",\"" + eL + "\"," + gL + ",\"" + eV + "\"," + gV + ")";
 				System.out.println(sql);	
-				stmt.executeUpdate(sql);	
+				stmt.executeUpdate(sql);
+				
+				if (campos[3].equals(""))
+					 stmt.executeUpdate("UPDATE partidos SET golesLocal = null, golesVisitante= null WHERE idPartidos = '" + IdCamposNull + "'");
 
 			}
 			stmt.close();
