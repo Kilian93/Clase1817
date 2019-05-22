@@ -10,16 +10,116 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
-import auxiliar.BaseDeDatos;
+import auxiliar.BaseDatos;
 import modelo.Equipo;
 import modelo.Jugador;
+import modelo.Partido;
 
 public class AccesoDatos {
 
-	// 21 mayo 2019
+	// 22 mayo 2019
+	public Equipo bucasEquipoEnBaseDeDatos(String nombreCorto, ArrayList<Equipo> equipos) {
+		Equipo resultado = null;
+		for (Equipo equipo : equipos) {
+			if (equipo.getNombreCorto().equals(nombreCorto))
+				;
+			return equipo;
+		}
+
+		return resultado;
+	}
 	
+	
+	public void actualizaEquipos(Partido partido, ArrayList<Equipo> equipos) {
+
+		String nCortoL = partido.getEquipoLocal();
+		String nCortoV = partido.getEquipoVisitante();
+		Equipo eL = bucasEquipoEnBaseDeDatos(nCortoL, equipos);
+		Equipo eV = bucasEquipoEnBaseDeDatos(nCortoV, equipos);
+
+		// logica del resultado del partido
+		if (partido.getGolesLocal() > partido.getGolesVisitante()) {
+			eL.setPuntos(eL.getPuntos() + 3);
+			eL.setPartidosGanados(eL.getPartidosGanados() + 1);
+			eV.setPartidosPerdidos(eV.getPartidosPerdidos() + 1);
+
+		} else if (partido.getGolesLocal() < partido.getGolesVisitante()) {
+			eV.setPuntos(eV.getPuntos() + 3);
+			eV.setPartidosGanados(eV.getPartidosGanados() + 1);
+			eL.setPartidosPerdidos(eL.getPartidosPerdidos() + 1);
+		} else {
+			eL.setPuntos(eL.getPuntos() + 1);
+			eV.setPuntos(eV.getPuntos() + 1);
+			eV.setPartidosEmpatados(eV.getPartidosEmpatados() + 1);
+			eL.setPartidosEmpatados(eL.getPartidosEmpatados() + 1);
+		}
+
+		eL.setGolesFavor(eL.getGolesFavor() + partido.getGolesLocal());
+		eL.setGolesEncontra(eL.getGolesEncontra() + partido.getGolesVisitante());
+
+		eV.setGolesFavor(eV.getGolesFavor() + partido.getGolesVisitante());
+		eV.setGolesEncontra(eV.getGolesEncontra() + partido.getGolesLocal());
+
+		eL.setPartidosJugados(eL.getPartidosJugados() + 1);
+		eV.setPartidosJugados(eV.getPartidosJugados() + 1);
+
+	}
+
+	public Partido creaPartidoBD(ResultSet linea) {
+		try {
+			Partido partido = new Partido();
+
+			partido.setId(linea.getInt("idPartidos"));
+			partido.setJornada(linea.getInt("jornada"));
+			partido.setEquipoLocal(linea.getString("eL"));
+			partido.setGolesLocal(linea.getInt("gL"));
+			partido.setEquipoVisitante(linea.getString("eV"));
+			partido.setGolesLocal(linea.getInt("eV"));
+			return partido;
+		} catch (SQLException e) {
+			
+		}
+		return null;
+	
+		}
+
+	
+
+	public ArrayList<Equipo> generaClasificacionBaseDeDatos() {
+		ArrayList<Equipo> resultado;
+		try {
+			resultado = getAllTeams("liga", "equipos");
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			ResultSet rst = stmt.executeQuery("select * from partidos where 1");
+			Partido partido;
+		 
+			while (rst.next()) {
+				 partido = creaPartidoBD(rst);
+				 if (partido == null) // ultimo partido jugado..
+				 break;
+				// actualiza lista Equipos
+				// actualizaEquipos(partido, resultado);
+
+			}
+			Collections.sort(resultado, null);
+			return resultado;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		// fichero.close();
+
+		return null;
+
+	}
+
+	// 21 mayo 2019
+
 	public static void insertaPartidosDesdeFichero(String rutaPartidos) {
 
 		try {
@@ -27,17 +127,17 @@ public class AccesoDatos {
 			fichero = new BufferedReader(new FileReader(rutaPartidos));
 			String registro;
 
-			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-			
+
 			int IdCamposNull = 0;
 			int gL;
 			int gV;
-			
+
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
-				
+
 				if (campos[3].equals("")) {
 					gL = 0;
 					gV = 0;
@@ -46,21 +146,21 @@ public class AccesoDatos {
 					gL = Integer.parseInt(campos[3]);
 					gV = Integer.parseInt(campos[5]);
 				}
-				
+
 				int id = Integer.parseInt(campos[0]);
 				int jornada = Integer.parseInt(campos[1]);
-				String eL = campos[2];				
-				String eV = campos[4];				
-				
+				String eL = campos[2];
+				String eV = campos[4];
 
 				String sql = "INSERT INTO partidos (id, jornada, eL, gL, eV, gV) VALUES ";
-				sql += "(" + id + ",'" + jornada + "'," + "'" + eL + "'," + "'" + gL + "'," + "'" + eV + "'," + "'" + gV + "')";
+				sql += "(" + id + ",'" + jornada + "'," + "'" + eL + "'," + "'" + gL + "'," + "'" + eV + "'," + "'" + gV
+						+ "')";
 				System.out.println(sql);
 				stmt.executeUpdate(sql);
-				
+
 				if (campos[3].equals(""))
-					 stmt.executeUpdate("UPDATE partidos SET gL = null, gV= null WHERE id = '" + IdCamposNull + "'");
-				
+					stmt.executeUpdate("UPDATE partidos SET gL = null, gV= null WHERE id = '" + IdCamposNull + "'");
+
 			}
 
 			fichero.close();
@@ -77,11 +177,55 @@ public class AccesoDatos {
 	}
 
 	public void insertarPartidosBD(String rutaPartidos) {
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaPartidos));
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			String registro;
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				int id = Integer.parseInt(campos[0]);
+				int jornada = Integer.parseInt(campos[1]);
+				String eL = campos[2];
+				String eV = campos[4];
+				String sql = "insert into partidos(idPartidos,jornada,eL,gL,eV,gV) values";
+				if (!campos[3].equals("")) {
+					int gL = Integer.parseInt(campos[3]);
+					int gV = Integer.parseInt(campos[5]);
+					sql += "(" + id + "," + jornada + ",\"" + eL + "\"," + gL + ",\"" + eV + "\"," + gV + ")";
+				} else {
+
+					sql += "(" + id + "," + jornada + ",\"" + eL + "\"," + null + ",\"" + eV + "\"," + null + ")";
+
+				}
+				System.out.println(sql);
+				stmt.executeUpdate(sql);
+
+			}
+			stmt.close();
+			conexion.close();
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+
+		} catch (NumberFormatException e) {
+
+		} catch (FileNotFoundException e) {
+			System.out.println("fichero no encontrado");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+	}
+
+	public void insertarPartidosUpdateBD(String rutaPartidos) {
 
 		try {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaPartidos));
-			BaseDeDatos bd = new BaseDeDatos("localhost:3306", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			int IdCamposNull = 0;
@@ -98,19 +242,21 @@ public class AccesoDatos {
 					gL = Integer.parseInt(campos[3]);
 					gV = Integer.parseInt(campos[5]);
 				}
-				
+
 				int id = Integer.parseInt(campos[0]);
 				int jornada = Integer.parseInt(campos[1]);
-				String eL= campos[2];
-				String eV= campos[4];
-			
+				String eL = campos[2];
+				String eV = campos[4];
+
 				String sql = "insert into partidos(idPartidos,jornada,equipoLocal,golesLocal,equipoVisitante,golesVisitante) values";
-				sql+= "(" + id + "," + jornada + ",\"" + eL + "\"," + gL + ",\"" + eV + "\"," + gV + ")";
-				System.out.println(sql);	
+				sql += "(" + id + "," + jornada + ",\"" + eL + "\"," + gL + ",\"" + eV + "\"," + gV + ")";
+				System.out.println(sql);
 				stmt.executeUpdate(sql);
-				
+
 				if (campos[3].equals(""))
-					 stmt.executeUpdate("UPDATE partidos SET golesLocal = null, golesVisitante= null WHERE idPartidos = '" + IdCamposNull + "'");
+					stmt.executeUpdate(
+							"UPDATE partidos SET golesLocal = null, golesVisitante= null WHERE idPartidos = '"
+									+ IdCamposNull + "'");
 
 			}
 			stmt.close();
@@ -118,7 +264,7 @@ public class AccesoDatos {
 			fichero.close();
 			System.out.println("Fin de la lectura del fichero");
 		} catch (NumberFormatException e) {
-			
+
 		} catch (FileNotFoundException e) {
 			System.out.println("fichero no encontrado");
 		} catch (SQLException e) {
@@ -131,7 +277,7 @@ public class AccesoDatos {
 	public static HashMap<String, Equipo> getAllTeamsMapa(String dbDatos, String tabla) {
 		HashMap<String, Equipo> listaEquipo = new HashMap<String, Equipo>();
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", dbDatos, "root", "");
+			BaseDatos bd = new BaseDatos("localhost", dbDatos, "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			ResultSet rst = stmt.executeQuery("select * from " + tabla + " where 1");
@@ -164,7 +310,7 @@ public class AccesoDatos {
 	public static ArrayList<Jugador> getPlayersByTeams(int idEquipo) {
 		ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 
@@ -200,7 +346,7 @@ public class AccesoDatos {
 		ArrayList<Equipo> listaEquipo = new ArrayList<Equipo>();
 
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", dbDatos, "root", "");
+			BaseDatos bd = new BaseDatos("localhost", dbDatos, "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			ResultSet rst = stmt.executeQuery("select * from " + tabla + " where 1");
@@ -240,7 +386,7 @@ public class AccesoDatos {
 		// como saber si existe o no ?
 
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			/*
@@ -287,7 +433,7 @@ public class AccesoDatos {
 		ArrayList<Equipo> listaEquipo = new ArrayList<Equipo>();
 		try {
 
-			BaseDeDatos bd = new BaseDeDatos("localhost", dbDatos, "root", "");
+			BaseDatos bd = new BaseDatos("localhost", dbDatos, "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			ResultSet rst = stmt.executeQuery("select * from " + tabla + " where 1");
@@ -348,7 +494,7 @@ public class AccesoDatos {
 		try {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaJugadores));
-			BaseDeDatos bd = new BaseDeDatos("localhost:3306", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 
@@ -387,7 +533,7 @@ public class AccesoDatos {
 
 		BufferedReader fichero;
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			// String sql = "delete from equipos";
@@ -427,7 +573,7 @@ public class AccesoDatos {
 
 		BufferedReader fichero;
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			// String sql = "delete from equipos";
@@ -466,7 +612,7 @@ public class AccesoDatos {
 	public void recorreTabla(String tabla, String dbDatos) {
 
 		try {
-			BaseDeDatos bd = new BaseDeDatos("localhost", dbDatos, "root", "");
+			BaseDatos bd = new BaseDatos("localhost", dbDatos, "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			ResultSet rS = stmt.executeQuery("SELECT * from " + tabla + " where 1");

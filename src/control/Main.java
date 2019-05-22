@@ -3,7 +3,7 @@ package control;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import auxiliar.BaseDeDatos;
+import auxiliar.BaseDatos;
 import auxiliar.Ejercicios;
 import modelo.Equipo;
 import modelo.Jugador;

@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class BaseDeDatos {
+public class BaseDatos {
 	private String host;
 	private String dbName;
 	private String dbUser;
 	private String dbPass;
 	private Connection conexion;
 
-	public BaseDeDatos(String host, String dbName, String dbUser, String dbPass) {
+	public BaseDatos(String host, String dbName, String dbUser, String dbPass) {
 		super();
 		this.host = host;
 		this.dbName = dbName;
@@ -37,7 +37,7 @@ public class BaseDeDatos {
 		}
 	}
 
-	public BaseDeDatos() {
+	public BaseDatos() {
 		super();
 
 	}
