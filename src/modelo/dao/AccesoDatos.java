@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import auxiliar.BaseDatos;
+import auxiliar.Ejercicios;
 import modelo.Equipo;
 import modelo.Jugador;
 import modelo.Partido;
@@ -31,9 +32,8 @@ public class AccesoDatos {
 
 		return resultado;
 	}
-	
-	
-	public void actualizaEquipos(Partido partido, ArrayList<Equipo> equipos) {
+
+	public void actualizaEquiposBD(Partido partido, ArrayList<Equipo> equipos) {
 
 		String nCortoL = partido.getEquipoLocal();
 		String nCortoV = partido.getEquipoVisitante();
@@ -80,39 +80,39 @@ public class AccesoDatos {
 			partido.setGolesLocal(linea.getInt("eV"));
 			return partido;
 		} catch (SQLException e) {
-			
+
 		}
 		return null;
-	
-		}
 
-	
+	}
 
 	public ArrayList<Equipo> generaClasificacionBaseDeDatos() {
 		ArrayList<Equipo> resultado;
+		resultado = getAllTeams("liga", "equipos");
 		try {
-			resultado = getAllTeams("liga", "equipos");
+			
 			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			ResultSet rst = stmt.executeQuery("select * from partidos where 1");
 			Partido partido;
-		 
-			while (rst.next()) {
-				 partido = creaPartidoBD(rst);
-				 if (partido == null) // ultimo partido jugado..
-				 break;
-				// actualiza lista Equipos
-				// actualizaEquipos(partido, resultado);
-
-			}
+			//Ejercicios e = new Ejercicios();
+			
+			 while (rst.next()) { partido = creaPartidoBD(rst);
+			 
+			 if (partido == null) // ultimo partido jugado.. break; break;
+			 
+			  actualizaEquiposBD(partido, resultado);
+			 
+			 }
 			Collections.sort(resultado, null);
+			rst.close();
+			stmt.close();
+			conexion.close();
 			return resultado;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-
-		// fichero.close();
 
 		return null;
 
@@ -180,7 +180,7 @@ public class AccesoDatos {
 		try {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaPartidos));
-			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga2", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			String registro;
@@ -357,8 +357,8 @@ public class AccesoDatos {
 
 				e.setId(rst.getInt("id"));
 				e.setNombreCorto(rst.getString("nombreCorto"));
-				e.setNombreLargo(rst.getString("nombreLargo"));
-				// e.setPartidosJugados(rst.getInt("pj"));
+				e.setNombreLargo(rst.getString("nombre"));
+				e.setPartidosJugados(rst.getInt("pj"));
 				e.setPuntos(rst.getInt("puntos"));
 				e.setPartidosGanados(rst.getInt("pg"));
 				e.setPartidosEmpatados(rst.getInt("pe"));
@@ -586,7 +586,7 @@ public class AccesoDatos {
 				String nombreCorto = campos[1];
 				String nombreLargo = campos[2];
 
-				String sql = "	INSERT INTO equipos (id, nombreCorto, nombreLargo) VALUES";
+				String sql = "	INSERT INTO equipos (id, nombreCorto, nombre) VALUES";
 				sql += "(" + id + ",\"" + nombreCorto + "\"," + "\"" + nombreLargo + "\")";
 				System.out.println(sql);
 				stmt.executeUpdate(sql);
