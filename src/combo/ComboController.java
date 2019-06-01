@@ -33,7 +33,7 @@ public class ComboController {
 	public void cargaEquipos() {
 		miCombo.getItems().clear();
 		// miCombo.getItems().addAll(Ejercicios.crearListaEquipos("ficheros/equipos.txt"));
-		miCombo.getItems().addAll(AccesoDatos.getAllTeams("liga", "equipos"));
+		miCombo.getItems().addAll(AccesoDatos.getAllTeams());
 		
 	}
 

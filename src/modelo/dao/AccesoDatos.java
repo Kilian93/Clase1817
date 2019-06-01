@@ -21,102 +21,146 @@ import modelo.Partido;
 
 public class AccesoDatos {
 
+	// 28 mayo 2019
+
+	public static boolean insertaEquiposDesdeLista(ArrayList<Equipo> equipos) {
+		try {
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga2", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			// conectar e insertar en una tabla
+			for (Equipo equipo : equipos) {
+				String sql = "insert into clasificacion(id, nombreCorto, nombre, pj, puntos, pg, pe, pp, gf, gc) values";
+				// preparar el INSERT a la tabla clasificacion
+				int id = equipo.getId();
+				String NombreCorto = equipo.getNombreCorto();
+				String nombre = equipo.getNombre();
+				int Pj = equipo.getPj();
+				int puntos = equipo.getPuntos();
+				int Pg = equipo.getPg();
+				int Pe = equipo.getPe();
+				int Pp = equipo.getPp();
+				int Gf = equipo.getGf();
+				int Gc = equipo.getGc();
+				sql += "(" + id + ",\"" + NombreCorto + "\"," + "\"" + nombre + "\"," + Pj + "," + puntos + "," + Pg
+						+ "," + Pe + "," + Pp + "," + Gf + "," + Gc + ")";
+				System.out.println(sql);
+				stmt.executeUpdate(sql);
+
+			}
+			stmt.close();
+			conexion.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
 	// 22 mayo 2019
-	public Equipo bucasEquipoEnBaseDeDatos(String nombreCorto, ArrayList<Equipo> equipos) {
-		Equipo resultado = null;
-		for (Equipo equipo : equipos) {
-			if (equipo.getNombreCorto().equals(nombreCorto))
-				;
-			return equipo;
-		}
 
-		return resultado;
-	}
+	/*
+	 * public static Equipo buscarEquipoEnListaBD(String nombreCorto,
+	 * ArrayList<Equipo> equipos) { Equipo resultado; for (Equipo equipo : equipos)
+	 * { if (equipo.getNombreCorto().equals(nombreCorto)) return equipo; }
+	 * System.out.println("Ooops.. algo falla"); return null; }
+	 */
 
-	public void actualizaEquiposBD(Partido partido, ArrayList<Equipo> equipos) {
+	/*
+	 * public static void actualizaEquiposBD(Partido partido, ArrayList<Equipo>
+	 * equipos) { String nCortoL = partido.geteL(); String nCortoV =
+	 * partido.geteV(); Equipo eL = buscarEquipoEnListaBD(nCortoL, equipos); Equipo
+	 * eV = buscarEquipoEnListaBD(nCortoV, equipos);
+	 * 
+	 * // logica del resultado del partido if (partido.getgL() > partido.getgV()) {
+	 * eL.setPuntos(eL.getPuntos() + 3); eL.setPg(eL.getPg() + 1);
+	 * eV.setPp(eV.getPp() + 1); } else if (partido.getgL() < partido.getgV()) {
+	 * eV.setPuntos(eV.getPuntos() + 3); eV.setPg(eV.getPg() + 1);
+	 * eL.setPp(eL.getPp() + 1); } else { eL.setPuntos(eL.getPuntos() + 1);
+	 * eV.setPuntos(eV.getPuntos() + 1); eV.setPe(eV.getPe() + 1);
+	 * eL.setPe(eL.getPe() + 1); } eL.setGf(eL.getGf() + partido.getgL());
+	 * eL.setGc(eL.getGc() + partido.getgV());
+	 * 
+	 * eV.setGf(eV.getGf() + partido.getgV()); eV.setGc(eV.getGc() +
+	 * partido.getgL());
+	 * 
+	 * eL.setPj(eL.getPj() + 1); eV.setPj(eV.getPj() + 1); }
+	 */
 
-		String nCortoL = partido.getEquipoLocal();
-		String nCortoV = partido.getEquipoVisitante();
-		Equipo eL = bucasEquipoEnBaseDeDatos(nCortoL, equipos);
-		Equipo eV = bucasEquipoEnBaseDeDatos(nCortoV, equipos);
-
-		// logica del resultado del partido
-		if (partido.getGolesLocal() > partido.getGolesVisitante()) {
-			eL.setPuntos(eL.getPuntos() + 3);
-			eL.setPartidosGanados(eL.getPartidosGanados() + 1);
-			eV.setPartidosPerdidos(eV.getPartidosPerdidos() + 1);
-
-		} else if (partido.getGolesLocal() < partido.getGolesVisitante()) {
-			eV.setPuntos(eV.getPuntos() + 3);
-			eV.setPartidosGanados(eV.getPartidosGanados() + 1);
-			eL.setPartidosPerdidos(eL.getPartidosPerdidos() + 1);
-		} else {
-			eL.setPuntos(eL.getPuntos() + 1);
-			eV.setPuntos(eV.getPuntos() + 1);
-			eV.setPartidosEmpatados(eV.getPartidosEmpatados() + 1);
-			eL.setPartidosEmpatados(eL.getPartidosEmpatados() + 1);
-		}
-
-		eL.setGolesFavor(eL.getGolesFavor() + partido.getGolesLocal());
-		eL.setGolesEncontra(eL.getGolesEncontra() + partido.getGolesVisitante());
-
-		eV.setGolesFavor(eV.getGolesFavor() + partido.getGolesVisitante());
-		eV.setGolesEncontra(eV.getGolesEncontra() + partido.getGolesLocal());
-
-		eL.setPartidosJugados(eL.getPartidosJugados() + 1);
-		eV.setPartidosJugados(eV.getPartidosJugados() + 1);
-
-	}
-
-	public Partido creaPartidoBD(ResultSet linea) {
+	public static Partido creaPartidoBD(ResultSet linea) {
 		try {
 			Partido partido = new Partido();
-
-			partido.setId(linea.getInt("idPartidos"));
+			partido.setId(linea.getInt("id"));
 			partido.setJornada(linea.getInt("jornada"));
-			partido.setEquipoLocal(linea.getString("eL"));
-			partido.setGolesLocal(linea.getInt("gL"));
-			partido.setEquipoVisitante(linea.getString("eV"));
-			partido.setGolesLocal(linea.getInt("eV"));
+			partido.seteL(linea.getString("eL"));
+			partido.seteV(linea.getString("eV"));
+			partido.setgL(linea.getInt("gL"));
+			partido.setgV(linea.getInt("gV"));
 			return partido;
 		} catch (SQLException e) {
-
+			System.out.println(e.getMessage());
 		}
 		return null;
 
 	}
 
-	public ArrayList<Equipo> generaClasificacionBaseDeDatos() {
+	public static ArrayList<Equipo> generaClasificacionBD() {
+
 		ArrayList<Equipo> resultado;
-		resultado = getAllTeams("liga", "equipos");
+		resultado = getAllTeams();
 		try {
-			
-			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga2", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-			ResultSet rst = stmt.executeQuery("select * from partidos where 1");
+			ResultSet rS = stmt.executeQuery("select * from partidos where 1;");
 			Partido partido;
-			//Ejercicios e = new Ejercicios();
-			
-			 while (rst.next()) { partido = creaPartidoBD(rst);
-			 
-			 if (partido == null) // ultimo partido jugado.. break; break;
-			 
-			  actualizaEquiposBD(partido, resultado);
-			 
-			 }
+			Ejercicios e = new Ejercicios();
+
+			try {
+				while (rS.next()) {
+					partido = creaPartidoBD(rS);
+
+					e.actualizaEquipos(partido, resultado);
+				}
+			} catch (NullPointerException e1) {
+				System.out.println(e1.getMessage());
+			}
 			Collections.sort(resultado, null);
-			rst.close();
+			rS.close();
 			stmt.close();
 			conexion.close();
 			return resultado;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
 		}
-
 		return null;
-
 	}
+
+	/*
+	 * public ArrayList<Equipo> generaClasificacionBaseDeDatos() { ArrayList<Equipo>
+	 * resultado; resultado = getAllTeams(); try {
+	 * 
+	 * BaseDatos bd = new BaseDatos("localhost:3306", "liga2", "root", "");
+	 * Connection conexion = bd.getConexion(); Statement stmt =
+	 * conexion.createStatement(); ResultSet rst =
+	 * stmt.executeQuery("select * from partidos where 1"); Partido partido;
+	 * Ejercicios e = new Ejercicios(); try { while (rst.next()) { partido =
+	 * creaPartidoBD(rst); e.actualizaEquipos(partido, resultado); } } catch
+	 * (NullPointerException e1) { System.out.println(e1.getMessage()); }
+	 * 
+	 * Collections.sort(resultado, null); rst.close(); stmt.close();
+	 * conexion.close(); return resultado; } catch (SQLException e) {
+	 * System.out.println(e.getMessage()); }catch (NullPointerException e) {
+	 * System.out.println(e.getMessage()); }
+	 * 
+	 * return null;
+	 * 
+	 * }
+	 */
 
 	// 21 mayo 2019
 
@@ -277,7 +321,7 @@ public class AccesoDatos {
 	public static HashMap<String, Equipo> getAllTeamsMapa(String dbDatos, String tabla) {
 		HashMap<String, Equipo> listaEquipo = new HashMap<String, Equipo>();
 		try {
-			BaseDatos bd = new BaseDatos("localhost", dbDatos, "root", "");
+			BaseDatos bd = new BaseDatos("localhost:3306", dbDatos, "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 			ResultSet rst = stmt.executeQuery("select * from " + tabla + " where 1");
@@ -288,14 +332,14 @@ public class AccesoDatos {
 
 				e.setId(rst.getInt("id"));
 				e.setNombreCorto(rst.getString("nombreCorto"));
-				e.setNombreLargo(rst.getString("nombreLargo"));
-				// e.setPartidosJugados(rst.getInt("pj"));
+				e.setNombre(rst.getString("nombreLargo"));
+				e.setPj(rst.getInt("pj"));
 				e.setPuntos(rst.getInt("puntos"));
-				e.setPartidosGanados(rst.getInt("pg"));
-				e.setPartidosEmpatados(rst.getInt("pe"));
-				e.setPartidosPerdidos(rst.getInt("pp"));
-				e.setGolesFavor(rst.getInt("gf"));
-				e.setGolesEncontra(rst.getInt("gc"));
+				e.setPg(rst.getInt("pg"));
+				e.setPe(rst.getInt("pe"));
+				e.setPp(rst.getInt("pp"));
+				e.setGf(rst.getInt("gf"));
+				e.setGc(rst.getInt("gc"));
 				listaEquipo.put("nombreCorto", e);
 			}
 		} catch (SQLException e) {
@@ -310,7 +354,7 @@ public class AccesoDatos {
 	public static ArrayList<Jugador> getPlayersByTeams(int idEquipo) {
 		ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
 		try {
-			BaseDatos bd = new BaseDatos("localhost", "liga", "root", "");
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
 
@@ -342,36 +386,33 @@ public class AccesoDatos {
 
 	}
 
-	public static ArrayList<Equipo> getAllTeams(String dbDatos, String tabla) {
+	public static ArrayList<Equipo> getAllTeams() {
 		ArrayList<Equipo> listaEquipo = new ArrayList<Equipo>();
 
 		try {
-			BaseDatos bd = new BaseDatos("localhost", dbDatos, "root", "");
+			BaseDatos bd = new BaseDatos("localhost:3306", "liga2", "root", "");
 			Connection conexion = bd.getConexion();
 			Statement stmt = conexion.createStatement();
-			ResultSet rst = stmt.executeQuery("select * from " + tabla + " where 1");
-			ResultSetMetaData rsMet = rst.getMetaData();
-			rsMet.getColumnCount();
+			ResultSet rst = stmt.executeQuery("select * from equipos where 1;");
 			while (rst.next()) {
 				Equipo e = new Equipo();
-
 				e.setId(rst.getInt("id"));
 				e.setNombreCorto(rst.getString("nombreCorto"));
-				e.setNombreLargo(rst.getString("nombre"));
-				e.setPartidosJugados(rst.getInt("pj"));
+				e.setNombre(rst.getString("nombre"));
+				e.setPj(rst.getInt("pj"));
 				e.setPuntos(rst.getInt("puntos"));
-				e.setPartidosGanados(rst.getInt("pg"));
-				e.setPartidosEmpatados(rst.getInt("pe"));
-				e.setPartidosPerdidos(rst.getInt("pp"));
-				e.setGolesFavor(rst.getInt("gf"));
-				e.setGolesEncontra(rst.getInt("gc"));
+				e.setPg(rst.getInt("pg"));
+				e.setPe(rst.getInt("pe"));
+				e.setPp(rst.getInt("pp"));
+				e.setGf(rst.getInt("gf"));
+				e.setGc(rst.getInt("gc"));
+
 				listaEquipo.add(e);
 
 			}
 			rst.close();
 			stmt.close();
 			conexion.close();
-
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -471,7 +512,7 @@ public class AccesoDatos {
 			for (int i = 0; i < listaEquipo.size(); i++) {
 				Equipo unEquipo = listaEquipo.get(i);
 				System.out.println(
-						unEquipo.getId() + " --> " + unEquipo.getNombreCorto() + " --> " + unEquipo.getNombreLargo());
+						unEquipo.getId() + " --> " + unEquipo.getNombreCorto() + " --> " + unEquipo.getNombre());
 
 			}
 

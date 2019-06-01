@@ -54,7 +54,7 @@ public class Ejercicios {
 		Set<String> clavesEquipos = mapaEquipos.keySet();
 		for (String unaClaveEquipo : clavesEquipos) {
 			Equipo valoresEquipo = mapaEquipos.get(unaClaveEquipo);
-			String nombreLagoEquipo = valoresEquipo.getNombreLargo();
+			String nombreLagoEquipo = valoresEquipo.getNombre();
 			mapaListadoJugadoresEquipos.put(nombreLagoEquipo, new ArrayList<Jugador>());
 		}
 		
@@ -66,7 +66,7 @@ public class Ejercicios {
 			for (Equipo unEquipo : valoresMapaEquipo) {
 				int idEquipo = unEquipo.getId();
 				if(idEquipo == idEquipoJugador) {
-					nombreLagoEquipo = unEquipo.getNombreLargo();
+					nombreLagoEquipo = unEquipo.getNombre();
 					break;
 				}
 			}
@@ -389,7 +389,7 @@ public class Ejercicios {
 			while (fis.available() > 0) {
 				Equipo unEquipo = (Equipo) lecturaFicheroObjeto.readObject();
 				System.out.println(i + " Id:" + unEquipo.getId() + " -- " + unEquipo.getNombreCorto() + " -- "
-						+ unEquipo.getNombreLargo());
+						+ unEquipo.getNombre());
 				i++;
 			}
 
@@ -417,7 +417,7 @@ public class Ejercicios {
 			while (true) {
 				Equipo equipo = (Equipo) objetos.readObject();
 				System.out.println(i + " Id:" + equipo.getId() + " -- " + equipo.getNombreCorto() + " -- "
-						+ equipo.getNombreLargo());
+						+ equipo.getNombre());
 				i++;
 			}
 		} catch (FileNotFoundException e) {
@@ -446,7 +446,7 @@ public class Ejercicios {
 			while (fIs.available() > 0) {
 
 				Equipo equipo = (Equipo) fObj.readObject();
-				System.out.println(equipo.getNombreLargo());
+				System.out.println(equipo.getNombre());
 
 			}
 			fIs.close();
@@ -471,7 +471,7 @@ public class Ejercicios {
 			while (true) {
 
 				Equipo equipo = (Equipo) objetos.readObject();
-				System.out.println(equipo.getNombreLargo());
+				System.out.println(equipo.getNombre());
 			}
 
 		} catch (FileNotFoundException e) {
@@ -507,11 +507,11 @@ public class Ejercicios {
 				String[] campos = registro.split("#");
 				Equipo equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
 
-				equipo.setGolesEncontra(0);
-				equipo.setGolesFavor(0);
-				equipo.setPartidosEmpatados(0);
-				equipo.setPartidosGanados(0);
-				equipo.setPartidosPerdidos(0);
+				equipo.setGc(0);
+				equipo.setGf(0);
+				equipo.setPe(0);
+				equipo.setPg(0);
+				equipo.setPp(0);
 				objetos.writeObject(equipo);
 
 			}
@@ -614,9 +614,9 @@ public class Ejercicios {
 
 		modelo.addRow(columnas);
 		for (Equipo equipo : equipos) {
-			Object[] vector = { equipo.getNombreLargo(), equipo.getPuntos(), equipo.getPartidosGanados(),
-					equipo.getPartidosEmpatados(), equipo.getPartidosPerdidos(), equipo.getGolesFavor(),
-					equipo.getGolesEncontra() };
+			Object[] vector = { equipo.getNombre(), equipo.getPuntos(), equipo.getPg(),
+					equipo.getPe(), equipo.getPp(), equipo.getGf(),
+					equipo.getGc() };
 			modelo.addRow(vector);
 		}
 		JTable tabla = new JTable(modelo);
@@ -629,48 +629,46 @@ public class Ejercicios {
 	// 13 de febrero 2019
 
 	public Equipo bucasEquipoEnLista(String nombreCorto, ArrayList<Equipo> equipos) {
-		Equipo resultado = null;
+		Equipo resultado;
 		for (Equipo equipo : equipos) {
 			if (equipo.getNombreCorto().equals(nombreCorto))
-				;
 			return equipo;
 		}
-
-		return resultado;
+		System.out.println("Ooops.. algo falla");
+		return null;
 	}
 
 	public void actualizaEquipos(Partido partido, ArrayList<Equipo> equipos) {
 
-		String nCortoL = partido.getEquipoLocal();
-		String nCortoV = partido.getEquipoVisitante();
+		String nCortoL = partido.geteL();
+		String nCortoV = partido.geteV();
 		Equipo eL = bucasEquipoEnLista(nCortoL, equipos);
 		Equipo eV = bucasEquipoEnLista(nCortoV, equipos);
 
 		// logica del resultado del partido
-		if (partido.getGolesLocal() > partido.getGolesVisitante()) {
+		if (partido.getgL() > partido.getgV()) {
 			eL.setPuntos(eL.getPuntos() + 3);
-			eL.setPartidosGanados(eL.getPartidosGanados() + 1);
-			eV.setPartidosPerdidos(eV.getPartidosPerdidos() + 1);
-
-		} else if (partido.getGolesLocal() < partido.getGolesVisitante()) {
+			eL.setPg(eL.getPg() + 1);
+			eV.setPp(eV.getPp() + 1);
+		} else if (partido.getgL() < partido.getgV()) {
 			eV.setPuntos(eV.getPuntos() + 3);
-			eV.setPartidosGanados(eV.getPartidosGanados() + 1);
-			eL.setPartidosPerdidos(eL.getPartidosPerdidos() + 1);
+			eV.setPg(eV.getPg() + 1);
+			eL.setPp(eL.getPp() + 1);
 		} else {
 			eL.setPuntos(eL.getPuntos() + 1);
 			eV.setPuntos(eV.getPuntos() + 1);
-			eV.setPartidosEmpatados(eV.getPartidosEmpatados() + 1);
-			eL.setPartidosEmpatados(eL.getPartidosEmpatados() + 1);
+			eV.setPe(eV.getPe() + 1);
+			eL.setPe(eL.getPe() + 1);
 		}
 
-		eL.setGolesFavor(eL.getGolesFavor() + partido.getGolesLocal());
-		eL.setGolesEncontra(eL.getGolesEncontra() + partido.getGolesVisitante());
+		eL.setGf(eL.getGf() + partido.getgL());
+		eL.setGc(eL.getGc() + partido.getgV());
 
-		eV.setGolesFavor(eV.getGolesFavor() + partido.getGolesVisitante());
-		eV.setGolesEncontra(eV.getGolesEncontra() + partido.getGolesLocal());
+		eV.setGf(eV.getGf() + partido.getgV());
+		eV.setGc(eV.getGc() + partido.getgL());
 
-		eL.setPartidosJugados(eL.getPartidosJugados() + 1);
-		eV.setPartidosJugados(eV.getPartidosJugados() + 1);
+		eL.setPj(eL.getPj() + 1);
+		eV.setPj(eV.getPj() + 1);
 
 	}
 
@@ -678,12 +676,12 @@ public class Ejercicios {
 		Partido partido = new Partido();
 
 		String[] campos = linea.split("#");
-		partido.setEquipoLocal(campos[2]);
-		partido.setEquipoVisitante(campos[4]);
+		partido.seteL(campos[2]);
+		partido.seteV(campos[4]);
 
 		try {
-			partido.setGolesLocal(Integer.parseInt(campos[3]));
-			partido.setGolesVisitante(Integer.parseInt(campos[5]));
+			partido.setgL(Integer.parseInt(campos[3]));
+			partido.setgV(Integer.parseInt(campos[5]));
 
 		} catch (NumberFormatException e) {
 			return null;
@@ -1052,11 +1050,11 @@ public class Ejercicios {
 			while ((registro = fichero.readLine()) != null) {
 				String[] campos = registro.split("#");
 				equipo = new Equipo(Integer.parseInt(campos[0]), campos[1], campos[2]);
-				equipo.setGolesEncontra(0);
-				equipo.setGolesFavor(0);
-				equipo.setPartidosEmpatados(0);
-				equipo.setPartidosGanados(0);
-				equipo.setPartidosPerdidos(0);
+				equipo.setGc(0);
+				equipo.setGf(0);
+				equipo.setPe(0);
+				equipo.setPg(0);
+				equipo.setPp(0);
 				equipo.setPuntos(0);
 				equipos.add(equipo);
 

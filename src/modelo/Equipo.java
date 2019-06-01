@@ -2,133 +2,140 @@ package modelo;
 
 import java.io.Serializable;
 
-public class Equipo implements Serializable, Comparable<Equipo> {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Equipo implements Serializable,Comparable<Equipo> {
+	
 	private int id;
 	private String nombreCorto;
-	private String nombreLargo;
-	private int partidosJugados;
+	private String nombre;
+	private int pj;
 	private int puntos;
-	private int partidosGanados;
-	private int partidosEmpatados;
-	private int partidosPerdidos;
-	private int golesFavor;
-	private int golesEncontra;
+	private int pg;
+	private int pe;
+	private int pp;
+	private int gf;
+	private int gc;
+	
+	public Equipo(int id, String nombreCorto, String nombre) {
+		super();
+		this.id = id;
+		this.nombreCorto = nombreCorto;
+		this.nombre = nombre;
+	}
+
 
 	public Equipo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Equipo(int id, String nombreCorto, String nombreLargo) {
-		super();
-		this.id = id;
-		this.nombreCorto = nombreCorto;
-		this.nombreLargo = nombreLargo;
+
+	
+
+
+	public int getPj() {
+		return pj;
 	}
 
-	public Equipo(int id, String nombreCorto, String nombreLargo, int partidosJugados, int puntos, int partidosGanados,
-			int partidosEmpatados, int partidosPerdidos, int golesFavor, int golesEncontra) {
-		super();
-		this.id = id;
-		this.nombreCorto = nombreCorto;
-		this.nombreLargo = nombreLargo;
-		this.partidosJugados = partidosJugados;
-		this.puntos = puntos;
-		this.partidosGanados = partidosGanados;
-		this.partidosEmpatados = partidosEmpatados;
-		this.partidosPerdidos = partidosPerdidos;
-		this.golesFavor = golesFavor;
-		this.golesEncontra = golesEncontra;
+
+	public void setPj(int pj) {
+		this.pj = pj;
 	}
 
-	public String toString() {
-		return getNombreLargo();
-	}
-
-	public int getPartidosJugados() {
-		return partidosJugados;
-	}
-
-	public void setPartidosJugados(int partidosJugados) {
-		this.partidosJugados = partidosJugados;
-	}
 
 	public int getPuntos() {
 		return puntos;
 	}
 
+
 	public void setPuntos(int puntos) {
 		this.puntos = puntos;
 	}
 
-	public int getPartidosGanados() {
-		return partidosGanados;
-	}
-
-	public void setPartidosGanados(int partidosGanados) {
-		this.partidosGanados = partidosGanados;
-	}
-
-	public int getPartidosEmpatados() {
-		return partidosEmpatados;
-	}
-
-	public void setPartidosEmpatados(int partidosEmpatados) {
-		this.partidosEmpatados = partidosEmpatados;
-	}
-
-	public int getPartidosPerdidos() {
-		return partidosPerdidos;
-	}
-
-	public void setPartidosPerdidos(int partidosPerdidos) {
-		this.partidosPerdidos = partidosPerdidos;
-	}
-
-	public int getGolesFavor() {
-		return golesFavor;
-	}
-
-	public void setGolesFavor(int golesFavor) {
-		this.golesFavor = golesFavor;
-	}
-
-	public int getGolesEncontra() {
-		return golesEncontra;
-	}
-
-	public void setGolesEncontra(int golesEncontra) {
-		this.golesEncontra = golesEncontra;
-	}
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public String getNombreCorto() {
 		return nombreCorto;
 	}
 
+
 	public void setNombreCorto(String nombreCorto) {
 		this.nombreCorto = nombreCorto;
 	}
 
-	public String getNombreLargo() {
-		return nombreLargo;
+
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombreLargo(String nombreLargo) {
-		this.nombreLargo = nombreLargo;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
+
+
+	public int getPg() {
+		return pg;
+	}
+
+
+	public void setPg(int pg) {
+		this.pg = pg;
+	}
+
+
+	public int getPe() {
+		return pe;
+	}
+
+
+	public void setPe(int pe) {
+		this.pe = pe;
+	}
+
+
+	public int getPp() {
+		return pp;
+	}
+
+
+	public void setPp(int pp) {
+		this.pp = pp;
+	}
+
+
+	public int getGf() {
+		return gf;
+	}
+
+
+	public void setGf(int gf) {
+		this.gf = gf;
+	}
+
+
+	public int getGc() {
+		return gc;
+	}
+
+
+	public void setGc(int gc) {
+		this.gc = gc;
+	}
+
+
+	@Override
+	public String toString() {
+		return  nombre;
+	}
+
 
 	@Override
 	public int compareTo(Equipo eq) {
@@ -136,13 +143,15 @@ public class Equipo implements Serializable, Comparable<Equipo> {
 			return -1;
 		if (this.getPuntos() < eq.getPuntos())
 			return 1;
-		if ((this.getGolesFavor() - this.getGolesEncontra()) > (eq.getGolesFavor() - eq.getGolesEncontra()))
+		if((this.getGf() - this.getGc()) >(eq.getGf() - eq.getGc()))
 			return -1;
-		if ((this.getGolesFavor() - this.getGolesEncontra()) < (eq.getGolesFavor() - eq.getGolesEncontra()))
+		if((this.getGf() - this.getGc()) <(eq.getGf() - eq.getGc()))
 			return 1;
-		if (this.getGolesFavor()> eq.getGolesFavor())
-			return -1;
+		if (this.getGf() > eq.getGf())
+			return -1;	
 		return 1;
 	}
 
+
+	
 }
